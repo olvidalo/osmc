@@ -19,7 +19,7 @@ fi
 . ../common.sh
 if [ "$1" == "rbp1" ] || [ "$1" == "rbp2" ] || [ "$1" == "vero" ] || [ "$1" == "atv" ]
 then
-pull_source "https://github.com/xbmc/xbmc/archive/4ed3eb6692b6b755354a5fe18d5cd45f8003ea26.tar.gz" "$(pwd)/src"
+pull_source "https://github.com/xbmc/xbmc/archive/02e7013889e08d608363f2909ebeccdb9ea3b7c9.tar.gz" "$(pwd)/src"
 API_VERSION="15"
 else
 pull_source "https://github.com/xbmc/xbmc/archive/master.tar.gz" "$(pwd)/kodi"
@@ -296,7 +296,7 @@ then
         pushd languages
         if [ "$API_VERSION" = "15" ]; then api_name="isengard"; fi
         if [ "$API_VERSION" = "16" ]; then api_name="jarvis"; fi
-        base_url="http://mirror.de.leaseweb.net/xbmc/addons/${api_name}"
+        base_url="http://mirror.us.leaseweb.net/xbmc/addons/${api_name}"
 	handle_dep "wget" # We do not usually use wget in the build environment
         languages=$(wget ${base_url} -O- | grep resource.language. | sed -e 's/<a/\n<a/g' | sed -e 's/<a .*href=['"'"'"]//' -e 's/["'"'"'].*$//' -e '/^$/ d' | sed '/tr/d' | sed 's/resource.language.//' | tr -d /)
         if [ $? != 0 ]; then echo "Can't get list of languages" && exit 1; fi
