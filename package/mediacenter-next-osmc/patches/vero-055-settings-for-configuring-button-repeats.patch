@@ -1,21 +1,21 @@
-From 48f3222f1cc3eb51884018918c8c652a99cef2a7 Mon Sep 17 00:00:00 2001
+From 856c78f45ebb97de12509d61f08f094f584ecbc2 Mon Sep 17 00:00:00 2001
 From: popcornmix <popcornmix@gmail.com>
 Date: Tue, 28 Oct 2014 00:19:40 +0000
-Subject: [PATCH] [cec] Add settings for configuring button repeats
+Subject: [PATCH] Add settings for configuring button repeats
 
 ---
  addons/resource.language.en_gb/resources/strings.po | 15 +++++++++++++++
  system/peripherals.xml                              |  4 +++-
- xbmc/peripherals/devices/PeripheralCecAdapter.cpp   | 16 ++++++++++++++++
- 3 files changed, 34 insertions(+), 1 deletion(-)
+ xbmc/peripherals/devices/PeripheralCecAdapter.cpp   | 14 ++++++++++++++
+ 3 files changed, 32 insertions(+), 1 deletion(-)
 
 diff --git a/addons/resource.language.en_gb/resources/strings.po b/addons/resource.language.en_gb/resources/strings.po
-index bedbd87..6db61ed 100644
+index df3ed14..2ed09b4 100644
 --- a/addons/resource.language.en_gb/resources/strings.po
 +++ b/addons/resource.language.en_gb/resources/strings.po
-@@ -16687,3 +16687,18 @@ msgstr ""
- msgctxt "#38009"
- msgid "%i dB"
+@@ -18168,3 +18168,18 @@ msgstr ""
+ msgctxt "#38023"
+ msgid "Set my rating"
  msgstr ""
 +
 +#: system/peripherals.xml
@@ -33,25 +33,25 @@ index bedbd87..6db61ed 100644
 +msgid "Remote button press release time (ms)"
 +msgstr ""
 diff --git a/system/peripherals.xml b/system/peripherals.xml
-index a67dc2f..6841bda 100644
+index ec3c3fe..145017f 100644
 --- a/system/peripherals.xml
 +++ b/system/peripherals.xml
-@@ -30,7 +30,9 @@
+@@ -31,7 +31,9 @@
      <setting key="device_type" type="int" value="1" configurable="0" />
      <setting key="wake_devices_advanced" type="string" value="" configurable="0" />
      <setting key="standby_devices_advanced" type="string" value="" configurable="0" />
 -    <setting key="double_tap_timeout_ms" type="int" min="0" value="300" configurable="0" />
 +    <setting key="double_tap_timeout_ms" type="int" min="50" max="1000" step="50" value="300" label="38050" order="16" />
 +    <setting key="button_repeat_rate_ms" type="int" min="0" max="250" step="10" value="0" label="38051" order="17" />
-+    <setting key="button_release_delay_ms" type="int" min="0" max="500" step="50" value="0" label="38052" order="18" />
++    <setting key="button_release_delay_ms" type="int" min="0" max="500" step="50" value="0" label="38052" order="18" />    
    </peripheral>
  
    <peripheral vendor_product="2548:1001,2548:1002" bus="usb" name="Pulse-Eight CEC Adapter" mapTo="cec">
 diff --git a/xbmc/peripherals/devices/PeripheralCecAdapter.cpp b/xbmc/peripherals/devices/PeripheralCecAdapter.cpp
-index ea702e5..b5ff693 100644
+index e0d8dae..950fdf6 100644
 --- a/xbmc/peripherals/devices/PeripheralCecAdapter.cpp
 +++ b/xbmc/peripherals/devices/PeripheralCecAdapter.cpp
-@@ -1267,6 +1267,20 @@ void CPeripheralCecAdapter::SetConfigurationFromLibCEC(const CEC::libcec_configu
+@@ -1278,6 +1278,20 @@ void CPeripheralCecAdapter::SetConfigurationFromLibCEC(const CEC::libcec_configu
    m_configuration.bSendInactiveSource = config.bSendInactiveSource;
    bChanged |= SetSetting("send_inactive_source", m_configuration.bSendInactiveSource == 1);
  
@@ -72,12 +72,6 @@ index ea702e5..b5ff693 100644
    m_configuration.iFirmwareVersion = config.iFirmwareVersion;
    m_configuration.bShutdownOnStandby = config.bShutdownOnStandby;
  
-@@ -1371,6 +1385,8 @@ void CPeripheralCecAdapter::SetConfigurationFromSettings(void)
-   // backwards compatibility. will be removed once the next major release of libCEC is out
-   m_configuration.iDoubleTapTimeoutMs = GetSettingInt("double_tap_timeout_ms");
- #endif
-+  m_configuration.iButtonRepeatRateMs = GetSettingInt("button_repeat_rate_ms");
-+  m_configuration.iButtonReleaseDelayMs = GetSettingInt("button_release_delay_ms");
- }
- 
- void CPeripheralCecAdapter::ReadLogicalAddresses(const std::string &strString, cec_logical_addresses &addresses)
+-- 
+2.1.4
+
