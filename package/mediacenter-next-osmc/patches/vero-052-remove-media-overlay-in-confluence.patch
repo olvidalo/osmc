@@ -1,4 +1,4 @@
-From dc0dcdbb2d08e9b4d13718b08134cebeaa9fa89b Mon Sep 17 00:00:00 2001
+From 012b0892410d3d21e10a690b8ff64b751e0974bc Mon Sep 17 00:00:00 2001
 From: popcornmix <popcornmix@gmail.com>
 Date: Sun, 10 Aug 2014 18:58:37 +0100
 Subject: [PATCH] confluence: Remove media-overlay.jpg for when video is
