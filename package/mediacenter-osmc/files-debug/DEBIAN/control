@@ -4,3 +4,6 @@ Essential: No
 Priority: required
 Maintainer: Sam G Nazarko <email@samnazarko.co.uk>
 Description: Media Center debug package for OSMC
+Package: vero-mediacenter-debug-osmc
+Version: 15.2.0-2
+Depends: vero-mediacenter-osmc (=15.2.0-2)

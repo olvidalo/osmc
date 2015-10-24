@@ -34,10 +34,9 @@ diff --git a/xbmc/cores/VideoRenderers/BaseRenderer.h b/xbmc/cores/VideoRenderer
 index 5760714..1710599 100644
 --- a/xbmc/cores/VideoRenderers/BaseRenderer.h
 +++ b/xbmc/cores/VideoRenderers/BaseRenderer.h
-@@ -64,6 +64,7 @@ enum RenderMethods
+@@ -65,4 +65,5 @@ enum RenderMethods
    RENDER_METHOD_D3D_PS,
    RENDER_METHOD_DXVA,
-   RENDER_METHOD_DXVAHD,
 +  RENDER_METHOD_IMXv14,
    RENDER_OVERLAYS        = 99   // to retain compatibility
  };
