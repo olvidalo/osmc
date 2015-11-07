@@ -106,6 +106,7 @@ function build_in_env()
 	test $DEP == imx6 && DEP="armv7"
 	test $DEP == vero && DEP="armv7"
 	test $DEP == vero1 && DEP="armv7"
+	test $DEP == vero2 && DEP="armv7"
 	test $DEP == rbp1 && DEP="armv6l"
 	test $DEP == atv && DEP="i386"
 	test $DEP == pc && DEP="amd64"
@@ -161,7 +162,7 @@ function handle_dep()
 function publish_applications_any()
 {
 	# Used by applications that are architecture independent. These are usually metapackages with some configuration files shipped.
-	PKG_TARGETS="rbp1 rbp2 atv vero"
+	PKG_TARGETS="rbp1 rbp2 atv vero vero2"
 	for TARGET in $PKG_TARGETS
 	do
 		echo -e "Publishing application for platform ${TARGET}"
@@ -176,15 +177,11 @@ function publish_applications_targeted()
 	echo -e "Publishing application for platform ${TARGET}"
 	# This is a tad hacky. Architecture specific, platform independent
 	if [ "$2" == "armv6l" ]; then devices="rbp1"; fi
-	if [ "$2" == "armv7" ]; then devices="rbp2 vero"; fi
+	if [ "$2" == "armv7" ]; then devices="rbp2 vero vero2"; fi
 	if [ "$2" == "i386" ]; then devices="atv"; fi
 	if [ "$2" == "amd64" ]; then devices="pc"; fi
 	# Architecture specific, platform specific
-	if [ "$2" == "rbp1" ]; then devices="rbp1"; fi
-	if [ "$2" == "rbp2" ]; then devices="rbp2"; fi
-	if [ "$2" == "vero" ]; then devices="vero"; fi
-	if [ "$2" == "atv1" ]; then devices="atv"; fi
-	if [ "$2" == "pc" ]; then devices="pc"; fi
+	devices="$2"
 	for device in $devices
 	do
 	    cp ${1}/app.json ${1}/${device}-${3}.json
