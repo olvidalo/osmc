@@ -13,7 +13,8 @@ export BUILD_OPTION_USE_O3=8
 export BUILD_OPTION_USE_NOFP=16
 export BUILD_OPTION_USE_MULTIARCH=32
 export BUILD_OPTION_USE_CCACHE=64
-export BUILD_OPTION_DEFAULTS=$(($BUILD_OPTION_LANGC + $BUILD_OPTION_USE_O3 + $BUILD_OPTION_USE_NOFP + $BUILD_OPTION_USE_CCACHE))
+export BUILD_OPTION_PREFER_LIBOSMC=128
+export BUILD_OPTION_DEFAULTS=$(($BUILD_OPTION_LANGC + $BUILD_OPTION_USE_O3 + $BUILD_OPTION_USE_NOFP + $BUILD_OPTION_USE_CCACHE + $BUILD_OPTION_PREFER_LIBOSMC))
 
 function fix_arch_ctl()
 {
@@ -27,8 +28,8 @@ function fix_arch_ctl()
 function strip_files()
 {
 	echo -e "Stripping binaries"
-	strip -s "${1}/usr/lib/*.so.*" > /dev/null 2>&1
-	strip -s "${1}/usr/lib/*.a" > /dev/null 2>&1
+	strip -s "${1}/usr/osmc/lib/*.so.*" > /dev/null 2>&1
+	strip -s "${1}/usr/osmc/lib/*.a" > /dev/null 2>&1
 	strip -s "${1}/usr/bin/*" >/dev/null 2>&1
 	strip -s "${1}/usr/sbin/*" >/dev/null 2>&1
 }
@@ -93,6 +94,11 @@ function build_in_env()
 		export CCACHE_DIR="/root/.ccache"
 		export CC="/usr/bin/ccache $CC"
 		export CXX="/usr/bin/ccache $CXX"
+	    fi
+	    if ((($BUILD_OPTS & $BUILD_OPTION_PREFER_LIBOSMC) == $BUILD_OPTION_PREFER_LIBOSMC))
+	    then
+		export BUILD_FLAGS+="-I/usr/osmc/include -L/usr/osmc/lib "
+		export LD_LIBRARY_PATH+="/usr/osmc/lib"
 	    fi
             export CFLAGS+="$BUILD_FLAGS"
             export CXXFLAGS+="$BUILD_FLAGS"
