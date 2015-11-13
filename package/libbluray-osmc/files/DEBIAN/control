@@ -5,3 +5,4 @@ Essential: No
 Priority: optional
 Maintainer: Sam G Nazarko <email@samnazarko.co.uk>
 Description: libbluray library for OSMC
+Package: armv7-libbluray-osmc

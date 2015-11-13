@@ -17,9 +17,9 @@ fi
 }
 
 . ../common.sh
-if [ "$1" == "rbp1" ] || [ "$1" == "rbp2" ] || [ "$1" == "vero" ] || [ "$1" == "atv" ]
+if [ "$1" == "rbp1" ] || [ "$1" == "rbp2" ] || [ "$1" == "vero" ] || [ "$1" == "atv" ] || [ "$1" == "vero2" ]
 then
-pull_source "https://github.com/xbmc/xbmc/archive/6fce7c0a89e15d5fa227f60b42654b63247d9a02.tar.gz" "$(pwd)/src"
+pull_source "https://github.com/popcornmix/xbmc/archive/c2b465fdf2557cabe52d029e70008b6a9ee91119.tar.gz" "$(pwd)/src"
 API_VERSION="15"
 else
 pull_source "https://github.com/xbmc/xbmc/archive/master.tar.gz" "$(pwd)/kodi"
@@ -78,7 +78,6 @@ then
 	handle_dep "libplist-dev"
 	handle_dep "libpng12-dev"
 	handle_dep "libsmbclient-dev"
-	handle_dep "libsqlite3-dev"
 	handle_dep "libssh-dev"
 	handle_dep "libavahi-client-dev"
 	handle_dep "libssl-dev"
@@ -102,13 +101,12 @@ then
 	handle_dep "yasm"
 	handle_dep "zip"
 	handle_dep "zlib1g-dev"
-	handle_dep "libbluray-dev"
 	handle_dep "libtag1-dev"
 	handle_dep "libsamplerate0-dev"
 	handle_dep "libltdl-dev"
 	handle_dep "cmake"
 	handle_dep "libgnutls28-dev"
- 	handle_dep "git"
+	handle_dep "git"
 	if [ "$1" == "rbp1" ] || [ "$1" == "rbp2" ]
 	then
 		handle_dep "rbp-userland-dev-osmc"
@@ -125,6 +123,8 @@ then
 		handle_dep "armv6l-libnfs-dev-osmc"
 		handle_dep "armv6l-libplatform-dev-osmc"
 		handle_dep "armv6l-libdcadec-dev-osmc"
+		handle_dep "armv6l-libbluray-dev-osmc"
+		handle_dep "armv6l-libsqlite-dev-osmc"
 	fi
 	if [ "$1" == "rbp2" ]
 	then
@@ -134,6 +134,8 @@ then
 		handle_dep "armv7-libnfs-dev-osmc"
 		handle_dep "armv7-libplatform-dev-osmc"
 		handle_dep "armv7-libdcadec-dev-osmc"
+		handle_dep "armv7-libbluray-dev-osmc"
+		handle_dep "armv7-libsqlite-dev-osmc"
 	fi
 	if [ "$1" == "vero" ]
 	then
@@ -142,7 +144,21 @@ then
 		handle_dep "armv7-librtmp-dev-osmc"
 		handle_dep "armv7-libnfs-dev-osmc"
 		handle_dep "armv7-libplatform-dev-osmc"
+		handle_dep "armv7-libdcadec-dev-osmc"
+		handle_dep "armv7-libbluray-dev-osmc"
+		handle_dep "armv7-libsqlite-dev-osmc"
 	fi
+        if [ "$1" == "vero2" ]
+        then
+		handle_dep "vero2-userland-dev-osmc"
+                handle_dep "armv7-libshairplay-dev-osmc"
+                handle_dep "armv7-librtmp-dev-osmc"
+                handle_dep "armv7-libnfs-dev-osmc"
+                handle_dep "armv7-libplatform-dev-osmc"
+                handle_dep "armv7-libdcadec-dev-osmc"
+                handle_dep "armv7-libbluray-dev-osmc"
+                handle_dep "armv7-libsqlite-dev-osmc"
+        fi
 	if [ "$1" == "atv" ] # later we change this to if_x11..
 	then
 		handle_dep "i386-libcec-dev-osmc"
@@ -150,6 +166,9 @@ then
 		handle_dep "i386-librtmp-dev-osmc"
 		handle_dep "i386-libnfs-dev-osmc"
 		handle_dep "i386-libplatform-dev-osmc"
+		handle_dep "i386-libdcadec-dev-osmc"
+		handle_dep "i386-libbluray-dev-osmc"
+		handle_dep "i386-libsqlite-dev-osmc"
 		handle_dep "libglew-dev"
 		handle_dep "libsdl1.2-dev"
 		handle_dep "libsdl-gfx1.2-dev"
@@ -273,6 +292,35 @@ then
 		--with-platform=vero \
 		--build=arm-linux
 	fi
+        if [ "$1" == "vero2" ]; then
+        LIBRARY_PATH+="/opt/vero2/lib" && \
+        COMPFLAGS="-I/opt/vero2/include" && \
+        export CFLAGS+=${COMPFLAGS} && \
+        export CXXFLAGS+=${COMPFLAGS} && \
+        export CPPFLAGS+=${COMPFLAGS} && \
+        export LDFLAGS="-L/opt/vero2/lib" && \
+        ./configure \
+                --prefix=/usr \
+                --disable-x11 \
+                --disable-openmax \
+                --disable-vdpau \
+                --disable-vaapi \
+                --enable-gles \
+                --enable-codec=aml \
+                --disable-libcec \
+                --disable-debug \
+                --disable-texturepacker \
+                --enable-optical-drive \
+                --enable-dvdcss \
+                --enable-libbluray \
+                --disable-joystick \
+                --disable-vtbdecoder \
+                --disable-pulse \
+                --disable-projectm \
+                --disable-optimizations \
+                --with-platform=vero2 \
+                --build=arm-linux
+        fi
 	if [ $? != 0 ]; then echo -e "Configure failed!" && umount /proc/ > /dev/null 2>&1 && exit 1; fi
 	umount /proc/ > /dev/null 2>&1
 	$BUILD
@@ -318,20 +366,5 @@ then
 	mkdir -p files-debug/usr/lib/kodi
 	cp -ar ${out}/usr/lib/kodi/kodi.bin files-debug/usr/lib/kodi/kodi.bin
 	strip -s ${out}/usr/lib/kodi/kodi.bin
-	COMMON_DEPENDS="niceprioritypolicy-osmc, mediacenter-send-osmc, libssh-4, libavahi-client3, python, python-imaging, python-unidecode, libsmbclient, libbluray1, libtiff5, libjpeg62-turbo, libsqlite3-0, libtinyxml2.6.2, libogg0, libmad0, libmicrohttpd10, libjasper1, libyajl2, libmysqlclient18, libasound2, libxml2, liblzo2-2, libxslt1.1, libpng12-0, libsamplerate0, libtag1-vanilla, libfribidi0, libgif4, libcdio13, libpcrecpp0, libfreetype6, libvorbis0a, libvorbisenc2, libass5, libcurl3, libssl1.0.0, libplist2, avahi-daemon, policykit-1, mediacenter-addon-osmc (>= 3.0.39), mediacenter-skin-osmc, diskmount-osmc (>= 1.2.9)"
-	test "$1" == atv && echo "Depends: ${COMMON_DEPENDS}, i386-libcec-osmc, i386-libnfs-osmc, i386-librtmp-osmc, i386-libshairplay-osmc, libxrandr2, libsdl-image1.2, libglew1.10, libglu1-mesa, i386-libcrystalhd-osmc, xserver-xorg-core, xserver-xorg, xinit, xfonts-base, x11-xserver-utils, xauth, alsa-utils, xserver-xorg-video-nvidia-legacy-304xx, nvidia-xconfig" >> files/DEBIAN/control
-	test "$1" == rbp1 && echo "Depends: ${COMMON_DEPENDS}, rbp1-libcec-osmc, armv6l-libnfs-osmc, armv6l-librtmp-osmc, armv6l-libshairplay-osmc, rbp-userland-osmc, armv6l-splash-osmc" >> files/DEBIAN/control
-	test "$1" == rbp2 && echo "Depends: ${COMMON_DEPENDS}, rbp2-libcec-osmc, armv7-libnfs-osmc, armv7-librtmp-osmc, armv7-libshairplay-osmc, rbp-userland-osmc, armv7-splash-osmc" >> files/DEBIAN/control
-	test "$1" == vero && echo "Depends: ${COMMON_DEPENDS}, vero-libcec-osmc, armv7-libnfs-osmc, armv7-librtmp-osmc, armv7-libshairplay-osmc, vero-userland-osmc, armv7-splash-osmc" >> files/DEBIAN/control
-	cp patches/${1}-watchdog ${out}/usr/bin/mediacenter
-	cp patches/${1}-advancedsettings.xml ${out}/usr/share/kodi/system/advancedsettings.xml
-	chmod +x ${out}/usr/bin/mediacenter
-	test "$1" == vero && cp patches/${1}-hdmi-trace ${out}/usr/bin/hdmi-trace && chmod +x ${out}/usr/bin/hdmi-trace
-	fix_arch_ctl "files/DEBIAN/control"
-	fix_arch_ctl "files-debug/DEBIAN/control"
-	dpkg_build files/ ${1}-mediacenter-osmc.deb
-	dpkg_build files-debug/ ${1}-mediacenter-debug-osmc.deb
-	build_return=$?
-fi
-teardown_env "${1}"
-exit $build_return
+	COMMON_DEPENDS="niceprioritypolicy-osmc, mediacenter-send-osmc, libssh-4, libavahi-client3, python, python-imaging, python-unidecode, libsmbclient, libtiff5, libjpeg62-turbo, libsqlite3-0, libtinyxml2.6.2, libogg0, libmad0, libmicrohttpd10, libjasper1, libyajl2, libmysqlclient18, libasound2, libxml2, liblzo2-2, libxslt1.1, libpng12-0, libsamplerate0, libtag1-vanilla, libfribidi0, libgif4, libcdio13, libpcrecpp0, libfreetype6, libvorbis0a, libvorbisenc2, libass5, libcurl3, libssl1.0.0, libplist2, avahi-daemon, policykit-1, mediacenter-addon-osmc (>= 3.0.39), mediacenter-skin-osmc, diskmount-osmc (>= 1.2.9)"
+	test "$1" == atv && echo "Depends: ${COMMON_DEPENDS}, i386-libcec-osmc, i386-libnfs-osmc, i386-librtmp-osmc, i386-libshairplay-osmc, i386-libbluray-osmc, i386-libsqlite-osmc, libxrandr2, libsdl-image1.2, libglew1.1
