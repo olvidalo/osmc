@@ -4,6 +4,6 @@ Essential: No
 Priority: required
 Maintainer: Sam G Nazarko <email@samnazarko.co.uk>
 Description: Media Center debug package for OSMC
-Package: rbp2-mediacenter-debug-osmc
-Version: 15.2.0-5
-Depends: rbp2-mediacenter-osmc (=15.2.0-5)
+Package: rbp1-mediacenter-debug-osmc
+Version: 15.2.0-6
+Depends: rbp1-mediacenter-osmc (=15.2.0-6)
