@@ -31,15 +31,6 @@ index 5ac282c..1ff7213 100644
            <control type="edit" format="string" />
          </setting>
        </group>
-@@ -2118,7 +2118,7 @@
-         </setting>
-         <setting id="services.webserverusername" type="string" parent="services.webserver" label="1048" help="36330">
-           <level>1</level>
--          <default>kodi</default>
-+          <default>""</default>
-           <constraints>
-             <allowempty>true</allowempty>
-           </constraints>
 diff --git a/xbmc/Application.cpp b/xbmc/Application.cpp
 index 09a45e4..60665a3 100644
 --- a/xbmc/Application.cpp

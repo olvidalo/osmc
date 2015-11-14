@@ -1,20 +1,19 @@
-From a19b6fc83a6ab28b08eae0de08202e2542940f24 Mon Sep 17 00:00:00 2001
+From 7818b74c3ce63b166fd5c60643c48bf83f42f484 Mon Sep 17 00:00:00 2001
 From: Sam Nazarko <email@samnazarko.co.uk>
 Date: Sun, 20 Sep 2015 14:45:37 +0100
 Subject: [PATCH] Allow hostname to be changed via xbmc.sethostname()
 
 Signed-off-by: Sam Nazarko <email@samnazarko.co.uk>
 ---
- xbmc/interfaces/legacy/ModuleXbmc.cpp |  7 +++++++
- xbmc/interfaces/legacy/ModuleXbmc.h   | 12 ++++++++++++
- 2 files changed, 19 insertions(+)
+ xbmc/interfaces/legacy/ModuleXbmc.cpp | 9 +++++++++
+ 1 file changed, 9 insertions(+)
 
 diff --git a/xbmc/interfaces/legacy/ModuleXbmc.cpp b/xbmc/interfaces/legacy/ModuleXbmc.cpp
-index e2eab38..94cf810 100644
+index 59517ba..7dac73d 100644
 --- a/xbmc/interfaces/legacy/ModuleXbmc.cpp
 +++ b/xbmc/interfaces/legacy/ModuleXbmc.cpp
-@@ -124,6 +124,13 @@ namespace XBMCAddon
-       CSettings::Get().SetString("lookandfeel.skin", skin);
+@@ -111,6 +111,15 @@ namespace XBMCAddon
+         CApplicationMessenger::GetInstance().PostMsg(TMSG_EXECUTE_BUILT_IN, -1, -1, nullptr, function);
      }
  
 +    void sethostname(const char* hostname)
@@ -22,34 +21,13 @@ index e2eab38..94cf810 100644
 +      XBMC_TRACE;
 +      if (! hostname)
 +      return;
-+      CSettings::Get().SetString("services.devicename", hostname);
++      CSettings::GetInstance().SetString("services.devicename", hostname);
 +    }
- 
++
++
      String executeJSONRPC(const char* jsonrpccommand)
      {
-diff --git a/xbmc/interfaces/legacy/ModuleXbmc.h b/xbmc/interfaces/legacy/ModuleXbmc.h
-index a5f0656..c017523 100644
---- a/xbmc/interfaces/legacy/ModuleXbmc.h
-+++ b/xbmc/interfaces/legacy/ModuleXbmc.h
-@@ -127,6 +127,18 @@ namespace XBMCAddon
- 
-         void setskin(const char* skin);
- 
-+       /**
-+        * sethostname(hostname) -- Change the device name, and in turn, hostname
-+        *
-+        * hostname               :     string - the name of the hostname to change to
-+        *
-+        *
-+        * example:
-+        *    - xbmc.sethostname("osmc")
-+        */
-+
-+        void sethostname(const char* hostname);
-+
-     /**
-      * sleep(time) -- Sleeps for 'time' msec.
-      * 
+       XBMC_TRACE;
 -- 
-2.1.0
+2.1.4
 
