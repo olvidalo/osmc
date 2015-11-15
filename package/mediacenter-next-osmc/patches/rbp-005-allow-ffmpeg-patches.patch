@@ -17,7 +17,7 @@ index 196c347..e977ff8 100755
  cd ffmpeg-${VERSION} || exit 2
  tar --strip-components=1 -xf ../${ARCHIVE}
 +cp ../*.patch .
-+for file in *.patch; do patch --verbose -p1 < $file; done
++for file in *.patch; do patch -p1 < $file; done
  
  CFLAGS="$CFLAGS" CXXFLAGS="$CXXFLAGS" LDFLAGS="$LDFLAGS" \
  ./configure --prefix=$FFMPEG_PREFIX \
