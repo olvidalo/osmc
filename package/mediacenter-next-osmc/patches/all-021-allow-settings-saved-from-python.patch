@@ -19,7 +19,7 @@ index 1ddfd64..707ff97 100644
  
 +   void saveSettings()
 +   {
-+      CSettings::Get().Save();
++      CSettings::GetInstance().Save();
 +   }
 +
      String convertLanguage(const char* language, int format)

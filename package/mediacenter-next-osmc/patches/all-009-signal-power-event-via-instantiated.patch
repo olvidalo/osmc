@@ -1,4 +1,4 @@
-From 3ccb0887fc1586ceeecb846cfbfbfebbe0c6d9ca Mon Sep 17 00:00:00 2001
+From 5e45648b96b10ab2526a47810ff4b25b4842a435 Mon Sep 17 00:00:00 2001
 From: Sam Nazarko <email@samnazarko.co.uk>
 Date: Tue, 18 Aug 2015 01:53:19 +0100
 Subject: [PATCH] Signal power event via instantiated power interface before
@@ -10,14 +10,37 @@ Subject: [PATCH] Signal power event via instantiated power interface before
 
 Signed-off-by: Sam Nazarko <email@samnazarko.co.uk>
 ---
- xbmc/Application.cpp | 31 +++++++++++++++++++------------
- 1 file changed, 19 insertions(+), 12 deletions(-)
+ xbmc/Application.cpp                    | 35 ++++++++++++++++++++-------------
+ xbmc/Application.h                      |  6 ++++++
+ xbmc/messaging/ApplicationMessenger.cpp |  6 ++++++
+ xbmc/messaging/ApplicationMessenger.h   |  1 +
+ 4 files changed, 34 insertions(+), 14 deletions(-)
 
 diff --git a/xbmc/Application.cpp b/xbmc/Application.cpp
-index a2475c6..14d1759 100644
+index e4f4a24..aa76ae5 100644
 --- a/xbmc/Application.cpp
 +++ b/xbmc/Application.cpp
-@@ -2947,17 +2947,8 @@ void CApplication::Stop(int exitCode)
+@@ -2491,8 +2491,8 @@ void CApplication::OnApplicationMessage(ThreadMessage* pMsg)
+   switch (pMsg->dwMessage)
+   {
+   case TMSG_POWERDOWN:
+-    Stop(EXITCODE_POWERDOWN);
+     g_powerManager.Powerdown();
++    Stop(EXITCODE_POWERDOWN);
+     break;
+ 
+   case TMSG_QUIT:
+@@ -2517,8 +2517,8 @@ void CApplication::OnApplicationMessage(ThreadMessage* pMsg)
+ 
+   case TMSG_RESTART:
+   case TMSG_RESET:
+-    Stop(EXITCODE_REBOOT);
+     g_powerManager.Reboot();
++    Stop(EXITCODE_REBOOT);
+     break;
+ 
+   case TMSG_RESTARTAPP:
+@@ -2924,17 +2924,8 @@ void CApplication::Stop(int exitCode)
      if( m_bSystemScreenSaverEnable )
        g_Windowing.EnableSystemScreenSaver(true);
  
@@ -33,21 +56,21 @@ index a2475c6..14d1759 100644
 -    else
 -      CLog::Log(LOGNOTICE, "Not saving settings (settings.xml is not present)");
 +    if (m_ExitCode != EXITCODE_QUIT)
-+        CApplicationMessenger::Get().SaveStateStop();
++        CApplicationMessenger::GetInstance().SaveStateStop();
  
      m_bStop = true;
      m_AppFocused = false;
-@@ -3032,7 +3023,8 @@ void CApplication::Stop(int exitCode)
+@@ -3009,7 +3000,8 @@ void CApplication::Stop(int exitCode)
      // stop all remaining scripts; must be done after skin has been unloaded,
      // not before some windows still need it when deinitializing during skin
      // unloading
 -    CScriptInvocationManager::GetInstance().Uninitialize();
 +    if (m_ExitCode != EXITCODE_QUIT)
-+        CScriptInvocationManager::Get().Uninitialize();
++        CScriptInvocationManager::GetInstance().Uninitialize();
  
      g_Windowing.DestroyRenderSystem();
      g_Windowing.DestroyWindow();
-@@ -3061,6 +3053,21 @@ void CApplication::Stop(int exitCode)
+@@ -3038,6 +3030,21 @@ void CApplication::Stop(int exitCode)
    Sleep(200);
  }
  
@@ -57,10 +80,10 @@ index a2475c6..14d1759 100644
 +        g_sysinfo.SetTotalUptime(g_sysinfo.GetTotalUptime() + (int)(CTimeUtils::GetFrameTime() / 60000));
 +
 +    // Update the settings information (volume, uptime etc. need saving)
-+    if (CFile::Exists(CProfilesManager::Get().GetSettingsFile()))
++    if (CFile::Exists(CProfilesManager::GetInstance().GetSettingsFile()))
 +    {
 +      CLog::Log(LOGNOTICE, "Saving settings");
-+      CSettings::Get().Save();
++      CSettings::GetInstance().Save();
 +    }
 +    else
 +      CLog::Log(LOGNOTICE, "Not saving settings (settings.xml is not present)");
@@ -69,6 +92,52 @@ index a2475c6..14d1759 100644
  bool CApplication::PlayMedia(const CFileItem& item, int iPlaylist)
  {
    //If item is a plugin, expand out now and run ourselves again
+diff --git a/xbmc/Application.h b/xbmc/Application.h
+index b301605..7ecc220 100644
+--- a/xbmc/Application.h
++++ b/xbmc/Application.h
+@@ -155,6 +155,12 @@ public:
+   void StopPVRManager();
+   bool IsCurrentThread() const;
+   void Stop(int exitCode);
++    /*!
++   \brief Saves settings and uptime before Kodi is stopped
++
++   This allows us to save from our sigterm handler, or Application::Stop(), but not both.
++   */
++  void SaveStateStop();
+   void RestartApp();
+   void UnloadSkin(bool forReload = false);
+   bool LoadUserWindows();
+diff --git a/xbmc/messaging/ApplicationMessenger.cpp b/xbmc/messaging/ApplicationMessenger.cpp
+index 1880693..4e1b13d 100644
+--- a/xbmc/messaging/ApplicationMessenger.cpp
++++ b/xbmc/messaging/ApplicationMessenger.cpp
+@@ -265,6 +265,12 @@ void CApplicationMessenger::SendGUIMessage(const CGUIMessage &message, int windo
+   SendMsg(std::move(tMsg), waitResult);
+ }
+ 
++void CApplicationMessenger::SaveStateStop()
++{
++   ThreadMessage tMsg = {TMSG_SAVESTATESTOP};
++   SendMessage(tMsg);
++}
++
+ void CApplicationMessenger::RegisterReceiver(IMessageTarget* target)
+ {
+   CSingleLock lock(m_critSection);
+diff --git a/xbmc/messaging/ApplicationMessenger.h b/xbmc/messaging/ApplicationMessenger.h
+index 4db94b7..c7ddd04 100644
+--- a/xbmc/messaging/ApplicationMessenger.h
++++ b/xbmc/messaging/ApplicationMessenger.h
+@@ -67,6 +67,7 @@
+ #define TMSG_HIBERNATE                    TMSG_MASK_APPLICATION + 3
+ #define TMSG_SUSPEND                      TMSG_MASK_APPLICATION + 4
+ #define TMSG_RESTART                      TMSG_MASK_APPLICATION + 5
++#define TMSG_SAVESTATESTOP	  	  399
+ #define TMSG_RESET                        TMSG_MASK_APPLICATION + 6
+ #define TMSG_RESTARTAPP                   TMSG_MASK_APPLICATION + 7
+ #define TMSG_ACTIVATESCREENSAVER          TMSG_MASK_APPLICATION + 8
 -- 
 2.1.4
 

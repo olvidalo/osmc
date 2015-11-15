@@ -22,7 +22,7 @@ index 94cf810..fdefd85 100644
 +      XBMC_TRACE;
 +      if (! timezone)
 +      return;
-+      CSettings::Get().SetString("locale.timezone", timezone);
++      CSettings::GetInstance().SetString("locale.timezone", timezone);
 +    }
 +
      String executeJSONRPC(const char* jsonrpccommand)

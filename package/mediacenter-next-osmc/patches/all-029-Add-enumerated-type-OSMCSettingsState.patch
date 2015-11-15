@@ -40,9 +40,9 @@ index c9ba273..556a5ff 100644
 +  } OSMCWalkthroughState;
 +  OSMCWalkthroughState m_eOSMCWalkthroughState;
 +  void SetOSMCWalkthroughState(OSMCWalkthroughState state) { m_eOSMCWalkthroughState = state; }
-   void RestartApp();
-   void UnloadSkin(bool forReload = false);
-   bool LoadUserWindows();
+    /*!
+   \brief Saves settings and uptime before Kodi is stopped
+
 -- 
 2.1.4
 

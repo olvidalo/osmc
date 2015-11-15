@@ -1,0 +1,26 @@
+From c35b847b2311fb99c3ddff7f5e213704b5e63afe Mon Sep 17 00:00:00 2001
+From: Sam Nazarko <email@samnazarko.co.uk>
+Date: Sun, 23 Aug 2015 17:49:02 +0100
+Subject: [PATCH] Add OSMCWalkthroughState to CApplicationMessenger
+
+Signed-off-by: Sam Nazarko <email@samnazarko.co.uk>
+---
+ xbmc/messaging/ApplicationMessenger.h | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/xbmc/messaging/ApplicationMessenger.h b/xbmc/messaging/ApplicationMessenger.h
+index 4db94b7..9d234ce 100644
+--- a/xbmc/messaging/ApplicationMessenger.h
++++ b/xbmc/messaging/ApplicationMessenger.h
+@@ -91,6 +91,8 @@
+ #define TMSG_LOADPROFILE                  TMSG_MASK_APPLICATION + 27
+ #define TMSG_VIDEORESIZE                  TMSG_MASK_APPLICATION + 28
+ 
++#define TMSG_SETOSMCWALKTHROUGHSTATE 	  950
++
+ #define TMSG_SETAUDIODSPSTATE             TMSG_MASK_AUDIO_DSP   + 0
+ 
+ #define TMSG_GUI_INFOLABEL                TMSG_MASK_GUIINFOMANAGER + 0
+-- 
+2.1.4
+

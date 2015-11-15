@@ -23,7 +23,7 @@ index 7fc7bba..190901a 100644
 +      XBMC_TRACE;
 +      if (! skin)
 +      return;
-+      CSettings::Get().SetString("lookandfeel.skin", skin);
++      CSettings::GetInstance().SetString("lookandfeel.skin", skin);
 +    }
 +
 +
