@@ -1,4 +1,4 @@
-From 5e45648b96b10ab2526a47810ff4b25b4842a435 Mon Sep 17 00:00:00 2001
+From dad5428492b3015689b13467bcb68f532a4aa5f5 Mon Sep 17 00:00:00 2001
 From: Sam Nazarko <email@samnazarko.co.uk>
 Date: Tue, 18 Aug 2015 01:53:19 +0100
 Subject: [PATCH] Signal power event via instantiated power interface before
@@ -110,7 +110,7 @@ index b301605..7ecc220 100644
    void UnloadSkin(bool forReload = false);
    bool LoadUserWindows();
 diff --git a/xbmc/messaging/ApplicationMessenger.cpp b/xbmc/messaging/ApplicationMessenger.cpp
-index 1880693..4e1b13d 100644
+index 1880693..7cef9d3 100644
 --- a/xbmc/messaging/ApplicationMessenger.cpp
 +++ b/xbmc/messaging/ApplicationMessenger.cpp
 @@ -265,6 +265,12 @@ void CApplicationMessenger::SendGUIMessage(const CGUIMessage &message, int windo
