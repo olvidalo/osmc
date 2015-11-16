@@ -1,4 +1,4 @@
-From dad5428492b3015689b13467bcb68f532a4aa5f5 Mon Sep 17 00:00:00 2001
+From 137900d38a4b999b99c5a6e37247e6c2a6d7dd7e Mon Sep 17 00:00:00 2001
 From: Sam Nazarko <email@samnazarko.co.uk>
 Date: Tue, 18 Aug 2015 01:53:19 +0100
 Subject: [PATCH] Signal power event via instantiated power interface before
@@ -13,11 +13,11 @@ Signed-off-by: Sam Nazarko <email@samnazarko.co.uk>
  xbmc/Application.cpp                    | 35 ++++++++++++++++++++-------------
  xbmc/Application.h                      |  6 ++++++
  xbmc/messaging/ApplicationMessenger.cpp |  6 ++++++
- xbmc/messaging/ApplicationMessenger.h   |  1 +
- 4 files changed, 34 insertions(+), 14 deletions(-)
+ xbmc/messaging/ApplicationMessenger.h   |  3 ++-
+ 4 files changed, 35 insertions(+), 15 deletions(-)
 
 diff --git a/xbmc/Application.cpp b/xbmc/Application.cpp
-index e4f4a24..aa76ae5 100644
+index e4f4a24..4c2ae46 100644
 --- a/xbmc/Application.cpp
 +++ b/xbmc/Application.cpp
 @@ -2491,8 +2491,8 @@ void CApplication::OnApplicationMessage(ThreadMessage* pMsg)
@@ -26,7 +26,7 @@ index e4f4a24..aa76ae5 100644
    case TMSG_POWERDOWN:
 -    Stop(EXITCODE_POWERDOWN);
      g_powerManager.Powerdown();
-+    Stop(EXITCODE_POWERDOWN);
++    Stop(EXITCODE_POWERDOWN);    
      break;
  
    case TMSG_QUIT:
@@ -127,7 +127,7 @@ index 1880693..7cef9d3 100644
  {
    CSingleLock lock(m_critSection);
 diff --git a/xbmc/messaging/ApplicationMessenger.h b/xbmc/messaging/ApplicationMessenger.h
-index 4db94b7..c7ddd04 100644
+index 4db94b7..983714a 100644
 --- a/xbmc/messaging/ApplicationMessenger.h
 +++ b/xbmc/messaging/ApplicationMessenger.h
 @@ -67,6 +67,7 @@
@@ -138,6 +138,15 @@ index 4db94b7..c7ddd04 100644
  #define TMSG_RESET                        TMSG_MASK_APPLICATION + 6
  #define TMSG_RESTARTAPP                   TMSG_MASK_APPLICATION + 7
  #define TMSG_ACTIVATESCREENSAVER          TMSG_MASK_APPLICATION + 8
+@@ -197,7 +198,7 @@ public:
+    \param waitResult whether to wait for the result (defaults to false).
+    */
+   void SendGUIMessage(const CGUIMessage &msg, int windowID = WINDOW_INVALID, bool waitResult=false);
+-
++  void SaveStateStop();
+   void RegisterReceiver(IMessageTarget* target);
+ 
+ private:
 -- 
 2.1.4
 
