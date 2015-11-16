@@ -120,7 +120,7 @@ index 1880693..7cef9d3 100644
 +void CApplicationMessenger::SaveStateStop()
 +{
 +   ThreadMessage tMsg(TMSG_SAVESTATESTOP);
-+   SendMessage(tMsg);
++   //SendMessage(tMsg);
 +}
 +
  void CApplicationMessenger::RegisterReceiver(IMessageTarget* target)
