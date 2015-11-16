@@ -17,7 +17,7 @@ index 01027f8..8756fc2 100644
  #include "input/linux/LIRC.h"
  #endif
  #include "XbmcContext.h"
-+#include "ApplicationMessenger.h"
++#include "messaging/ApplicationMessenger.h"
 +
 +void sigterm_handler(int signum)
 +{
