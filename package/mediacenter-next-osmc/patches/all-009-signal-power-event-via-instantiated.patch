@@ -119,7 +119,7 @@ index 1880693..4e1b13d 100644
  
 +void CApplicationMessenger::SaveStateStop()
 +{
-+   ThreadMessage tMsg = {TMSG_SAVESTATESTOP};
++   ThreadMessage tMsg(TMSG_SAVESTATESTOP);
 +   SendMessage(tMsg);
 +}
 +
