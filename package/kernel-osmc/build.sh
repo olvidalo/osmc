@@ -4,11 +4,12 @@
 #!/bin/bash
 
 . ../common.sh
-test $1 == rbp1 && VERSION="4.3.0" && REV="5"
-test $1 == rbp2 && VERSION="4.3.0" && REV="5"
-test $1 == vero && VERSION="4.1.12" && REV="4"
-test $1 == atv && VERSION="4.2.3" && REV="6"
-test $1 == pc && VERSION="4.2.3" && REV="1"
+test $1 == rbp1 && VERSION="4.3.0" && REV="5" && EMBED_INITRAMFS="1"
+test $1 == rbp2 && VERSION="4.3.0" && REV="5" && EMBED_INITRAMFS="1"
+test $1 == vero && VERSION="4.1.12" && REV="4" && EMBED_INITRAMFS="1"
+test $1 == vero2 && VERSION="3.10.61" && REV="1" && EMBED_INITRAMFS="1"
+test $1 == atv && VERSION="4.2.3" && REV="6" && EMBED_INITRAMFS="0"
+test $1 == pc && VERSION="4.2.3" && REV="1" && EMBED_INITRAMFS="1"
 if [ $1 == "rbp1" ] || [ $1 == "rbp2" ] || [ $1 == "atv" ] || [ $1 == "pc" ]
 then
 	if [ -z $VERSION ]; then echo "Don't have a defined kernel version for this target!" && exit 1; fi
@@ -22,6 +23,7 @@ then
 	SOURCE_LINUX="https://www.kernel.org/pub/linux/kernel/v${MAJOR}.x/linux-${DL_VERSION}.tar.xz"
 fi
 if [ $1 == "vero" ]; then SOURCE_LINUX="https://github.com/osmc/vero-linux/archive/master.tar.gz"; fi
+if [ $1 == "vero2" ]; then SOURCE_LINUX="https://github.com/samnazarko/vero2-linux/archive/master.tar.gz"; fi
 pull_source "${SOURCE_LINUX}" "$(pwd)/src"
 if [ $? != 0 ]; then echo -e "Error downloading" && exit 1; fi
 # Build in native environment
@@ -65,6 +67,8 @@ then
 		$BUILD scripts
 		DTC=$(pwd)"/scripts/dtc/dtc"
 	fi
+	# Conver DTD to DTB
+	if [ "$1" == "vero2" ]; then $BUILD meson8b_vero2.dtd; fi
 	make-kpkg --stem $1 kernel_image --append-to-version -${REV}-osmc --jobs $JOBS --revision $REV
 	if [ $? != 0 ]; then echo "Building kernel image package failed" && exit 1; fi
 	make-kpkg --stem $1 kernel_headers --append-to-version -${REV}-osmc --jobs $JOBS --revision $REV
