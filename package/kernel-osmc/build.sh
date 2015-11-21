@@ -3,13 +3,19 @@
 
 #!/bin/bash
 
+# initramfs flags
+
+INITRAMFS_BUILD=1
+INITRAMFS_EMBED=2
+INITRAMFS_NOBUILD=4
+
 . ../common.sh
-test $1 == rbp1 && VERSION="4.3.0" && REV="5" && EMBED_INITRAMFS="1"
-test $1 == rbp2 && VERSION="4.3.0" && REV="5" && EMBED_INITRAMFS="1"
-test $1 == vero && VERSION="4.1.12" && REV="4" && EMBED_INITRAMFS="1"
-test $1 == vero2 && VERSION="3.10.61" && REV="1" && EMBED_INITRAMFS="1"
-test $1 == atv && VERSION="4.2.3" && REV="6" && EMBED_INITRAMFS="0"
-test $1 == pc && VERSION="4.2.3" && REV="1" && EMBED_INITRAMFS="1"
+test $1 == rbp1 && VERSION="4.3.0" && REV="6" && FLAGS_INITRAMFS=$(($INITRAMFS_BUILD + $INITRAMFS_EMBED)) && IMG_TYPE="zImage"
+test $1 == rbp2 && VERSION="4.3.0" && REV="6" && FLAGS_INITRAMFS=$(($INITRAMFS_BUILD + $INITRAMFS_EMBED)) && IMG_TYPE="zImage"
+test $1 == vero && VERSION="4.1.12" && REV="5" && FLAGS_INITRAMFS=$(($INITRAMFS_BUILD + $INITRAMFS_EMBED)) && IMG_TYPE="zImage"
+test $1 == vero2 && VERSION="3.10.61" && REV="1" && FLAGS_INITRAMFS=$INITRAMFS_BUILD && IMG_TYPE="uImage"
+test $1 == atv && VERSION="4.2.3" && REV="6" && FLAGS_INITRAMFS=$(($INITRAMFS_NOBUILD)) && IMG_TYPE="zImage"
+test $1 == pc && VERSION="4.2.3" && REV="1" && FLAGS_INITRAMFS=$(($INITRAMFS_BUILD + $INITRAMFS_EMBED)) && IMG_TYPE="zImage"
 if [ $1 == "rbp1" ] || [ $1 == "rbp2" ] || [ $1 == "atv" ] || [ $1 == "pc" ]
 then
 	if [ -z $VERSION ]; then echo "Don't have a defined kernel version for this target!" && exit 1; fi
@@ -25,6 +31,13 @@ fi
 if [ $1 == "vero" ]; then SOURCE_LINUX="https://github.com/osmc/vero-linux/archive/master.tar.gz"; fi
 if [ $1 == "vero2" ]; then SOURCE_LINUX="https://github.com/samnazarko/vero2-linux/archive/master.tar.gz"; fi
 pull_source "${SOURCE_LINUX}" "$(pwd)/src"
+# We need to download busybox and e2fsprogs here because we run initramfs build within chroot and can't pull_source in a chroot
+if ((($FLAGS_INITRAMFS & $INITRAMFS_NOBUILD) != $INITRAMFS_NOBUILD))
+then
+	. initramfs-src/VERSIONS
+	pull_source "http://busybox.net/downloads/busybox-${BUSYBOX_VERSION}.tar.bz2" "$(pwd)/initramfs-src/busybox"
+	pull_source "http://www.kernel.org/pub/linux/kernel/people/tytso/e2fsprogs/v${E2FSPROGS_VERSION}/e2fsprogs-${E2FSPROGS_VERSION}.tar.gz" "$(pwd)/initramfs-src/e2fsprogs"
+fi
 if [ $? != 0 ]; then echo -e "Error downloading" && exit 1; fi
 # Build in native environment
 BUILD_OPTS=$BUILD_OPTION_DEFAULTS
@@ -43,6 +56,7 @@ then
 	handle_dep "cpio"
 	handle_dep "bison"
 	handle_dep "flex"
+	if [ "$1" == "vero2" ]; then handle_dep "abootimg"; fi
 	echo "maintainer := Sam G Nazarko
 	email := email@samnazarko.co.uk
 	priority := High" >/etc/kernel-pkg.conf
@@ -69,7 +83,22 @@ then
 	fi
 	# Conver DTD to DTB
 	if [ "$1" == "vero2" ]; then $BUILD meson8b_vero2.dtd; fi
-	make-kpkg --stem $1 kernel_image --append-to-version -${REV}-osmc --jobs $JOBS --revision $REV
+	# Initramfs time
+	if ((($FLAGS_INITRAMFS & $INITRAMFS_NOBUILD) != $INITRAMFS_NOBUILD))
+	then
+		echo "This device requests an initramfs"
+		pushd ../../initramfs-src
+		$BUILD kernel
+		if [ $? != 0 ]; then echo "Building initramfs failed" && exit 1; fi
+		popd
+		if ((($FLAGS_INITRAMFS & $INITRAMFS_EMBED) == $INITRAMFS_EMBED))
+		then
+			cp -ar ../../initramfs-src/target osmc-initramfs
+			export RAMFSDIR=$(pwd)/osmc-initramfs
+		fi
+	fi
+	if [ "$IMG_TYPE" == "zImage" ] || [ -z "$IMG_TYPE" ]; then make-kpkg --stem $1 kernel_image --append-to-version -${REV}-osmc --jobs $JOBS --revision $REV; fi
+	if [ "$IMG_TYPE" == "uImage" ]; then make-kpkg --uimage --stem $1 kernel_image --append-to-version -${REV}-osmc --jobs $JOBS --revision $REV; fi
 	if [ $? != 0 ]; then echo "Building kernel image package failed" && exit 1; fi
 	make-kpkg --stem $1 kernel_headers --append-to-version -${REV}-osmc --jobs $JOBS --revision $REV
 	if [ $? != 0 ]; then echo "Building kernel headers package failed" && exit 1; fi
