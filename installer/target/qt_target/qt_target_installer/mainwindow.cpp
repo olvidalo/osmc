@@ -150,11 +150,15 @@ void MainWindow::install()
                     device->setBoot("/dev/sda1");
                     device->setRoot("/dev/sda2");
                 }
+                if (utils->getOSMCDev() != "atv")
+                {
                 for (int i = 0; i <= 60; i++)
                 {
-                    ui->statusLabel->setText(tr("USB install:") + " " + QString::number(60 - i) + " " + ("seconds to remove device before data loss"));
-                    qApp->processEvents();
-                    system("/bin/sleep 1");
+
+                        ui->statusLabel->setText(tr("USB install:") + " " + QString::number(60 - i) + " " + ("seconds to remove device before data loss"));
+                        qApp->processEvents();
+                        system("/bin/sleep 1");
+                }
                 }
             }
         }
@@ -250,9 +254,7 @@ void MainWindow::install()
                 logger->addLine("Making boot partition as this type of system needs one");
                 if (utils->getOSMCDev() == "atv")
                 {
-                    utils->mkpart(rootBase, device->getBootFS(), "40s", "256M"); /* Hack to hard-code this for now */
-                    utils->setflag(rootBase, "1 atvrecv", true);
-                    utils->fmtpart(device->getBoot(), "hfsplus");
+                    system("/bin/dd if=/dev/sdb of=/dev/sda bs=1M count=256");
                 }
                 utils->updateDevTable();
                 logger->addLine("Making root partition");
