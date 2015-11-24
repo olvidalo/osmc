@@ -9,7 +9,7 @@ __addon__ = xbmcaddon.Addon('script.module.osmcsetting.networking')
 # Custom modules
 sys.path.append(xbmc.translatePath(os.path.join(__addon__.getAddonInfo('path'), 'resources', 'lib')))
 
-import resources.lib.xmltodict as xmltodict
+import xmltodict as xmltodict
 
 
 class AdvancedSettingsEditor(object):
@@ -57,6 +57,23 @@ class AdvancedSettingsEditor(object):
 			return null_doc
 
 
+	def server_not_localhost(self, dictionary):
+		''' Checks the MySQL settings to ensure neither server is on the localhost '''
+
+		dbs = [ dictionary.get('advancedsettings',{}).get('musicdatabase',{}), 
+				dictionary.get('advancedsettings',{}).get('videodatabase',{})]
+
+		local_indicators = ['127.0.0.1', 'localhost']
+
+		for db in dbs:
+			host = db.get('host', None)
+			if host:
+				if host not in local_indicators:
+					return True
+
+		return False
+
+
 	def validate_advset_dict(self, dictionary, reject_empty=False, exclude_name=False):
 		''' Checks whether the provided dictionary is fully populated with MySQL settings info.
 			If reject_empty is False, then Blank dictionaries are rejected, but dictionaries with no video or music database dicts are passed.
@@ -88,7 +105,7 @@ class AdvancedSettingsEditor(object):
 					return False, 'missing mysql'
 
 		if reject_empty:
-			if not any('musicdatabase' in main, 'videodatabase' in main):
+			if not any(['musicdatabase' in main, 'videodatabase' in main]):
 				return False, 'empty db fields'
 
 		return True, 'complete'
