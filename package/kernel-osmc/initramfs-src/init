@@ -41,16 +41,16 @@ echo /bin/busybox mdev > /proc/sys/kernel/hotplug
 for option in $(/bin/busybox cat /proc/cmdline); do
 	case $option in
 	  rootdelay=*)
-	    OPTION_ROOTDELAY="${arg#*=}"
+	    OPTION_ROOTDELAY="${option#*=}"
 	    ;;
 	  root=*)
-		OPTION_ROOT="${arg#*=}"
+		OPTION_ROOT="${option#*=}"
 		;;
 	  rootfstype=*)
-		OPTION_FILESYSTEM="${arg#*=}"
+		OPTION_FILESYSTEM="${option#*=}"
 		;;
 	  init=*)
-		OPTION_INIT="${arg#*=}"
+		OPTION_INIT="${option#*=}"
 		;;
 	  nfsroot=*)
 		OPTION_BOOTS_NFS="1"
@@ -108,6 +108,9 @@ fi
 # Let's set up the new mountpoint and move our mounts over
 
 /bin/busybox mkdir -p "$OPTION_MOUNT_PATH"
+/bin/busybox mkdir -p "$OPTION_MOUNT_PATH"/dev
+/bin/busybox mkdir -p "$OPTION_MOUNT_PATH"/proc
+/bin/busybox mkdir -p "$OPTION_MOUNT_PATH"/sys
 /bin/busybox mount --move /dev "$OPTION_MOUNT_PATH"/dev
 /bin/busybox mount --move /proc "$OPTION_MOUNT_PATH"/proc
 /bin/busybox mount --move /sys "$OPTION_MOUNT_PATH"/sys
@@ -124,8 +127,8 @@ then
 	# If we checked the filesystem, tell systemd
 	if [ "$OPTION_DO_FSCK" -eq 1 ]
 	then
-	mkdir -p "$OPTION_MOUNT_PATH"/run/initramfs
-	touch "$OPTION_MOUNT_PATH"/run/initramfs/fsck-root
+	/bin/busybox mkdir -p "$OPTION_MOUNT_PATH"/run/initramfs
+	/bin/busybox touch "$OPTION_MOUNT_PATH"/run/initramfs/fsck-root
 	fi
 	exec switch_root "$OPTION_MOUNT_PATH" "$OPTION_INIT"
 else
