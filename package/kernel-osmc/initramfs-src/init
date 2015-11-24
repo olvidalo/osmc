@@ -3,7 +3,7 @@
 # (c) 2014-2015 Sam Nazarko
 # email@samnazarko.co.uk
 
-# Device specific settings and defaults
+# Abstract settings and defaults
 
 print_message()
 {
@@ -24,6 +24,9 @@ OPTION_MOUNT_PATH="/real_root"
 /bin/busybox mount -t devtmpfs devtmpfs /dev
 /bin/busybox mount -t proc proc /proc
 /bin/busybox mount -t sysfs sysfs /sys
+
+# Load platform specific stuff
+. init-device
 
 # A nicer console
 
@@ -119,6 +122,15 @@ fi
 echo "" > /proc/sys/kernel/hotplug
 
 # Let's try and mount
+
+if [ "$OPTION_ROOTDELAY" -gt 0 ]
+then
+	COUNTER=0
+	while [ "$COUNTER" -lt "$OPTION_ROOTDELAY" ]
+	do
+		sleep 1
+	done
+fi
 
 /bin/busybox mount "$OPTION_ROOT" "$OPTION_MOUNT_PATH" "$OPTION_MOUNT_OPTIONS" "$OPTION_FILESYSTEM"
 mount_result="$?"
