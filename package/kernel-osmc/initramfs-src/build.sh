@@ -19,6 +19,7 @@ fi
 fi
 echo "Building initramfs for target ${1}"
 make clean
+update_sources
 handle_dep "autoconf"
 
 if [ "$1" == "cpio" ]
@@ -28,11 +29,14 @@ then
         #rm -rf e2fsprogs >/dev/null 2>&1
 	handle_dep "cpio"
 	handle_dep "wget" # Hack for poor man's pull_source
+	handle_dep "ca-certificates" # kernel.org redirects to HTTPS
 	# Use wget to get resources, as pull_source not compatible in chroot. Do not use in production
 	wget "http://busybox.net/downloads/busybox-${BUSYBOX_VERSION}.tar.bz2"
+	if [ $? != 0 ]; then echo "Could not get busybox sources" && exit 1; fi
 	mkdir -p $(pwd)/busybox
 	tar -xvf busybox-${BUSYBOX_VERSION}.tar.bz2 -C "$(pwd)/busybox"
-	wget "http://www.kernel.org/pub/linux/kernel/people/tytso/e2fsprogs/v${E2FSPROGS_VERSION}/e2fsprogs-${E2FSPROGS_VERSION}.tar.gz" 
+	wget "http://www.kernel.org/pub/linux/kernel/people/tytso/e2fsprogs/v${E2FSPROGS_VERSION}/e2fsprogs-${E2FSPROGS_VERSION}.tar.gz"
+	if [ $? != 0 ]; then echo "Could not get e2fsprogs sources" && exit 1; fi
 	mkdir -p $(pwd)/e2fsprogs
 	tar -xvf e2fsprogs-${E2FSPROGS_VERSION}.tar.gz -C "$(pwd)/e2fsprogs"
 fi
@@ -61,7 +65,7 @@ mkdir -p target/etc
 mkdir -p target/dev
 install -m 0755 e2fsprogs/e2fsprogs-${E2FSPROGS_VERSION}/e2fsck/e2fsck target/bin/e2fsck
 install -m 0755 busybox/busybox-${BUSYBOX_VERSION}/busybox target/bin/busybox
-install -m 0755 init.sh target/sbin/init
+install -m 0755 init.sh target/init
 ln -s target/bin/e2fsck target/bin/fsck.ext4
 ln -s target/bin/e2fsck target/bin/fsck.ext3
 ln -s target/bin/e2fsck target/bin/fsck.ext2
