@@ -201,11 +201,11 @@ then
 	./bootstrap
 	# Apple TV configuration
 	test "$1" == atv && \
-	COMPFLAGS="-O3 -fomit-frame-pointer -I/usr/include/libcrystalhd " && \
+        COMPFLAGS="-O3 -fomit-frame-pointer -I/usr/include/libcrystalhd  -Wl,-rpath=/usr/osmc/lib -L/usr/osmc/lib " && \	
 	export CFLAGS+=${COMPFLAGS} && \
 	export CXXFLAGS+=${COMPFLAGS} && \
 	export CPPFLAGS+=${COMPFLAGS} && \
-	export LDFLAGS="-R/usr/osmc/lib" & \
+	export LDFLAGS="" & \
 	./configure \
 		--prefix=/usr \
 		--disable-vtbdecoder \
@@ -237,11 +237,11 @@ then
 	fi
 	if [ "$1" == "rbp1" ] || [ "$1" == "rbp2" ]; then
 	LIBRARY_PATH+=/opt/vc/lib && \
-	COMPFLAGS+="-I/opt/vc/include -I/opt/vc/include/interface -I/opt/vc/include/interface/vcos/pthreads -I/opt/vc/include/interface/vmcs_host/linux" && \
+	COMPFLAGS+="-I/opt/vc/include -I/opt/vc/include/interface -I/opt/vc/include/interface/vcos/pthreads -I/opt/vc/include/interface/vmcs_host/linux -Wl,-rpath=/usr/osmc/lib -L/usr/osmc/lib " && \
 	export CFLAGS+=${COMPFLAGS} && \
 	export CXXFLAGS+=${COMPFLAGS} && \
 	export CPPFLAGS+=${COMPFLAGS} && \
-	export LDFLAGS="-L/opt/vc/lib -R/usr/osmc/lib" && \
+	export LDFLAGS="-L/opt/vc/lib" && \
 	./configure \
 		--prefix=/usr \
 		--enable-gles \
@@ -265,11 +265,11 @@ then
 	fi
 	if [ "$1" == "vero" ]; then
 	LIBRARY_PATH+="/opt/vero/lib" && \
-	COMPFLAGS="-I/opt/vero/include" && \
+	COMPFLAGS="-I/opt/vero/include -Wl,-rpath=/usr/osmc/lib -L/usr/osmc/lib " && \
 	export CFLAGS+=${COMPFLAGS} && \
 	export CXXFLAGS+=${COMPFLAGS} && \
 	export CPPFLAGS+=${COMPFLAGS} && \
-	export LDFLAGS="-L/opt/vero/lib -R/usr/osmc/lib" && \
+	export LDFLAGS="-L/opt/vero/lib" && \
 	./configure \
 		--prefix=/usr \
 		--disable-x11 \
@@ -294,11 +294,11 @@ then
 	fi
         if [ "$1" == "vero2" ]; then
         LIBRARY_PATH+="/opt/vero2/lib" && \
-        COMPFLAGS="-I/opt/vero2/include" && \
+        COMPFLAGS="-I/opt/vero2/include -Wl,-rpath=/usr/osmc/lib -L/usr/osmc/lib " && \
         export CFLAGS+=${COMPFLAGS} && \
         export CXXFLAGS+=${COMPFLAGS} && \
         export CPPFLAGS+=${COMPFLAGS} && \
-        export LDFLAGS="-L/opt/vero2/lib -R/usr/osmc/lib" && \
+        export LDFLAGS="-L/opt/vero2/lib" && \
         ./configure \
                 --prefix=/usr \
                 --disable-x11 \
