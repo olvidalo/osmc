@@ -11,12 +11,19 @@ print_message()
 	echo -e "\n\n\n\n\nOSMC initrd\n\n${1}"
 }
 
+install_busybox_symlinks()
+{
+        # Installs BusyBox symlinks to make the shell actually usable
+	/bin/busybox --install -s
+}
+
 OPTION_DO_FSCK="1"
 OPTION_ROOT="/dev/mmcblk0p2"
 OPTION_ROOTDELAY="0"
 OPTION_FILESYSTEM="ext4"
 OPTION_INIT="/sbin/splash_early"
-OPTION_MOUNT_OPTIONS="-o "
+# Each concatenated mount option should have a leading comma.
+OPTION_MOUNT_OPTIONS=""
 OPTION_MOUNT_PATH="/real_root"
 OPTION_NFS_IP_TYPE="dhcp"
 
@@ -25,6 +32,7 @@ OPTION_NFS_IP_TYPE="dhcp"
 /bin/busybox mount -t devtmpfs devtmpfs /dev
 /bin/busybox mount -t proc proc /proc
 /bin/busybox mount -t sysfs sysfs /sys
+/bin/busybox mount -t tmpfs tmpfs /run
 
 # Load platform specific stuff
 . init-device
@@ -70,6 +78,7 @@ for option in $(/bin/busybox cat /proc/cmdline); do
 		OPTION_DO_FSCK="0"
 		;;
 	  osmcrescue)
+		install_busybox_symlinks
 		/bin/busybox sh
 		;;
 	 esac
@@ -82,25 +91,21 @@ then
 	# Verify filesystem integrity
 	FSCK_BIN="/bin/e2fsck"
 	if [ -f /bin/fsck.${OPTION_FILESYSTEM} ]; then FSCK_BIN="/bin/fsck.${OPTION_FILESYSTEM}"; fi
-	$FSCK_BIN -a "$OPTION_ROOT" >/dev/null 2>&1
+	$FSCK_BIN -p "$OPTION_ROOT" >/dev/null 2>&1
 	fsck_result="$?"
-	# 0 == no error
-	# 1 == filesystem errors corrected
-	# 2 == reboot needed
-	# 4 == not fully repaired. need to force.
-	if [ "$fsck_result" -eq 2 ]
+	if [ "$(( $fsck_result & 2 ))" = 2 ]
 	then
 		print_message "OSMC has repaired some filesystem corruption on your system and needs to reboot"
 		/bin/busybox sleep 10
 		/bin/busybox reboot
 	fi
-		if [ "$fsck_result" -eq 4 ]
+		if [ "$(( $fsck_result & 4 ))" = 4 ]
 	then
 		print_message "OSMC is significantly corrupted. We will our best to repair this system"
 		/bin/busybox sleep 5
-		$FSCK_BIN -y
+		$FSCK_BIN -y "$OPTION_ROOT"
 		fsck_result="$?"
-		if [ "$fsck_result" -eq 8 ]
+		if [ "$(( $fsck_result & 8 ))" = 8 ]
 		then
 			# We are broken for good
 			print_message "OSMC cannot repair the filesystem. Please re-install OSMC from osmc.tv/download"
@@ -114,18 +119,10 @@ then
 	fi
 fi
 
-# Let's set up the new mountpoint and move our mounts over
-
 /bin/busybox mkdir -p "$OPTION_MOUNT_PATH"
-/bin/busybox mkdir -p "$OPTION_MOUNT_PATH"/dev
-/bin/busybox mkdir -p "$OPTION_MOUNT_PATH"/proc
-/bin/busybox mkdir -p "$OPTION_MOUNT_PATH"/sys
-/bin/busybox mount --move /dev "$OPTION_MOUNT_PATH"/dev
-/bin/busybox mount --move /proc "$OPTION_MOUNT_PATH"/proc
-/bin/busybox mount --move /sys "$OPTION_MOUNT_PATH"/sys
 
 # Deactivate the hotplugger. systemd will take over
-echo "" > "$OPTION_MOUNT_PATH"/proc/sys/kernel/hotplug
+echo "" > /proc/sys/kernel/hotplug
 
 # Let's try and mount
 
@@ -135,6 +132,7 @@ then
 	while [ "$COUNTER" -lt "$OPTION_ROOTDELAY" ]
 	do
 		/bin/busybox sleep 1
+		COUNTER=$((COUNTER+1))
 	done
 fi
 
@@ -159,22 +157,31 @@ then
                 /bin/ifconfig eth0 "$NFS_IP_ADDR" "NFS_IP_GW" "$NFS_IP_MASK"
                 /bin/route add default gw "$NFS_IP_GW" eth0
         fi
-
+else
+	OPTION_MOUNT_OPTIONS="ro${OPTION_MOUNT_OPTIONS}"
 fi
 
-/bin/busybox mount -t "$OPTION_FILESYSTEM" "$OPTION_ROOT" "$OPTION_MOUNT_PATH" "$OPTION_MOUNT_OPTIONS"
+if [ "$OPTION_MOUNT_OPTIONS" ]; then OPTION_MOUNT_OPTIONS="-o $OPTION_MOUNT_OPTIONS"; fi
+/bin/busybox mount -t "$OPTION_FILESYSTEM" "$OPTION_ROOT" "$OPTION_MOUNT_PATH" $OPTION_MOUNT_OPTIONS
 mount_result="$?"
 if [ "$mount_result" -eq 0 ]
 then
 	# If we checked the filesystem, tell systemd
 	if [ "$OPTION_DO_FSCK" -eq 1 ]
 	then
-	/bin/busybox mkdir -p "$OPTION_MOUNT_PATH"/run/initramfs
-	/bin/busybox touch "$OPTION_MOUNT_PATH"/run/initramfs/fsck-root
+		/bin/busybox mkdir -p /run/initramfs
+		/bin/busybox touch /run/initramfs/fsck-root
+		/bin/busybox cat /fsck.log >/dev/kmsg 2>/dev/null
 	fi
-	exec switch_root "$OPTION_MOUNT_PATH" "$OPTION_INIT"
+	# Let's move our mounts over
+	/bin/busybox mount --move /dev "$OPTION_MOUNT_PATH"/dev
+	/bin/busybox mount --move /proc "$OPTION_MOUNT_PATH"/proc
+	/bin/busybox mount --move /sys "$OPTION_MOUNT_PATH"/sys
+	/bin/busybox mount --move /run "$OPTION_MOUNT_PATH"/run
+	exec /bin/busybox switch_root "$OPTION_MOUNT_PATH" "$OPTION_INIT" $*
 else
 	print_message "OSMC cannot mount $OPTION_ROOT of $OPTION_FILESYSTEM filesystem"
 	# Drop to a shell
+	install_busybox_symlinks
 	/bin/busybox sh
 fi

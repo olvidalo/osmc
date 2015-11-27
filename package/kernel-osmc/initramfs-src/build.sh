@@ -11,12 +11,12 @@ if [ -z "$1" ]; then echo -e "No target defined" && exit 1; fi
 if [ -z "$2" ]; then echo -e "No device defined" && exit 1; fi
 if [ "$1" == "cpio" ]
 then
-ischroot
-chroot_result=$?
-if [ "$chroot_result" -eq 0 ] || [ "$chroot_result" -eq 1 ]
-then
-	echo -e "Initramfs must be built within an OSMC chroot toolchain" && exit 1
-fi
+    ischroot
+    chroot_result=$?
+    if [ "$chroot_result" -eq 0 ] || [ "$chroot_result" -eq 1 ]
+    then
+        echo -e "Initramfs must be built within an OSMC chroot toolchain" && exit 1
+    fi
 fi
 echo "Building initramfs for target ${1}"
 make clean
@@ -50,7 +50,7 @@ popd
 echo "Compiling e2fsprogs"
 pushd e2fsprogs/e2fsprogs-${E2FSPROGS_VERSION}
 # NB: can't build static because of pthread, which is part of glibc.
-./configure --prefix=/usr
+./configure --prefix=/usr --sysconfdir=/etc
 $BUILD
 if [ $? != 0 ]; then echo "Error occured during build" && exit 1; fi
 popd
@@ -64,15 +64,19 @@ mkdir -p target/tmp
 mkdir -p target/var
 mkdir -p target/etc
 mkdir -p target/dev
+mkdir -p target/run
+mkdir -p target/init.d
 mkdir -p target/usr/share/udhcpc
 install -m 0755 e2fsprogs/e2fsprogs-${E2FSPROGS_VERSION}/e2fsck/e2fsck target/bin/e2fsck
 install -m 0755 busybox/busybox-${BUSYBOX_VERSION}/busybox target/bin/busybox
 install -m 0755 init target/init
-install -m 0755 init.d/${2} init-device
+install -m 0755 init.d/${2} target/init-device
 cp -ar udhcpc.script target/usr/share/udhcpc/default.script
+cp -ar e2fsck.conf target/etc/e2fsck.conf
 ln -s target/bin/e2fsck target/bin/fsck.ext4
 ln -s target/bin/e2fsck target/bin/fsck.ext3
 ln -s target/bin/e2fsck target/bin/fsck.ext2
+ln -s /proc/mounts target/etc/mtab
 mknod target/dev/console c 5 1
 mknod target/dev/ttyS0 c 204 64
 mknod target/dev/null c 1 3
@@ -81,10 +85,10 @@ for line in $(ldd target/bin/e2fsck); do if (echo $line | grep -q /lib); then cp
 for line in $(ldd target/bin/busybox); do if (echo $line | grep -q /lib); then cp $line target/lib; fi; done
 if [ "$1" == "cpio" ]
 then
-pushd target
-# cpio
-find . | cpio -H newc -o > initramfs.cpio
-cat initramfs.cpio | gzip > initramfs.gz
-mv initramfs.gz ../
+    pushd target
+    # cpio
+    find . | cpio -H newc -o > initramfs.cpio
+    cat initramfs.cpio | gzip > initramfs.gz
+    mv initramfs.gz ../
 fi
 echo "Initramfs built successfully"

@@ -1,27 +1,32 @@
-#!/usr/bin/env python
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
+'''
 
-# Listens to Bluez dbus for a Media connection and on change of track will
-# send a JSON-RPC request with the song details to Kodi which starts
-# BTPlayer (a dummy player that allows us to display the details of the
-# track playing via a2dp) On Pause or stop of a song a request for BTPlayer
-# to stop
+ This Program is free software; you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation; either version 2, or (at your option)
+ any later version.
 
-# (curenntly assumes the Kodi webserver is running on 8080 with no password)
+ This Program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ GNU General Public License for more details.
 
-# Dependencies:
-# sudo apt-get install -y python-gobject python-requests
-
-
+ You should have received a copy of the GNU General Public License
+ along with XBMC; see the file COPYING.  If not, write to
+ the Free Software Foundation, 675 Mass Ave, Cambridge, MA 02139, USA.
+ http://www.gnu.org/copyleft/gpl.html
+'''
 import time
+import xbmc
+
 import signal
 import dbus
 import dbus.service
 import dbus.mainloop.glib
 import gobject
-import requests
+import threading
 import json
-import urllib
-
 
 SERVICE_NAME = "org.bluez"
 AGENT_IFACE = SERVICE_NAME + '.Agent1'
@@ -30,7 +35,7 @@ DEVICE_IFACE = SERVICE_NAME + ".Device1"
 PLAYER_IFACE = SERVICE_NAME + '.MediaPlayer1'
 TRANSPORT_IFACE = SERVICE_NAME + '.MediaTransport1'
 
-class A2DPInfo():
+class A2DPInfo(threading.Thread):
     bus = None
     mainloop = None
     device = None
@@ -43,9 +48,7 @@ class A2DPInfo():
 
     def __init__(self):
         """Specify a signal handler, and find any connected media players"""
-        gobject.threads_init()
-        dbus.mainloop.glib.DBusGMainLoop(set_as_default=True)
-
+        super(A2DPInfo, self).__init__()
 
         self.bus = dbus.SystemBus()
 
@@ -57,8 +60,9 @@ class A2DPInfo():
 
         self.findPlayer()
 
-    def start(self):
+    def run(self):
         """Start the BluePlayer by running the gobject Mainloop()"""
+        gobject.threads_init()
         self.mainloop = gobject.MainLoop()
         self.mainloop.run()
 
@@ -134,33 +138,54 @@ class A2DPInfo():
             self.trackPlaying(artist, track, album)
 
     def sendJSONRPC(self, method, params={}):
-        try:
-            headers = {'content-type': 'application/json'}
-            #Base URL of the json RPC calls.
-            xbmc_json_rpc_url = "http://localhost:8080/jsonrpc"
-
-            payload = {"jsonrpc": "2.0", "method": method, "params" :params,"id": 1}
-            url_param = urllib.urlencode({'request': json.dumps(payload)})
-            response =  requests.get(xbmc_json_rpc_url + '?' + url_param,
-                                     headers=headers)
-            return json.loads(response.text)["result"]
-        except Exception as ex:
-            print "Error Sending JSON Request : " + str(payload) + " - "  + format(ex)
+#        try:
+            payload = json.dumps({"jsonrpc": "2.0", "method": method, "params" :params,"id": 1})
+            print payload
+            print xbmc.executeJSONRPC(payload)
+            
+#        except Exception as ex:
+#            print "Error Sending JSON Request : " + str(json_payload) + " - "  + format(ex)
 
     def trackPlaying(self, artist, track, album=""):
         params = {"artist" : artist ,"track" : track, "album": album }
         return self.sendJSONRPC("OSMC.StartBTPlayer", params)
 
-    def stopA2DP(self):    
+    def stopA2DP(self):
+        print "stop A2DP"
         return self.sendJSONRPC("OSMC.StopBTPlayer")
 
+class XBMCMonitor( xbmc.Monitor ):
+
+        def onNotification(self, sender, method, data):
+            print "sender = " + sender
+            print "method = " + method
+            print "data = " + data
+
+                                  
 if __name__ == "__main__":
-    player = None
-    print "A2DP Info Service Started"
+    xbmc.log("A2DP Info Starting", level=xbmc.LOGDEBUG)
     try:
-        player = A2DPInfo()
-        player.start()
-    except Exception as ex:
-        print("How embarrassing. The following error occurred {}".format(ex))
+        dbus.mainloop.glib.DBusGMainLoop(set_as_default=True)
+        a2dpInfo = A2DPInfo()
+        a2dpInfo.start()
+        xbmc.log("Bluez Monitor Started", level=xbmc.LOGDEBUG)
+
+        monitor = XBMCMonitor()
+        
+        while not monitor.abortRequested():
+            # Sleep/wait for abort for 10 seconds
+            if monitor.waitForAbort(3):
+                # Abort was requested while waiting. We should exit
+                break
+            # Would like to be able to get events when the track change buttons
+            # are pressed here and if its from BTPlayer we can then pass that event
+            # via AVRCP bluez dbus to change the track
+            
+                
+    except Exception as e:
+        print(e)
     finally:
-        if player: player.end()
+        a2dpInfo.end()
+
+    xbmc.log("A2DP Info ended", level=xbmc.LOGDEBUG)
+                            
