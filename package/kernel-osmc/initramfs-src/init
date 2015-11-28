@@ -67,9 +67,8 @@ for option in $(/bin/busybox cat /proc/cmdline); do
 	  nfsroot=*)
 		OPTION_DO_FSCK="0"
 		OPTION_FILESYSTEM="nfs"
-		OPTION_ROOT="${option#*=}"
-		OPTION_MOUNT_OPTIONS="$(echo $OPTION_ROOT | /bin/busybox cut -f 2 -d ,)"
-		OPTION_ROOT="$(echo $OPTION_ROOT | /bin/busybox cut -f 1 -d ,)"
+		OPTION_ROOT=$(echo "${option#*=}" | /bin/busybox cut -f 1 -d,)
+		OPTION_MOUNT_OPTIONS=$(echo "${option#*=},nolock" | /bin/busybox cut -sf 2- -d,)
 		;;
 	  ip=*)
 		OPTION_NFS_IP_TYPE="${option#*=}"
@@ -91,31 +90,36 @@ then
 	# Verify filesystem integrity
 	FSCK_BIN="/bin/e2fsck"
 	if [ -f /bin/fsck.${OPTION_FILESYSTEM} ]; then FSCK_BIN="/bin/fsck.${OPTION_FILESYSTEM}"; fi
-	$FSCK_BIN -p "$OPTION_ROOT" >/dev/null 2>&1
+	echo -e "\n\n\n\n"
+	$FSCK_BIN -p -C 0 "$OPTION_ROOT"
 	fsck_result="$?"
-	if [ "$(( $fsck_result & 2 ))" = 2 ]
+	if [ "$(( $fsck_result & 2 ))" -gt 0 ]
 	then
-		print_message "OSMC has repaired some filesystem corruption on your system and needs to reboot"
+		print_message "OSMC has repaired minor filesystem corruption on your system that requires a reboot. Rebooting in 10 seconds."
 		/bin/busybox sleep 10
 		/bin/busybox reboot
 	fi
-		if [ "$(( $fsck_result & 4 ))" = 4 ]
+	if [ "$(( $fsck_result & 12 ))" -gt 0 ]
 	then
-		print_message "OSMC is significantly corrupted. We will our best to repair this system"
+		print_message "Serious file system corruption found. We will do our best to repair this now."
 		/bin/busybox sleep 5
-		$FSCK_BIN -y "$OPTION_ROOT"
+		$FSCK_BIN -f -y -C 0 "$OPTION_ROOT"
 		fsck_result="$?"
-		if [ "$(( $fsck_result & 8 ))" = 8 ]
+		if [ "$(( $fsck_result & 2 ))" -gt 0 ]
 		then
-			# We are broken for good
-			print_message "OSMC cannot repair the filesystem. Please re-install OSMC from osmc.tv/download"
-			while true
-			do
-				/bin/busybox sleep 1
-			done
+			print_message "OSMC has repaired major filesystem corruption on your system that requires a reboot. Rebooting in 10 seconds."
+			/bin/busybox sleep 10
+			/bin/busybox reboot
 		fi
-		print_message "OSMC has repaired your filesystem"
-		/bin/busybox sleep 10
+		if [ "$(( $fsck_result & 12 ))" -gt 0 ]
+		then
+			# Something is wrong that we can't fix. Warn the user but let them attempt to boot anyway in case some data can be backed up.
+			print_message "WARNING: OSMC cannot repair the filesystem and serious corruption may still exit. We recommend backing up any critical data and performing a fresh install of OSMC. Attempting to resume startup in 30 seconds."
+			/bin/busybox sleep 30
+		else
+			print_message "OSMC has successfully repaired your filesystem. Resuming startup in 10 seconds."
+			/bin/busybox sleep 10
+		fi
 	fi
 fi
 
@@ -139,23 +143,21 @@ fi
 if [ "$OPTION_FILESYSTEM" == "nfs" ]
 then
 	# Bring up the network
-	/bin/busybox mkdir -p /var/run/ifstate
+	/bin/busybox mkdir -p /var/run
 	if echo $OPTION_NFS_IP_TYPE | /bin/busybox grep -q "dhcp"
 	then
 		/bin/busybox mkdir -p /etc/network
 		/bin/busybox mkdir -p /etc/network/if-up.d
 		echo "auto eth0
 		iface eth0 inet dhcp" > /etc/network/interfaces
-		/bin/busybox ifup eth0
-		/bin/busybox udhcpc -i eth0
-		/bin/busybox ifconfig
-		/bin/busybox sleep 10
+		/bin/busybox ifup eth0 > /dev/null 2>&1
+		/bin/busybox udhcpc -i eth0 > /dev/null 2>&1
 	else
-		NFS_IP_ADDR=$(echo $ip | cut -d : -f 1)
-                NFS_IP_GW=$(echo $ip | cut -d : -f 3)
-                NFS_IP_MASK=$(echo $ip | cut -d : -f 4)
-                /bin/ifconfig eth0 "$NFS_IP_ADDR" "NFS_IP_GW" "$NFS_IP_MASK"
-                /bin/route add default gw "$NFS_IP_GW" eth0
+		NFS_IP_ADDR=$(echo $OPTION_NFS_IP_TYPE | /bin/busybox cut -d : -f 1)
+                NFS_IP_GW=$(echo $OPTION_NFS_IP_TYPE | /bin/busybox cut -d : -f 3)
+                NFS_IP_MASK=$(echo $OPTION_NFS_IP_TYPE | /bin/busybox cut -d : -f 4)
+                /bin/busybox ifconfig eth0 "$NFS_IP_ADDR" netmask "$NFS_IP_MASK" up > /dev/null 2>&1
+                /bin/busybox route add default gw "$NFS_IP_GW" eth0 >/dev/null 2>&1
         fi
 else
 	OPTION_MOUNT_OPTIONS="ro${OPTION_MOUNT_OPTIONS}"
@@ -171,7 +173,10 @@ then
 	then
 		/bin/busybox mkdir -p /run/initramfs
 		/bin/busybox touch /run/initramfs/fsck-root
-		/bin/busybox cat /fsck.log >/dev/kmsg 2>/dev/null
+		while read -r line
+		do
+			echo "fsck: $line" >/dev/kmsg
+		done 2>/dev/null </fsck.log
 	fi
 	# Let's move our mounts over
 	/bin/busybox mount --move /dev "$OPTION_MOUNT_PATH"/dev
