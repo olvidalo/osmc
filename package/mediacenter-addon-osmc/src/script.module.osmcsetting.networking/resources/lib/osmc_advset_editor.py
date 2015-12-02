@@ -1,7 +1,9 @@
 
 import os
 import re
+import subprocess
 import sys
+
 import xbmc
 import xbmcaddon
 
@@ -40,22 +42,32 @@ class AdvancedSettingsEditor(object):
 
 		self.log('advancedsettings file exists = %s' % os.path.isfile(loc))
 
-		if os.path.isfile(loc):
+		if not os.path.isfile(loc): return null_doc
 
+		try:
 			with open(loc, 'r') as f:
 				lines = f.readlines()
 			
 			if not lines:
 				self.log('advancedsettings.xml file is empty')
-				return null_doc
+				raise
 
 			with open(loc, 'r') as f:
 				doc = xmltodict.parse(f)
 
-			return doc
+			# ensure empty advancedsettings nodes are ignored
+			if not doc.get('advancedsettings', None):
+				self.log('advancedsettings node in advancedsettings.xml file is empty')
+				raise
 
-		else:
+			else:
+				return doc
+
+		except:
+			self.log('error occured reading advancedsettings.xml file')
+
 			return null_doc
+
 
 
 	def server_not_localhost(self, dictionary):
@@ -116,6 +128,16 @@ class AdvancedSettingsEditor(object):
 
 	def write_advancedsettings(self, loc, dictionary):
 		''' Writes the supplied dictionary back to the advancedsettings.xml file '''
+
+		if not dictionary.get('advancedsettings', None):
+
+			self.log('Empty dictionary passed to advancedsettings file writer. Preventing write, backing up and removing file.')
+
+			subprocess.call(['sudo', 'cp', loc, loc.replace('advancedsettings.xml', 'advancedsettings_backup.xml')])
+
+			subprocess.call(['sudo', 'rm', '-f', loc])
+
+			return
 
 		with open(loc, 'w') as f:
 			xmltodict.unparse(  input_dict = dictionary, 
