@@ -1,25 +1,25 @@
-From fcc5131440700be665406ce9c59f6f3fcb9677c4 Mon Sep 17 00:00:00 2001
+From 6b916c736adc22209987acefff2a424322c28c3e Mon Sep 17 00:00:00 2001
 From: Sam Nazarko <email@samnazarko.co.uk>
 Date: Wed, 2 Dec 2015 18:13:38 +0000
 Subject: [PATCH] Improved user agent for statistic gathering
 
 Signed-off-by: Sam Nazarko <email@samnazarko.co.uk>
 ---
- xbmc/utils/SystemInfo.cpp | 134 +---------------------------------------------
- 1 file changed, 1 insertion(+), 133 deletions(-)
+ xbmc/utils/SystemInfo.cpp | 135 +---------------------------------------------
+ 1 file changed, 2 insertions(+), 133 deletions(-)
 
 diff --git a/xbmc/utils/SystemInfo.cpp b/xbmc/utils/SystemInfo.cpp
-index 1af6c06..4149216 100644
+index d38502c..337ebe6 100644
 --- a/xbmc/utils/SystemInfo.cpp
 +++ b/xbmc/utils/SystemInfo.cpp
-@@ -1087,139 +1087,7 @@ std::string CSysInfo::GetHddSpaceInfo(int& percent, int drive, bool shortText)
+@@ -1088,139 +1088,8 @@ std::string CSysInfo::GetHddSpaceInfo(int& percent, int drive, bool shortText)
  std::string CSysInfo::GetUserAgent()
  {
    static std::string result;
 -  if (!result.empty())
 -    return result;
 -
--  result = GetAppName() + "/" + (std::string)g_infoManager.GetLabel(SYSTEM_BUILD_VERSION_SHORT) + " (";
+-  result = GetAppName() + "/" + CSysInfo::GetVersionShort() + " (";
 -#if defined(TARGET_WINDOWS)
 -  result += GetKernelName() + " " + GetKernelVersion();
 -  BOOL bIsWow = FALSE;
@@ -145,14 +145,15 @@ index 1af6c06..4149216 100644
 -
 -  result += " App_Bitness/" + StringUtils::Format("%d", GetXbmcBitness());
 -
--  std::string fullVer(g_infoManager.GetLabel(SYSTEM_BUILD_VERSION));
+-  std::string fullVer(CSysInfo::GetVersion());
 -  StringUtils::Replace(fullVer, ' ', '-');
 -  result += " Version/" + fullVer;
 -
 +  result = "OSMC " + GetOsVersion() + " running " + GetAppName() + "/" + (std::string)g_infoManager.GetLabel(SYSTEM_BUILD_VERSION_SHORT) + " (Linux)";
++   
    return result;
  }
  
 -- 
-2.1.0
+2.1.4
 
