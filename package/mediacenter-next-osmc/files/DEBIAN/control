@@ -9,4 +9,4 @@ Maintainer: Sam G Nazarko <email@samnazarko.co.uk>
 Description: Media Center package for OSMC
 Architecture: armhf
 Installed-Size: 95528
-Package: rbp2-mediacenter-osmc
+Package: rbp1-mediacenter-osmc
