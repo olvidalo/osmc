@@ -8,5 +8,5 @@ Conflicts: xbmc, kodi
 Maintainer: Sam G Nazarko <email@samnazarko.co.uk>
 Description: Media Center package for OSMC
 Architecture: armhf
-Installed-Size: 95528
+Installed-Size: 97502
 Package: rbp1-mediacenter-osmc

@@ -19,7 +19,9 @@ fi
 . ../common.sh
 if [ "$1" == "rbp1" ] || [ "$1" == "rbp2" ] || [ "$1" == "vero" ] || [ "$1" == "atv" ] || [ "$1" == "vero2" ]
 then
-pull_source "https://github.com/popcornmix/xbmc/archive/c2b465fdf2557cabe52d029e70008b6a9ee91119.tar.gz" "$(pwd)/src"
+#pull_source "https://github.com/popcornmix/xbmc/archive/c2b465fdf2557cabe52d029e70008b6a9ee91119.tar.gz" "$(pwd)/src"
+pull_source "https://github.com/popcornmix/xbmc/archive/837dd1a7ba18918ca0432a1463bc9189a4bf86c7.tar.gz" "$(pwd)/src"
+
 API_VERSION="16"
 else
 pull_source "https://github.com/xbmc/xbmc/archive/master.tar.gz" "$(pwd)/kodi"
