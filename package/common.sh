@@ -121,6 +121,10 @@ function build_in_env()
 	if ((($BUILD_OPTS & $BUILD_OPTION_BUILD_FRESH) == $BUILD_OPTION_BUILD_FRESH))
 	then
 	    apt-get -y remove --purge "$DEP-toolchain-osmc"
+	    umount ${TCDIR}/mnt >/dev/null 2>&1
+	    umount ${TCDIR}/opt >/dev/null 2>&1
+	    umount ${TCDIR}/proc >/dev/null 2>&1
+	    rm -rf ${TCDIR}
 	fi
 	handle_dep "$DEP-toolchain-osmc"
 	if [ $? != 0 ]; then echo -e "Can't get upstream toolchain. Is apt.osmc.tv in your sources.list?" && exit 1; fi
@@ -145,7 +149,7 @@ function handle_dep()
 	if ! dpkg-query -W -f='${Status}' "${1}" 2>/dev/null | grep -q "ok installed" >/dev/null 2>&1
 	then
 		echo -e "Package ${1} is not found on the system, checking APT"
-		# apt-cache search always returns 0. Ugh. 
+		# apt-cache search always returns 0. Ugh.
 		if ! apt-cache search "${1}" | grep -q "^${1} "
 		then
 			echo -e "Can't find the package in APT repo. It needs to be built first or you need to wait for upstream to add it"
@@ -174,14 +178,14 @@ function publish_applications_any()
 	for TARGET in $PKG_TARGETS
 	do
 		echo -e "Publishing application for platform ${TARGET}"
-		# No need to change id. Architecture is Any. 
+		# No need to change id. Architecture is Any.
 		cp ${1}/app.json ${1}/${TARGET}-${2}.json
 	done
 }
 
 function publish_applications_targeted()
 {
-	# Used by applications that are architecture dependent. 
+	# Used by applications that are architecture dependent.
 	echo -e "Publishing application for platform ${TARGET}"
 	# This is a tad hacky. Architecture specific, platform independent
 	if [ "$2" == "armv6l" ]; then devices="rbp1"; fi
