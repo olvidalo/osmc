@@ -1,4 +1,4 @@
-From 012b0892410d3d21e10a690b8ff64b751e0974bc Mon Sep 17 00:00:00 2001
+From c43899e6f6aed63840c31a4a302724461f9cf173 Mon Sep 17 00:00:00 2001
 From: popcornmix <popcornmix@gmail.com>
 Date: Sun, 10 Aug 2014 18:58:37 +0100
 Subject: [PATCH] confluence: Remove media-overlay.jpg for when video is
@@ -9,7 +9,7 @@ Subject: [PATCH] confluence: Remove media-overlay.jpg for when video is
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/addons/skin.confluence/720p/IncludesBackgroundBuilding.xml b/addons/skin.confluence/720p/IncludesBackgroundBuilding.xml
-index 63ad350..6166b1a 100644
+index cc996da..d6aa595 100644
 --- a/addons/skin.confluence/720p/IncludesBackgroundBuilding.xml
 +++ b/addons/skin.confluence/720p/IncludesBackgroundBuilding.xml
 @@ -32,7 +32,7 @@
@@ -22,5 +22,5 @@ index 63ad350..6166b1a 100644
  			<include>VisibleFadeEffect</include>
  		</control>
 -- 
-2.1.4
+2.1.0
 

@@ -1,4 +1,4 @@
-From 03bcf94e7672cbacb3d4e99e1ba5bea7593ee68f Mon Sep 17 00:00:00 2001
+From c94b66021d32df67de4cc59ae7b04a6a9da752c8 Mon Sep 17 00:00:00 2001
 From: Sam Nazarko <email@samnazarko.co.uk>
 Date: Fri, 31 Jul 2015 10:16:28 +0100
 Subject: [PATCH] Do not try and update GUI so often when opening a stream
@@ -22,5 +22,5 @@ index 6816b45..37c45dc 100644
          g_windowManager.ProcessRenderLoop(false);
          if (allowCancel && dialog->IsCanceled())
 -- 
-2.1.4
+2.1.0
 

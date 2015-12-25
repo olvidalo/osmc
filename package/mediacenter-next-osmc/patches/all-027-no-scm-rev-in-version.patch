@@ -1,6 +1,6 @@
-From cef6a88d621fd2efa29a0101614e4ed2556fdd9d Mon Sep 17 00:00:00 2001
+From fc04654448b68b643c5ef370bf75fb7f0218dae4 Mon Sep 17 00:00:00 2001
 From: Sam Nazarko <email@samnazarko.co.uk>
-Date: Tue, 20 Oct 2015 18:44:05 +0100
+Date: Sun, 16 Aug 2015 07:43:03 +0100
 Subject: [PATCH] Do not return SCM revision in version
 
 Signed-off-by: Sam Nazarko <email@samnazarko.co.uk>
@@ -23,3 +23,4 @@ index d38502c..f0a6ac5 100644
  std::string CSysInfo::GetBuildDate()
 -- 
 2.1.0
+

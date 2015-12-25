@@ -1,4 +1,4 @@
-From b75db99005c5d010f293896b4057eed041ec202f Mon Sep 17 00:00:00 2001
+From 29547bb50826a83c22420207f08233a9edbc487d Mon Sep 17 00:00:00 2001
 From: Sam Nazarko <email@samnazarko.co.uk>
 Date: Tue, 20 Oct 2015 17:38:50 +0100
 Subject: [PATCH] Do not enumerate the default device when we have PulseAudio
@@ -11,7 +11,7 @@ Signed-off-by: Sam Nazarko <email@samnazarko.co.uk>
  1 file changed, 11 insertions(+), 2 deletions(-)
 
 diff --git a/xbmc/cores/AudioEngine/Sinks/AESinkALSA.cpp b/xbmc/cores/AudioEngine/Sinks/AESinkALSA.cpp
-index 0120bd5..dc0f134 100644
+index e22db7a..4df3a77 100644
 --- a/xbmc/cores/AudioEngine/Sinks/AESinkALSA.cpp
 +++ b/xbmc/cores/AudioEngine/Sinks/AESinkALSA.cpp
 @@ -1128,7 +1128,8 @@ void CAESinkALSA::EnumerateDevicesEx(AEDeviceInfoList &list, bool force)
@@ -24,7 +24,7 @@ index 0120bd5..dc0f134 100644
  
    void **hints;
  
-@@ -1558,7 +1559,15 @@ void CAESinkALSA::EnumerateDevice(AEDeviceInfoList &list, const std::string &dev
+@@ -1554,7 +1555,15 @@ void CAESinkALSA::EnumerateDevice(AEDeviceInfoList &list, const std::string &dev
    }
  
    snd_pcm_close(pcmhandle);
@@ -37,10 +37,10 @@ index 0120bd5..dc0f134 100644
 +     list.push_back(info);
 +  }
 +  else
-+     list.push_back(info);  
++     list.push_back(info);
  }
  
  bool CAESinkALSA::GetELD(snd_hctl_t *hctl, int device, CAEDeviceInfo& info, bool& badHDMI)
 -- 
-2.1.4
+2.1.0
 
