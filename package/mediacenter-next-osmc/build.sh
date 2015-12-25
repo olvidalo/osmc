@@ -20,7 +20,8 @@ fi
 if [ "$1" == "rbp1" ] || [ "$1" == "rbp2" ] || [ "$1" == "vero" ] || [ "$1" == "atv" ] || [ "$1" == "vero2" ]
 then
 #pull_source "https://github.com/popcornmix/xbmc/archive/c2b465fdf2557cabe52d029e70008b6a9ee91119.tar.gz" "$(pwd)/src"
-pull_source "https://github.com/popcornmix/xbmc/archive/837dd1a7ba18918ca0432a1463bc9189a4bf86c7.tar.gz" "$(pwd)/src"
+#pull_source "https://github.com/popcornmix/xbmc/archive/85deeb9e7dba2689982cef5617399754ae36c0a2.tar.gz" "$(pwd)/src"
+pull_source "https://github.com/popcornmix/xbmc/archive/4d2c4f39097e96537a5b32295aef6636d7151958.tar.gz" "$(pwd)/src"
 
 API_VERSION="16"
 else
@@ -236,6 +237,7 @@ then
 	then
 		PIDEV="raspberry-pi2"
 		COMPFLAGS="-mcpu=cortex-a7 -mtune=cortex-a7 -mfloat-abi=hard -O3 -mfpu=neon-vfpv4 -fomit-frame-pointer "
+		#COMPFLAGS=""
 	fi
 	if [ "$1" == "rbp1" ] || [ "$1" == "rbp2" ]; then
 	LIBRARY_PATH+=/opt/vc/lib && \
