@@ -3,25 +3,9 @@
 
 #!/bin/bash
 
-git_to_archive()
-{
-file_contents=$(cat $1)
-if grep -q github.com $1
-then
-PKG_NAME=$(echo $file_contents | cut -f 1 -d " ")
-GIT_REPO=$(echo $file_contents | cut -f 2 -d " ")
-GIT_REV=$(echo $file_contents | cut -f 3 -d " ")
-GIT_URL=$(echo ${GIT_REPO}/archive/${GIT_REV}.zip)
-echo "${PKG_NAME} ${GIT_URL}" > $1
-fi
-}
-
 . ../common.sh
 if [ "$1" == "rbp1" ] || [ "$1" == "rbp2" ] || [ "$1" == "vero" ] || [ "$1" == "atv" ] || [ "$1" == "vero2" ]
 then
-#pull_source "https://github.com/popcornmix/xbmc/archive/c2b465fdf2557cabe52d029e70008b6a9ee91119.tar.gz" "$(pwd)/src"
-#pull_source "https://github.com/popcornmix/xbmc/archive/85deeb9e7dba2689982cef5617399754ae36c0a2.tar.gz" "$(pwd)/src"
-#pull_source "https://github.com/popcornmix/xbmc/archive/4d2c4f39097e96537a5b32295aef6636d7151958.tar.gz" "$(pwd)/src"
 pull_source "https://github.com/xbmc/xbmc/archive/228697ed417b0d06a688e7c7a576d5d179bc7c15.tar.gz" "$(pwd)/src"
 API_VERSION="16"
 else
@@ -110,6 +94,7 @@ then
 	handle_dep "cmake"
 	handle_dep "libgnutls28-dev"
 	handle_dep "git"
+	handle_dep "uuid-dev"
 	if [ "$1" == "rbp1" ] || [ "$1" == "rbp2" ]
 	then
 		handle_dep "rbp-userland-dev-osmc"
@@ -128,6 +113,7 @@ then
 		handle_dep "armv6l-libdcadec-dev-osmc"
 		handle_dep "armv6l-libbluray-dev-osmc"
 		handle_dep "armv6l-libsqlite-dev-osmc"
+		handle_dep "armv6l-libcrossguid-dev-osmc"
 	fi
 	if [ "$1" == "rbp2" ]
 	then
@@ -139,6 +125,7 @@ then
 		handle_dep "armv7-libdcadec-dev-osmc"
 		handle_dep "armv7-libbluray-dev-osmc"
 		handle_dep "armv7-libsqlite-dev-osmc"
+		handle_dep "armv7-libcrossguid-dev-osmc"
 	fi
 	if [ "$1" == "vero" ]
 	then
@@ -150,6 +137,7 @@ then
 		handle_dep "armv7-libdcadec-dev-osmc"
 		handle_dep "armv7-libbluray-dev-osmc"
 		handle_dep "armv7-libsqlite-dev-osmc"
+		handle_dep "armv7-libcrossguid-dev-osmc"
 	fi
         if [ "$1" == "vero2" ]
         then
@@ -161,6 +149,7 @@ then
                 handle_dep "armv7-libdcadec-dev-osmc"
                 handle_dep "armv7-libbluray-dev-osmc"
                 handle_dep "armv7-libsqlite-dev-osmc"
+		handle_dep "armv7-libcrossguid-dev-osmc"
         fi
 	if [ "$1" == "atv" ] # later we change this to if_x11..
 	then
@@ -180,6 +169,7 @@ then
 		handle_dep "i386-libcrystalhd-dev-osmc"
 		handle_dep "xserver-xorg-dev"
 		handle_dep "libxrandr-dev"
+		handle_dep "i386-libcrossguid-dev-osmc"
 	fi
 	sed '/Package/d' -i files/DEBIAN/control
 	sed '/Depends/d' -i files/DEBIAN/control
@@ -204,7 +194,7 @@ then
 	./bootstrap
 	# Apple TV configuration
 	test "$1" == atv && \
-        COMPFLAGS="-O3 -fomit-frame-pointer -I/usr/include/libcrystalhd  -Wl,-rpath=/usr/osmc/lib -L/usr/osmc/lib " && \	
+	COMPFLAGS="-O3 -fomit-frame-pointer -I/usr/include/libcrystalhd  -Wl,-rpath=/usr/osmc/lib -L/usr/osmc/lib " && \
 	export CFLAGS+=${COMPFLAGS} && \
 	export CXXFLAGS+=${COMPFLAGS} && \
 	export CPPFLAGS+=${COMPFLAGS} && \
@@ -237,7 +227,6 @@ then
 	then
 		PIDEV="raspberry-pi2"
 		COMPFLAGS="-mcpu=cortex-a7 -mtune=cortex-a7 -mfloat-abi=hard -O3 -mfpu=neon-vfpv4 -fomit-frame-pointer "
-		#COMPFLAGS=""
 	fi
 	if [ "$1" == "rbp1" ] || [ "$1" == "rbp2" ]; then
 	LIBRARY_PATH+=/opt/vc/lib && \
@@ -330,11 +319,6 @@ then
 	$BUILD
 	if [ $? != 0 ]; then echo -e "Build failed!" && exit 1; fi
 	make install DESTDIR=${out}
-	# Binary addons
-	for file in project/cmake/addons/addons/*/*.txt
-	do
-	    git_to_archive "$file"
-	done
 	pushd project/cmake/addons/
 	mkdir build
 	cd build
@@ -371,10 +355,10 @@ then
 	cp -ar ${out}/usr/lib/kodi/kodi.bin files-debug/usr/lib/kodi/kodi.bin
 	strip -s ${out}/usr/lib/kodi/kodi.bin
 	COMMON_DEPENDS="niceprioritypolicy-osmc, mediacenter-send-osmc, libssh-4, libavahi-client3, python, python-imaging, python-unidecode, libsmbclient, libtiff5, libjpeg62-turbo, libsqlite3-0, libtinyxml2.6.2, libogg0, libmad0, libmicrohttpd10, libjasper1, libyajl2, libmysqlclient18, libasound2, libxml2, liblzo2-2, libxslt1.1, libpng12-0, libsamplerate0, libtag1-vanilla, libfribidi0, libgif4, libcdio13, libpcrecpp0, libfreetype6, libvorbis0a, libvorbisenc2, libass5, libcurl3, libssl1.0.0, libplist2, avahi-daemon, policykit-1, mediacenter-addon-osmc (>= 3.0.39), mediacenter-skin-osmc, diskmount-osmc (>= 1.2.9)"
-	test "$1" == atv && echo "Depends: ${COMMON_DEPENDS}, i386-libcec-osmc, i386-libnfs-osmc, i386-librtmp-osmc, i386-libshairplay-osmc, i386-libbluray-osmc, i386-libsqlite-osmc, libxrandr2, libsdl-image1.2, libglew1.10, libglu1-mesa, i386-libcrystalhd-osmc, xserver-xorg-core, xserver-xorg, xinit, xfonts-base, x11-xserver-utils, xauth, alsa-utils, xserver-xorg-video-nvidia-legacy-304xx, nvidia-xconfig" >> files/DEBIAN/control
-	test "$1" == rbp1 && echo "Depends: ${COMMON_DEPENDS}, rbp1-libcec-osmc, armv6l-libnfs-osmc, armv6l-librtmp-osmc, armv6l-libshairplay-osmc, armv6l-libbluray-osmc, armv6l-libsqlite-osmc, rbp-userland-osmc, armv6l-splash-osmc" >> files/DEBIAN/control
-	test "$1" == rbp2 && echo "Depends: ${COMMON_DEPENDS}, rbp2-libcec-osmc, armv7-libnfs-osmc, armv7-librtmp-osmc, armv7-libshairplay-osmc, armv7-libbluray-osmc, armv7-libsqlite-osmc, rbp-userland-osmc, armv7-splash-osmc" >> files/DEBIAN/control
-	test "$1" == vero && echo "Depends: ${COMMON_DEPENDS}, vero-libcec-osmc, armv7-libnfs-osmc, armv7-librtmp-osmc, armv7-libshairplay-osmc, armv7-libbluray-osmc, armv7-libsqlite-osmc, vero-userland-osmc, armv7-splash-osmc" >> files/DEBIAN/control
+	test "$1" == atv && echo "Depends: ${COMMON_DEPENDS}, i386-libcec-osmc, i386-libnfs-osmc, i386-librtmp-osmc, i386-libshairplay-osmc, i386-libbluray-osmc, i386-libsqlite-osmc, libxrandr2, libsdl-image1.2, libglew1.10, libglu1-mesa, i386-libcrystalhd-osmc, xserver-xorg-core, xserver-xorg, xinit, xfonts-base, x11-xserver-utils, xauth, alsa-utils, xserver-xorg-video-nvidia-legacy-304xx, nvidia-xconfig, i386-libcrossguid-osmc" >> files/DEBIAN/control
+	test "$1" == rbp1 && echo "Depends: ${COMMON_DEPENDS}, rbp1-libcec-osmc, armv6l-libnfs-osmc, armv6l-librtmp-osmc, armv6l-libshairplay-osmc, armv6l-libbluray-osmc, armv6l-libsqlite-osmc, rbp-userland-osmc, armv6l-splash-osmc, armv6l-libcrossguid-osmc" >> files/DEBIAN/control
+	test "$1" == rbp2 && echo "Depends: ${COMMON_DEPENDS}, rbp2-libcec-osmc, armv7-libnfs-osmc, armv7-librtmp-osmc, armv7-libshairplay-osmc, armv7-libbluray-osmc, armv7-libsqlite-osmc, rbp-userland-osmc, armv7-splash-osmc, armv7-libcrossguid-osmc" >> files/DEBIAN/control
+	test "$1" == vero && echo "Depends: ${COMMON_DEPENDS}, vero-libcec-osmc, armv7-libnfs-osmc, armv7-librtmp-osmc, armv7-libshairplay-osmc, armv7-libbluray-osmc, armv7-libsqlite-osmc, vero-userland-osmc, armv7-splash-osmc, armv7-libcrossguid-osmc" >> files/DEBIAN/control
 	cp patches/${1}-watchdog ${out}/usr/bin/mediacenter
 	cp patches/${1}-advancedsettings.xml ${out}/usr/share/kodi/system/advancedsettings.xml
 	chmod +x ${out}/usr/bin/mediacenter
