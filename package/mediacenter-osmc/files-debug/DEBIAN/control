@@ -6,6 +6,7 @@ Maintainer: Sam G Nazarko <email@samnazarko.co.uk>
 Description: Media Center debug package for OSMC
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> 7083feb3109c2a132b5723544477eedbc6f3d1b5
 =======
@@ -13,3 +14,8 @@ Description: Media Center debug package for OSMC
 Package: rbp2-mediacenter-debug-osmc
 Version: 15.9.9-1
 Depends: rbp2-mediacenter-osmc (=15.9.9-1)
+=======
+Package: atv-mediacenter-debug-osmc
+Version: 15.9.9-1
+Depends: atv-mediacenter-osmc (=15.9.9-1)
+>>>>>>> b035628852ac3b7354a4008465e6ce402b9e07f2

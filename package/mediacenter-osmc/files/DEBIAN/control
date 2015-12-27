@@ -1,5 +1,5 @@
 Origin: OSMC
-Version: 15.9.9-1
+Version: 15.9.9-2
 Section: video
 Essential: No
 Priority: required
@@ -7,4 +7,8 @@ Provides: xbmc, kodi
 Conflicts: xbmc, kodi
 Maintainer: Sam G Nazarko <email@samnazarko.co.uk>
 Description: Media Center package for OSMC
+<<<<<<< HEAD
 Package: rbp2-mediacenter-osmc
+=======
+Package: atv-mediacenter-osmc
+>>>>>>> b035628852ac3b7354a4008465e6ce402b9e07f2
