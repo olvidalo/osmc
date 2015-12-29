@@ -11,14 +11,14 @@ Signed-off-by: Sam Nazarko <email@samnazarko.co.uk>
  xbmc/main/main.cpp | 16 ++++++++++++++++
  1 file changed, 16 insertions(+)
 
-diff --git a/xbmc/main/main.cpp b/xbmc/main/main.cpp
+diff --git a/xbmc/platform/posix/main.cpp b/xbmc/platform/posix/main.cpp
 index 01027f8..aa098d2 100644
---- a/xbmc/main/main.cpp
-+++ b/xbmc/main/main.cpp
+--- a/xbmc/platform/posix/main.cpp
++++ b/xbmc/platform/posix/main.cpp
 @@ -41,12 +41,28 @@
  #include "input/linux/LIRC.h"
  #endif
- #include "XbmcContext.h"
+ #include "platform/XbmcContext.h"
 +#include "Application.h"
 +#include "messaging/ApplicationMessenger.h"
 +

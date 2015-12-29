@@ -6,7 +6,7 @@
 . ../common.sh
 if [ "$1" == "rbp1" ] || [ "$1" == "rbp2" ] || [ "$1" == "vero" ] || [ "$1" == "atv" ] || [ "$1" == "vero2" ]
 then
-pull_source "https://github.com/xbmc/xbmc/archive/228697ed417b0d06a688e7c7a576d5d179bc7c15.tar.gz" "$(pwd)/src"
+pull_source "https://github.com/popcornmix/xbmc/archive/ae24babb010100483da695d9f35fdbb5f186e9a0.tar.gz" "$(pwd)/src"
 API_VERSION="16"
 else
 pull_source "https://github.com/xbmc/xbmc/archive/master.tar.gz" "$(pwd)/kodi"
@@ -322,7 +322,19 @@ then
 	pushd project/cmake/addons/
 	mkdir build
 	cd build
-	cmake -DCMAKE_INSTALL_DESTDIR=/usr -DCMAKE_INSTALL_PREFIX=${out}/usr/ -DBUILD_DIR=$(pwd) ../ -DOVERRIDE_PATHS=1
+	if [ "$1" == "rbp1" ] || [ "$1" == "rbp2" ]
+ 	then
+             PLATFORM="-DCMAKE_INCLUDE_PATH=/opt/vc/include:/opt/vc/include/interface:/opt/vc/include/interface/vcos/pthreads:/opt/vc/include/interface/vmcs_host/linux -DCMAKE_LIBRARY_PATH=/opt/vc/lib"
+ 	fi
+ 	if [ "$1" == "vero" ]
+ 	then
+ 	   PLATFORM="-DCMAKE_INCLUDE_PATH=/opt/vero/lib -DCMAKE_LIBRARY_PATH=/opt/vero/include"
+ 	fi
+ 	if [ "$1" == "vero2" ]
+ 	then
+ 	   PLATFORM="-DCMAKE_INCLUDE_PATH=/opt/vero2/lib -DCMAKE_LIBRARY_PATH=/opt/vero2/include"
+ 	fi
+ 	cmake -DCMAKE_INSTALL_DESTDIR=/usr -DCMAKE_INSTALL_PREFIX=${out}/usr/ -DBUILD_DIR=$(pwd) ../ -DOVERRIDE_PATHS=1 $PLATFORM
 	if [ $? != 0 ]; then echo "Configuring binary addons failed" && exit 1; fi
 	cd ../
 	$BUILD kodiplatform_DIR=$(pwd) -C build/
