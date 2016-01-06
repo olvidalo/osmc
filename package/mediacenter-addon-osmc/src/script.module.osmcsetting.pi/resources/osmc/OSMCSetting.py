@@ -263,10 +263,10 @@ Overclock settings are set using the Pi Overclock module."""
 																	'default': '',
 																		'translate': self.translate_dtoverlay,
 																	},
-									'device_tree':				{'setting_value' : '',
-																	'default': '',
-																		'translate': self.translate_device_tree,
-																	},	
+									# 'device_tree':				{'setting_value' : '', 
+									# 								'default': '',
+									# 									'translate': self.translate_device_tree,
+									# 								},	
 									'orphanedparams':			{'setting_value' : '',
 																	'default': '',
 																		'translate': self.translate_orphanedparams,
@@ -657,7 +657,7 @@ Overclock settings are set using the Pi Overclock module."""
 
 		else:
 			if self.me.getSetting('suppress_dtoverlay') == 'true':
-				return ['']
+				return ''
 			else:
 				return ['[remove]']
 
@@ -752,7 +752,7 @@ Overclock settings are set using the Pi Overclock module."""
 				soundcard = dac_all[int(pos)-1]
 
 				# add the soundcard overlay
-				new_dtoverlay.append(soundcard)
+				new_dtoverlay.append('dtoverlay_||_'+ soundcard)
 
 				#remove the unneeded entries
 				new_dtoverlay.extend(['dtoverlay_||_' + x + '[remove]' for x in dac_all if x != soundcard])
@@ -774,7 +774,7 @@ Overclock settings are set using the Pi Overclock module."""
 				in_pin   = self.me.getSetting('gpio_in_pin')
 				pull_pin = self.me.getSetting('gpio_in_pull')
 
-				lirc = 'dtoverlay_||_lirc-rpi=' + 'gpio_out_pin=' + str(out_pin) + ',gpio_in_pin=' + str(in_pin)
+				lirc = 'dtoverlay_||_lirc-rpi:' + 'gpio_out_pin=' + str(out_pin) + ',gpio_in_pin=' + str(in_pin)
 
 				if pull_pin != 'off':
 					lirc = lirc + ',gpio_in_pull=' + pull_pin

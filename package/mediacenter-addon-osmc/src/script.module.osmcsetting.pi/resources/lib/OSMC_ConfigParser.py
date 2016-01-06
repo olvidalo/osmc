@@ -189,7 +189,7 @@ def write_to_config_file(config_stringIO, export_location='C:\\temp\\temp.txt'):
                 line = line.replace('_||_','=')
 
             # replace the other changes made during sanitisation
-            line = line.replace(' = ', '=').replace('_SPACE_', ' ').replace('=NO_EQUALS_SIGN','').replace('=PLACEHOLDER','').replace('|__|','=')
+            line = line.replace(' : ', ':').replace(' = ', '=').replace('_SPACE_', ' ').replace('=NO_EQUALS_SIGN','').replace('=PLACEHOLDER','').replace('|__|','=')
             f.write(line)
 
 
@@ -202,6 +202,11 @@ def apply_changes_to_configtxt(changes, file_loc='C:\\temp\\config.txt'):
 
     config_dict = ConfigObj(infile=sanitised_file, write_empty_values=True, list_values=False)
 
+    #print 'CHANGES'
+    #print changes
+    #print 'config_dict'
+    #print config_dict
+
     for key, value in changes.iteritems():
 
         if key == 'dtoverlay':
@@ -210,18 +215,27 @@ def apply_changes_to_configtxt(changes, file_loc='C:\\temp\\config.txt'):
                 continue
 
             for dtoverlay_item in value:
+                #print 'dtoverlay_item %s' % dtoverlay_item
                 
                 if ':' in dtoverlay_item:
-                    true_key = 'dtoverlay_||_' + dtoverlay_item[:dtoverlay_item.index(":")]
+                    true_key = dtoverlay_item[:dtoverlay_item.index(":")]
                     true_val = dtoverlay_item[dtoverlay_item.index(":")+1:]
                 else:
-                    true_key = 'dtoverlay_||_' + dtoverlay_item.replace('[remove]','')
-                    true_val = "PLACEHOLDER"
+                    true_key = dtoverlay_item.replace('[remove]','')
+                    true_val = "PLACEHOLDER"                    
+
+                #print '\ttrue_key %s' % true_key
+                #print '\ttrue_val %s' % true_val
 
                 if '[remove]' in dtoverlay_item:
 
                     if true_key in config_dict:
                         del config_dict[true_key]
+
+                    else:
+                        alt_key = true_key.replace('-overlay', '')
+                        if alt_key in config_dict:
+                            del config_dict[alt_key]
 
                 else:
                     config_dict[true_key] = true_val
@@ -264,10 +278,11 @@ def apply_changes_to_configtxt(changes, file_loc='C:\\temp\\config.txt'):
     #print config_dict
 
     # temporary location for the config.txt
-    if os.path.isfile('/var/tmp/config.txt'):
-        tmp_loc = '/var/tmp/config.txt'
-    else:
-        tmp_loc = 'C:\\temp\\temp.txt'
+    tmp_loc = '/var/tmp/config.txt'
+    # if os.path.isfile('/var/tmp/config.txt'):
+    #     tmp_loc = '/var/tmp/config.txt'
+    # else:
+    #     tmp_loc = 'C:\\temp\\temp.txt'
 
     write_to_config_file(blotter, tmp_loc)
 
@@ -324,24 +339,31 @@ def retrieve_settings_from_configtxt(file_loc='C:\\temp\\config.txt'):
 
 
 def test():
-    changes = {'dtoverlay' : [
-    'hifiberry-dac-overlay[remove]', 
-    'iqaudio-dac-overlay[remove]', 
-    'hifiberry-digi-overlay', 
-    'w1-gpio-overlay[remove]', 
-    'w1-gpio-pullup-overlay[remove]', 
-    'lirc-rpi-overlay:gpio_out_pin=9999999,gpio_in_pin=23,gpio_in_pull=sh'
-    ],
-    'orphanedparams' : ['param2|__|on', 'param1|__|on']
-    
+    changes = {
+    'sdtv_aspect': 1, 
+    'hdmi_safe': '1', 
+    'orphanedparams': ['audio|__|on'], 
+    'start_x': 1, 
+    'dtoverlay': [
+        'dtoverlay_||_hifiberry-dac-overlay[remove]', 
+        'dtoverlay_||_hifiberry-dacplus-overlay[remove]', 
+        'dtoverlay_||_hifiberry-digi-overlay[remove]', 
+        'dtoverlay_||_iqaudio-dac-overlay[remove]', 
+        'dtoverlay_||_iqaudio-dacplus-overlay[remove]', 
+        'dtoverlay_||_w1-gpio-overlay[remove]', 
+        'dtoverlay_||_w1-gpio-pullup-overlay[remove]', 
+        'dtoverlay_||_lirc-rpi:gpio_out_pin=17,gpio_in_pin=99[remove]', 
+        'dtoverlay_||_spi-bcm2835-overlay[remove]'
+        ]
     }
 
-    apply_changes_to_configtxt(changes)
+    apply_changes_to_configtxt(changes, '/home/plaskev/Documents/config.txt')
 
 
 if __name__ == "__main__":
 
     print test()
+    a = 1
 
 
 # device_tree_overlay=lirc-rpi-overlay
