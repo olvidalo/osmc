@@ -258,21 +258,16 @@ def apply_changes_to_configtxt(changes, file_loc='C:\\temp\\config.txt'):
                 
                 if '[remove]' in param_item:
 
-                    try:
+                    if true_key in config_dict:
                         del config_dict[true_key]
-                    except KeyError:
-                        pass
 
                 else:
                     config_dict[true_key] = true_val
             continue
 
         if value == 'remove':
-            try:
-                del config_dict[key]
-                continue
-            except KeyError:
-                pass
+            del config_dict[key]
+            continue
 
         config_dict[key] = value
 
