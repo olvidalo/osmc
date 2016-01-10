@@ -16,9 +16,9 @@ index 4b1acd9..670002f 100644
 @@ -181,7 +181,7 @@ void CRepositoryUpdater::ScheduleUpdate()
    CSingleLock lock(m_criticalSection);
    m_timer.Stop(true);
- 
--  if (CSettings::GetInstance().GetInt(CSettings::SETTING_GENERAL_ADDONUPDATES) == AUTO_UPDATES_NEVER)
-+  if (CSettings::GetInstance().GetInt(CSettings::SETTING_GENERAL_ADDONUPDATES) == AUTO_UPDATES_NEVER || g_application.m_eOSMCWalkthroughState != 2)
+
+-  if (CSettings::GetInstance().GetInt(CSettings::SETTING_ADDONS_AUTOUPDATES) == AUTO_UPDATES_NEVER)
++  if (CSettings::GetInstance().GetInt(CSettings::SETTING_ADDONS_AUTOUPDATES) == AUTO_UPDATES_NEVER || g_application.m_eOSMCWalkthroughState != 2)     
      return;
  
    if (!CAddonMgr::GetInstance().HasAddons(ADDON_REPOSITORY))
