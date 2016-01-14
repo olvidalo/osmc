@@ -142,6 +142,7 @@ then
         if [ "$1" == "vero2" ]
         then
 		handle_dep "vero2-userland-dev-osmc"
+		handle_dep "vero2-libamcodec-dev-osmc"
                 handle_dep "armv7-libshairplay-dev-osmc"
                 handle_dep "armv7-librtmp-dev-osmc"
                 handle_dep "armv7-libnfs-dev-osmc"
@@ -191,6 +192,7 @@ then
 	fi
 	if [ "$1" == "rbp1" ] || [ "$1" == "rbp2" ] || [ "$1" == "vero" ]; then install_patch "../../patches" "arm"; fi
 	test "$1" == vero && install_patch "../../patches" "vero"
+	test "$1" == vero2 && install_patch "../../patches" "vero2"
 	./bootstrap
 	# Apple TV configuration
 	test "$1" == atv && \
