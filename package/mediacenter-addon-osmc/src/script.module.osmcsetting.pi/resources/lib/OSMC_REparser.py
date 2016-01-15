@@ -178,6 +178,8 @@ def general_config_set(config, new_settings, new_value, config_get_patterns, con
 
 			matched = re.search(pair['identify'], cf_line, re.IGNORECASE)
 
+			#print 'attempting match: %s' % pair['identify']
+
 			if matched:
 
 				line_matches = True
@@ -425,7 +427,7 @@ def hdmi_boost_custom_default():
 	''' Tests the users system to see which hdmi_boost figure should be used. '''
 	''' Yet to be implemented '''
 
-	return '2'
+	return '0'
 
 
 '''
@@ -458,6 +460,11 @@ def generic_passthrough_config_set(kodi_setting, all_settings):
 
 		return 'remove_this_line'
 
+def start_x_config_set(kodi_setting, all_settings):
+	''' Always return 1. This setting should be in every config.txt '''
+
+	return '1'
+
 
 def config_hdmi_boost_config_set(kodi_setting, all_settings):
 
@@ -484,9 +491,9 @@ def display_rotate_config_set(kodi_setting, all_settings):
 		'0x20000'
 		]
 
-	try:
-		return permitted[int(kodi_setting)]
-	except (IndexError, ValueError):
+	if kodi_setting in permitted:
+		return kodi_setting
+	else:
 		return 'remove_this_line'
 
 
@@ -544,11 +551,15 @@ def hdmi_pixel_config_set(kodi_setting, all_settings):
 		return 'remove_this_line'
 
 
-def hdmi_safe_group_removal(setting_key, all_settings):
+def hdmi_safe_group_removal(kodi_setting, all_settings):
 
 	if all_settings.get('hdmi_safe', None) == 'true':
 
 		return 'remove_this_line'
+
+	else:
+
+		return kodi_setting
 
 
 def hdmi_ignore_edid_config_set(kodi_setting, all_settings):
@@ -1214,6 +1225,26 @@ MASTER_SETTINGS =    {
 			"already_set"       : False,
 			"setting_stub"      : "dtparam=gpio_out_pin=%s",
 		},
+
+		"start_x": { 
+			"default"   : { 
+				"function"      : None, 
+				"value"         : "1"
+				},
+			"config_get_patterns": [
+				{
+				"identify"      : r"\s*start_x\s*=",
+				"extract"       : r"\s*start_x\s*=\s*(\d)"
+				},
+
+				],
+			"config_set"        : start_x_config_set,
+			"config_validation" : blank_check_validation,
+			"kodi_set"          : generic_passthrough_kodi_set,
+			"already_set"       : False,
+			"setting_stub"      : "start_x=%s",
+		},
+
 		
 	}
 
@@ -1234,6 +1265,38 @@ def write_config_file(location, new_config):
 		f.writelines(new_config)
 
 
+def clean_config(config, patterns):
+	''' Reads the users config file and comments out lines that are problematic. This is determined using regex patterns.'''
+
+	comment_out_list = []
+
+	for line in config:
+
+		# ignore commented out lines
+		if line.strip().startswith('#'):
+			continue
+
+		# prune the line to exlude inline comments
+		if '#' in line:
+			pure_line = line[:line.index('#')]
+		else:
+			pure_line = line
+		
+		# eliminate lines that endwith a comma
+		if pure_line.strip().endswith(','):
+			comment_out_list.append(line)
+			continue			
+
+		# eliminate lines that match any of the patterns
+		if any( [re.search(pat, pure_line) for pat in patterns] ):
+			comment_out_list.append(line)
+
+	new_config = [line if line not in comment_out_list else '#' + line for line in config]
+
+	return new_config
+
+
+
 
 if __name__ == "__main__":
 
@@ -1245,79 +1308,126 @@ if __name__ == "__main__":
 
 	   @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ '''
 
-	config = read_config_file('C:\\temp\config.txt')
 
-	extracted_settings = config_to_kodi(MASTER_SETTINGS, config)
-
-	keys = sorted(extracted_settings.keys())
+	def testing():
+		config = read_config_file('C:\\temp\\config.txt')
 
 
 
+		patterns = [
 
-	original_values = {
-			'audio' : 'true',
-			'config_hdmi_boost' : '2',
-			'decode_MPG2' : '0x9c7d03c1',
-			'decode_WVC1' : '0x95f2b10e',
+			r".*=.*\[remove\].*", 
+			r".*=remove",
+		]
+
+		clean_config(config, patterns)
+
+		config = read_config_file('C:\\temp\\config.txt')
+		extracted_settings = config_to_kodi(MASTER_SETTINGS, config)
+
+		keys = sorted(extracted_settings.keys())
+
+
+		original_values = {
+				'audio' : 'true',
+				'config_hdmi_boost' : '2',
+				'decode_MPG2' : '0x9c7d03c1',
+				'decode_WVC1' : '0x95f2b10e',
+				'display_rotate' : '0',
+				'gpio_in_pin' : 'off',
+				'gpio_in_pull' : '18',
+				'gpio_out_pin' : '17',
+				'gpu_mem_1024' : '256',
+				'gpu_mem_512' : '144',
+				'gpu_mem_256' : '112',
+				'hdmi_group' : '0',
+				'hdmi_ignore_cec' : 'false',
+				'hdmi_ignore_cec_init' : 'true',
+				'hdmi_ignore_edid' : 'false',
+				'hdmi_mode' : '0',
+				'hdmi_pixel_encoding' : '0',
+				'hdmi_safe' : 'false',
+				'lirc-rpi-overlay' : '0',
+				'max_usb_current' : 'true',
+				'sdtv_aspect' : '0',
+				'sdtv_mode' : '0',
+				'soundcard_dac' : "0",
+				'spi-bcm2835-overlay' : 'false',
+				'store_hdmi_to_file' : 'false',
+				'w1gpio' : '0',
+
+		}
+
+		test = {
+			'config_hdmi_boost' : '0',
+			'decode_MPG2' : '',
+			'decode_WVC1' : '',
 			'display_rotate' : '0',
-			'gpio_in_pin' : 'off',
-			'gpio_in_pull' : '18',
+			'gpio_in_pin' : '18',
+			'gpio_in_pull' : 'off',
 			'gpio_out_pin' : '17',
-			'gpu_mem_1024' : '256',
-			'gpu_mem_512' : '144',
-			'gpu_mem_256' : '112',
+			'gpu_mem_1024' : '',
+			'gpu_mem_512' : '',
+			'gpu_mem_256' : '',
 			'hdmi_group' : '0',
 			'hdmi_ignore_cec' : 'false',
-			'hdmi_ignore_cec_init' : 'true',
+			'hdmi_ignore_cec_init' : 'false',
 			'hdmi_ignore_edid' : 'false',
 			'hdmi_mode' : '0',
 			'hdmi_pixel_encoding' : '0',
 			'hdmi_safe' : 'false',
-			'lirc-rpi-overlay' : '0',
-			'max_usb_current' : 'true',
+			'lirc-rpi-overlay' : 'false',
+			'max_usb_current' : 'false',
 			'sdtv_aspect' : '0',
 			'sdtv_mode' : '0',
 			'soundcard_dac' : "0",
 			'spi-bcm2835-overlay' : 'false',
-			'store_hdmi_to_file' : 'false',
+			'store_hdmi_to_file' : 'true',
 			'w1gpio' : '0',
 
+		}
+
+		config = read_config_file('C:\\temp\\config.txt')
+		
+		new_settings = kodi_to_config(MASTER_SETTINGS, config, extracted_settings)
+
+
+		write_config_file('C:\\temp\\results.txt', new_settings)
+
+		print new_settings
+		print '\n'
+		print 'extracted_settings'
+		print extracted_settings
+		print '\n'
+
+
+	possible_results_from_kodi = {
+		'config_hdmi_boost' 	: [str(x) for x in range(0,12)],
+		'decode_MPG2' 			: ['','something'],
+		'decode_WVC1' 			: ['','something'],
+		'display_rotate' 		: [str(x) for x in range(0,6)],
+		'gpio_in_pin' 			: [str(x) for x in range(1,26)],
+		'gpio_out_pin' 			: [str(x) for x in range(1,26)],
+		'gpio_in_pull' 			: [str(x) for x in range(0,3)],
+		'gpu_mem_1024' 			: [str(x) for x in range(16,321)],
+		'gpu_mem_512' 			: [str(x) for x in range(16,257)],
+		'gpu_mem_256' 			: [str(x) for x in range(16,193)],
+		'hdmi_group' 			: [str(x) for x in range(0,3)],
+		'hdmi_ignore_cec' 		: ['false','true'],
+		'hdmi_ignore_cec_init' 	: ['false','true'],
+		'hdmi_ignore_edid' 		: ['false','true'],
+		'hdmi_mode' 			: [str(x) for x in range(0,87)],
+		'hdmi_pixel_encoding' 	: [str(x) for x in range(0,5)],
+		'hdmi_safe' 			: ['false','true'],
+		'lirc-rpi-overlay' 		: ['false','true'],
+		'max_usb_current' 		: ['false','true'],
+		'sdtv_aspect' 			: [str(x) for x in range(0,4)],
+		'sdtv_mode' 			: [str(x) for x in range(0,4)],
+		'soundcard_dac' 		: [str(x) for x in range(0,7)],
+		'spi-bcm2835-overlay' 	: ['false','true'],
+		'store_hdmi_to_file' 	: ['false','true'],
+		'w1gpio' 				: [str(x) for x in range(0,3)],
+
 	}
 
-	test = {
-		'audio' : 'true',
-		'config_hdmi_boost' : '2',
-		'decode_MPG2' : '0000',
-		'decode_WVC1' : '0x95f2b10e',
-		'display_rotate' : '0',
-		'gpio_in_pin' : '18',
-		'gpio_in_pull' : 'off',
-		'gpio_out_pin' : '17',
-		'gpu_mem_1024' : '256',
-		'gpu_mem_512' : '144',
-		'gpu_mem_256' : '112',
-		'hdmi_group' : '0',
-		'hdmi_ignore_cec' : 'false',
-		'hdmi_ignore_cec_init' : 'true',
-		'hdmi_ignore_edid' : 'true',
-		'hdmi_mode' : '0',
-		'hdmi_pixel_encoding' : '0',
-		'hdmi_safe' : 'true',
-		'lirc-rpi-overlay' : 'true',
-		'max_usb_current' : 'true',
-		'sdtv_aspect' : '0',
-		'sdtv_mode' : '1',
-		'soundcard_dac' : "2",
-		'spi-bcm2835-overlay' : 'false',
-		'store_hdmi_to_file' : 'false',
-		'w1gpio' : '2',
-
-	}
-
-	config = read_config_file('C:\\temp\config.txt')
-	
-	new_settings = kodi_to_config(MASTER_SETTINGS, config, extracted_settings)
-
-	#print new_settings
-
-	write_config_file('C:\\temp\\results.txt', new_settings)
+	testing()
