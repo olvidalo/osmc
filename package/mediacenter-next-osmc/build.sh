@@ -7,7 +7,7 @@
 if [ "$1" == "rbp1" ] || [ "$1" == "rbp2" ] || [ "$1" == "vero" ] || [ "$1" == "atv" ] || [ "$1" == "vero2" ]
 then
 #pull_source "https://github.com/popcornmix/xbmc/archive/f8112dfabb571618301a62ab5bb4622ea10f2b6c.tar.gz" "$(pwd)/src"
-pull_source "https://github.com/popcornmix/xbmc/archive/963dd462ffcd83a8b55925711c3278166d7fa298.tar.gz" "$(pwd)/src"
+pull_source "https://github.com/popcornmix/xbmc/archive/8a5a2cb2bc0c46f509bbb2afb6c8d2c1e715b1c8.tar.gz" "$(pwd)/src"
 
 
 
