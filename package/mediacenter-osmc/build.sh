@@ -190,7 +190,6 @@ then
 	then
 		install_patch "../../patches" "rbp"
 	fi
-	if [ "$1" == "rbp2" ]; then install_patch "../../patches" "rbp2"; fi
 	if [ "$1" == "rbp1" ] || [ "$1" == "rbp2" ] || [ "$1" == "vero" ]; then install_patch "../../patches" "arm"; fi
 	test "$1" == vero && install_patch "../../patches" "vero"
 	test "$1" == vero2 && install_patch "../../patches" "vero2"
@@ -208,7 +207,6 @@ then
 		--disable-vaapi \
 		--disable-vdpau \
 		--disable-pulse \
-		--disable-projectm \
 		--enable-x11 \
 		--disable-openmax \
 		--enable-optical-drive \
@@ -251,7 +249,6 @@ then
 		--disable-vaapi \
 		--disable-vdpau \
 		--disable-pulse \
-		--disable-projectm \
 		--with-platform=$PIDEV \
 		--disable-optimizations \
 		--enable-libcec \
@@ -282,7 +279,6 @@ then
 		--disable-joystick \
 		--disable-vtbdecoder \
 		--disable-pulse \
-		--disable-projectm \
 		--disable-optimizations \
 		--with-platform=vero \
 		--build=arm-linux
@@ -311,7 +307,6 @@ then
                 --disable-joystick \
                 --disable-vtbdecoder \
                 --disable-pulse \
-                --disable-projectm \
                 --disable-optimizations \
                 --with-platform=vero2 \
                 --build=arm-linux
