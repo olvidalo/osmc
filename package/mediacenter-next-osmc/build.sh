@@ -6,15 +6,15 @@
 . ../common.sh
 if [ "$1" == "rbp1" ] || [ "$1" == "rbp2" ] || [ "$1" == "vero" ] || [ "$1" == "atv" ] || [ "$1" == "vero2" ]
 then
-#pull_source "https://github.com/popcornmix/xbmc/archive/f8112dfabb571618301a62ab5bb4622ea10f2b6c.tar.gz" "$(pwd)/src"
-pull_source "https://github.com/popcornmix/xbmc/archive/8a5a2cb2bc0c46f509bbb2afb6c8d2c1e715b1c8.tar.gz" "$(pwd)/src"
+#pull_source "https://github.com/popcornmix/xbmc/archive/f4d0af05c587aa4c1d827ecccb0d9f3722279422.tar.gz" "$(pwd)/src"
+#pull_source "https://github.com/popcornmix/xbmc/archive/f9513acfa7f9bc88197c4462aa5e62151e84f156.tar.gz" "$(pwd)/src"
+pull_source "https://github.com/popcornmix/xbmc/archive/6962f5de0f66940cbf1cc01225942d552637531f.tar.gz" "$(pwd)/src"
 
 
-
-API_VERSION="16"
+API_VERSION="17"
 else
 pull_source "https://github.com/xbmc/xbmc/archive/master.tar.gz" "$(pwd)/kodi"
-API_VERSION="17"
+API_VERSION="18"
 fi
 if [ $? != 0 ]; then echo -e "Error fetching Kodi source" && exit 1; fi
 # Build in native environment
@@ -202,19 +202,17 @@ then
 	export CFLAGS+=${COMPFLAGS} && \
 	export CXXFLAGS+=${COMPFLAGS} && \
 	export CPPFLAGS+=${COMPFLAGS} && \
-	export LDFLAGS="" & \
+	export LDFLAGS="" && \
 	./configure \
 		--prefix=/usr \
 		--disable-vtbdecoder \
 		--disable-vaapi \
 		--disable-vdpau \
 		--disable-pulse \
-		--disable-projectm \
 		--enable-x11 \
 		--disable-openmax \
 		--enable-optical-drive \
 		--enable-libbluray \
-		--enable-dvdcss \
                 --enable-dvdcss \
                 --disable-joystick \
                 --disable-debug \
@@ -253,7 +251,6 @@ then
 		--disable-vaapi \
 		--disable-vdpau \
 		--disable-pulse \
-		--disable-projectm \
 		--with-platform=$PIDEV \
 		--disable-optimizations \
 		--enable-libcec \
@@ -284,7 +281,6 @@ then
 		--disable-joystick \
 		--disable-vtbdecoder \
 		--disable-pulse \
-		--disable-projectm \
 		--disable-optimizations \
 		--with-platform=vero \
 		--build=arm-linux
@@ -313,7 +309,6 @@ then
                 --disable-joystick \
                 --disable-vtbdecoder \
                 --disable-pulse \
-                --disable-projectm \
                 --disable-optimizations \
                 --with-platform=vero2 \
                 --build=arm-linux
@@ -338,17 +333,17 @@ then
  	then
  	   PLATFORM="-DCMAKE_INCLUDE_PATH=/opt/vero2/lib -DCMAKE_LIBRARY_PATH=/opt/vero2/include"
  	fi
- 	cmake -DCMAKE_INSTALL_DESTDIR=/usr -DCMAKE_INSTALL_PREFIX=${out}/usr/ -DBUILD_DIR=$(pwd) ../ -DOVERRIDE_PATHS=1 $PLATFORM
+	cmake -DCMAKE_INSTALL_PREFIX=${out}/usr/ -DBUILD_DIR=$(pwd) ../ $PLATFORM
 	if [ $? != 0 ]; then echo "Configuring binary addons failed" && exit 1; fi
 	cd ../
-	$BUILD kodiplatform_DIR=$(pwd) -C build/
+	$BUILD kodiplatform_DIR=$(pwd) CMAKE_PREFIX_PATH=/usr/osmc -C build/
 	if [ $? != 0 ]; then echo "Building binary addons failed" && exit 1; fi
 	popd
         # Languages
         mkdir languages/
         pushd languages
-        if [ "$API_VERSION" = "16" ]; then api_name="jarvis"; fi
-        if [ "$API_VERSION" = "17" ]; then api_name="tbc"; fi
+        if [ "$API_VERSION" = "17" ]; then api_name="krypton"; fi
+        if [ "$API_VERSION" = "18" ]; then api_name="tbc"; fi
         base_url="http://mirror.us.leaseweb.net/xbmc/addons/${api_name}"
 	handle_dep "wget" # We do not usually use wget in the build environment
         languages=$(wget ${base_url} -O- | grep resource.language. | sed -e 's/<a/\n<a/g' | sed -e 's/<a .*href=['"'"'"]//' -e 's/["'"'"'].*$//' -e '/^$/ d' | sed '/tr/d' | sed 's/resource.language.//' | tr -d /)

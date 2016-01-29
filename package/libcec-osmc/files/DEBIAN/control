@@ -1,7 +1,10 @@
 Origin: OSMC
-Version: 3.0.1-14
+Version: 3.1.0-1
 Section: libs
 Essential: No
 Priority: optional
 Maintainer: Sam G Nazarko <email@samnazarko.co.uk>
 Description: libcec
+Package: rbp2-libcec-osmc
+Architecture: armhf
+Installed-Size: 1153
