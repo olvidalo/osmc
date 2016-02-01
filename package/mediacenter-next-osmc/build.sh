@@ -8,7 +8,7 @@ if [ "$1" == "rbp1" ] || [ "$1" == "rbp2" ] || [ "$1" == "vero" ] || [ "$1" == "
 then
 #pull_source "https://github.com/popcornmix/xbmc/archive/f4d0af05c587aa4c1d827ecccb0d9f3722279422.tar.gz" "$(pwd)/src"
 #pull_source "https://github.com/popcornmix/xbmc/archive/f9513acfa7f9bc88197c4462aa5e62151e84f156.tar.gz" "$(pwd)/src"
-pull_source "https://github.com/popcornmix/xbmc/archive/6962f5de0f66940cbf1cc01225942d552637531f.tar.gz" "$(pwd)/src"
+pull_source "https://github.com/popcornmix/xbmc/archive/e9f1717917d595739cbbe3293aee423fa010676c.tar.gz" "$(pwd)/src"
 
 
 API_VERSION="17"

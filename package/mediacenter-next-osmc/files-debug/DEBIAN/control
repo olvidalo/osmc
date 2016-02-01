@@ -5,7 +5,7 @@ Priority: required
 Maintainer: Sam G Nazarko <email@samnazarko.co.uk>
 Description: Media Center debug package for OSMC
 Package: rbp1-mediacenter-debug-osmc
-Version: 16.8-018
+Version: 16.8-021
 Depends: rbp1-mediacenter-osmc (=16.8-018)
 Architecture: armhf
 Installed-Size: 35584
