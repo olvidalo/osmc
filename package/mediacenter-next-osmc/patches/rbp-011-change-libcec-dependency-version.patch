@@ -1,0 +1,26 @@
+From e39c2cd2e8c33468b481a2032a19a6879ad8a4ab Mon Sep 17 00:00:00 2001
+From: Sam Nazarko <email@samnazarko.co.uk>
+Date: Fri, 25 Dec 2015 17:07:58 +0000
+Subject: [PATCH] Change libcec version dependency
+
+Signed-off-by: Sam Nazarko <email@samnazarko.co.uk>
+---
+ xbmc/peripherals/devices/PeripheralCecAdapter.cpp | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/xbmc/peripherals/devices/PeripheralCecAdapter.cpp b/xbmc/peripherals/devices/PeripheralCecAdapter.cpp
+index 6c323a6..8727498 100644
+--- a/xbmc/peripherals/devices/PeripheralCecAdapter.cpp
++++ b/xbmc/peripherals/devices/PeripheralCecAdapter.cpp
+@@ -43,7 +43,7 @@ using namespace PERIPHERALS;
+ using namespace ANNOUNCEMENT;
+ using namespace CEC;
+ 
+-#define CEC_LIB_SUPPORTED_VERSION LIBCEC_VERSION_TO_UINT(3, 1, 0)
++#define CEC_LIB_SUPPORTED_VERSION LIBCEC_VERSION_TO_UINT(3, 0, 0)
+ 
+ /* time in seconds to ignore standby commands from devices after the screensaver has been activated */
+ #define SCREENSAVER_TIMEOUT       20
+-- 
+2.1.4
+
