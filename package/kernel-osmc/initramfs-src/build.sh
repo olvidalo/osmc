@@ -22,7 +22,10 @@ echo "Building initramfs for target ${1}"
 make clean
 update_sources
 handle_dep "autoconf"
-
+if [ "$2" == "vero2" ]
+then
+    handle_dep "libdevmapper-dev"
+fi
 if [ "$1" == "cpio" ]
 then
 	rm -f *.tar.*
@@ -40,6 +43,14 @@ then
 	if [ $? != 0 ]; then echo "Could not get e2fsprogs sources" && exit 1; fi
 	mkdir -p $(pwd)/e2fsprogs
 	tar -xvf e2fsprogs-${E2FSPROGS_VERSION}.tar.gz -C "$(pwd)/e2fsprogs"
+	if [ "$2" == "vero2" ]
+	then
+            # LVM support
+	    wget "ftp://sources.redhat.com/pub/lvm2/LVM2.${LVM_VERSION}.tgz"
+	    if [ $? != 0 ]; then echo "Could not get LVM sources" && exit 1; fi
+	    mkdir -p $(pwd)/lvm2
+	    tar -xzvf LVM2.${LVM_VERSION}.tgz -C "$(pwd)/lvm2"
+	fi
 fi
 echo "Compiling busybox"
 pushd busybox/busybox-${BUSYBOX_VERSION}
@@ -54,7 +65,19 @@ pushd e2fsprogs/e2fsprogs-${E2FSPROGS_VERSION}
 $BUILD
 if [ $? != 0 ]; then echo "Error occured during build" && exit 1; fi
 popd
+if [ "$2" == "vero2" ]
+then
+    echo "Compiling LVM2"
+    pushd lvm2/LVM2.${LVM_VERSION}
+    ./configure --prefix=/usr
+    $BUILD
+    mkdir out
+    $BUILD DESTDIR=$(pwd)/out install
+    if [ $? != 0 ]; then echo "Error occured during build" && exit 1; fi
+    popd
+fi
 mkdir -p target/
+mkdir -p target/usr/lib
 mkdir -p target/lib
 mkdir -p target/sbin
 mkdir -p target/bin
@@ -66,11 +89,23 @@ mkdir -p target/etc
 mkdir -p target/dev
 mkdir -p target/run
 mkdir -p target/init.d
+if [ "$2" == "vero2" ]
+then
+    mkdir -p target/usr/sbin
+    mkdir -p target/etc/lvm
+fi
 mkdir -p target/usr/share/udhcpc
 install -m 0755 e2fsprogs/e2fsprogs-${E2FSPROGS_VERSION}/e2fsck/e2fsck target/bin/e2fsck
 install -m 0755 busybox/busybox-${BUSYBOX_VERSION}/busybox target/bin/busybox
 install -m 0755 init target/init
 install -m 0755 init.d/${2} target/init-device
+if [ "$2" == "vero2" ]
+then
+    cp -ar lvm-vero2.conf target/etc/lvm/lvm.conf
+    install -m 0755 lvm2/LVM2.${LVM_VERSION}/out/usr/sbin/pvscan target/usr/sbin/pvscan
+    install -m 0755 lvm2/LVM2.${LVM_VERSION}/out/usr/sbin/vgscan target/usr/sbin/vgscan
+    install -m 0755 lvm2/LVM2.${LVM_VERSION}/out/usr/sbin/lvchange target/usr/sbin/lvchange
+fi
 cp -ar udhcpc.script target/usr/share/udhcpc/default.script
 cp -ar e2fsck.conf target/etc/e2fsck.conf
 ln -s target/bin/e2fsck target/bin/fsck.ext4
@@ -83,6 +118,14 @@ mknod target/dev/null c 1 3
 mknod target/dev/tty c 5 0
 for line in $(ldd target/bin/e2fsck); do if (echo $line | grep -q /lib); then cp $line target/lib; fi; done
 for line in $(ldd target/bin/busybox); do if (echo $line | grep -q /lib); then cp $line target/lib; fi; done
+if [ "$2" == "vero" ]
+then
+    for line in $(ldd target/usr/sbin/pvscan); do if (echo $line | grep -q /lib); then cp $line target/lib; fi; done
+    for line in $(ldd target/usr/sbin/vgscan); do if (echo $line | grep -q /lib); then cp $line target/lib; fi; done
+    for line in $(ldd target/usr/sbin/lvchange); do if (echo $line | grep -q /lib); then cp $line target/lib; fi; done
+    # HACK HACK HACK. Fix when not 6.33AM
+    cp -ar /usr/lib/arm-linux-gnueabihf/libdevmapper.so target/usr/lib/libdevmapper.so.1.02
+fi
 if [ "$1" == "cpio" ]
 then
     pushd target
