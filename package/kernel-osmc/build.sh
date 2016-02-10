@@ -13,7 +13,7 @@ INITRAMFS_NOBUILD=4
 test $1 == rbp1 && VERSION="4.4.0" && REV="1" && FLAGS_INITRAMFS=$(($INITRAMFS_BUILD + $INITRAMFS_EMBED)) && IMG_TYPE="zImage"
 test $1 == rbp2 && VERSION="4.4.0" && REV="1" && FLAGS_INITRAMFS=$(($INITRAMFS_BUILD + $INITRAMFS_EMBED)) && IMG_TYPE="zImage"
 test $1 == vero && VERSION="4.4.0" && REV="1" && FLAGS_INITRAMFS=$(($INITRAMFS_BUILD + $INITRAMFS_EMBED)) && IMG_TYPE="zImage"
-test $1 == vero2 && VERSION="3.10.94" && REV="11" && FLAGS_INITRAMFS=$(($INITRAMFS_BUILD)) && IMG_TYPE="uImage"
+test $1 == vero2 && VERSION="3.10.94" && REV="12" && FLAGS_INITRAMFS=$(($INITRAMFS_BUILD)) && IMG_TYPE="uImage"
 test $1 == atv && VERSION="4.2.3" && REV="7" && FLAGS_INITRAMFS=$(($INITRAMFS_NOBUILD)) && IMG_TYPE="zImage"
 test $1 == pc && VERSION="4.2.3" && REV="1" && FLAGS_INITRAMFS=$(($INITRAMFS_BUILD + $INITRAMFS_EMBED)) && IMG_TYPE="zImage"
 if [ $1 == "rbp1" ] || [ $1 == "rbp2" ] || [ $1 == "atv" ] || [ $1 == "pc" ]
@@ -108,12 +108,11 @@ then
 		if ((($FLAGS_INITRAMFS & $INITRAMFS_EMBED) == $INITRAMFS_EMBED))
 		then
 			echo "This device requests an initramfs to be embedded"
-			cp -ar ../../initramfs-src/target osmc-initramfs
-			export RAMFSDIR=$(pwd)/osmc-initramfs
+			export RAMFSDIR=$(pwd)/../../initramfs-src/target
 		else
 			echo "This device requests an initramfs to be built, but not embedded"
 			pushd ../../initramfs-src/target
-			find . | cpio -H newc -o | gzip - > ../../initramfs-src/target/initrd.img.gz
+			find . | cpio -H newc -o | gzip - > ../../src/*linux*/initrd.img.gz
 			popd
 		fi
 	fi
