@@ -298,6 +298,8 @@ then
                 --disable-vaapi \
                 --enable-gles \
                 --enable-codec=aml \
+		--enable-player=amplayer \
+		--enable-alsa \
                 --disable-libcec \
                 --disable-debug \
                 --disable-texturepacker \
