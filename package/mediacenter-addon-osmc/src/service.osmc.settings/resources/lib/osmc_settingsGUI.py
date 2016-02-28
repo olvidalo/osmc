@@ -86,6 +86,15 @@ class OSMC_gui(xbmcgui.WindowXMLDialog):
 
 				self.getControl(controlID).addItem(list_item)
 
+			# add in the Update Now button if the notification is 'true'
+			if xbmcgui.Window(10000).getProperty('OSMC_notification') == 'true':
+				self.getControl(555).addItem(xbmcgui.ListItem(label=lang(32038)))
+
+
+			# add text to changelog box
+			# this is temporary text while Naz works on making the changelog available.
+			tmp = "this is temporary text purely for testing, if you are seeing this in the live version of OSMC then someone done screwed up"
+			self.getControl(2222).setText(tmp)
 			self.setFocusId(555)
 
 
@@ -110,6 +119,14 @@ class OSMC_gui(xbmcgui.WindowXMLDialog):
 
 			if pos == 0:
 				self.close()
+
+			elif pos not in range(len(self.module_holder) + 1 ):
+				# the Update Now button is added to the List but not included in the module_holder dict
+				# so if we get a button press that is not in the range defined by the length of the module list plus 
+				# 1 to account for the zero indexing, then we can correctly presume it is this last button.
+				# To be clear, there is no way any pos can be sent that wont be in the normal list.
+
+				xbmc.executebuiltin('RunScript(/usr/share/kodi/addons/script.module.osmcsetting.updates/resources/lib/call_parent.py, update)')
 
 			else:
 
