@@ -17,9 +17,9 @@ index 3d9a532..c75c913 100644
    <addon>screensaver.xbmc.builtin.dim</addon>
    <addon>script.module.pil</addon>
 -  <addon>service.xbmc.versioncheck</addon>
-   <addon>skin.estuary</addon>
-   <addon>skin.estouchy</addon>
+   <addon>skin.confluence</addon>
    <addon>webinterface.default</addon>
+   <addon>xbmc.addon</addon>
 -- 
 2.1.4
 
