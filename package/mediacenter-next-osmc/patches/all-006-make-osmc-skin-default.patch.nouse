@@ -17,7 +17,7 @@ index 76c9a33..af20c3a 100644
        <group id="1">
          <setting id="lookandfeel.skin" type="addon" label="166" help="36103">
            <level>0</level>
--          <default>skin.confluence</default>
+-          <default>skin.estuary</default>
 +          <default>skin.osmc</default>
            <constraints>
              <addontype>xbmc.gui.skin</addontype>
@@ -28,9 +28,9 @@ index 5225518..8e8b2f9 100644
 +++ b/xbmc/system.h
 @@ -268,5 +268,5 @@
  #if defined(HAS_TOUCH_SKIN) && defined(TARGET_DARWIN_IOS)
- #define DEFAULT_SKIN          "skin.re-touched"
+ #define DEFAULT_SKIN          "skin.estouchy"
  #else
--#define DEFAULT_SKIN          "skin.confluence"
+-#define DEFAULT_SKIN          "skin.estuary"
 +#define DEFAULT_SKIN          "skin.osmc"
  #endif
 -- 
