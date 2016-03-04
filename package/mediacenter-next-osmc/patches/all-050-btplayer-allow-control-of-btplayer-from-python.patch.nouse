@@ -1,15 +1,15 @@
-From 3c70e3e1dbdc20d12a3d6d5a37f8ea81c44f7587 Mon Sep 17 00:00:00 2001
+From f069366a0b70f2149ff20ed2978d694eb23360e8 Mon Sep 17 00:00:00 2001
 From: Gerald Barker <gezbgit config --global user.email>
 Date: Sat, 13 Feb 2016 17:13:04 +0000
 Subject: [PATCH 2/3] [BTPlayer] allow control of BTPlayer from python
 
 ---
- xbmc/interfaces/legacy/ModuleXbmc.cpp | 61 ++++++++++++++++++++++++++++++++++-
- xbmc/interfaces/legacy/ModuleXbmc.h   | 16 ++++++++-
- 2 files changed, 75 insertions(+), 2 deletions(-)
+ xbmc/interfaces/legacy/ModuleXbmc.cpp | 67 ++++++++++++++++++++++++++++++++++-
+ xbmc/interfaces/legacy/ModuleXbmc.h   | 20 ++++++++++-
+ 2 files changed, 85 insertions(+), 2 deletions(-)
 
 diff --git a/xbmc/interfaces/legacy/ModuleXbmc.cpp b/xbmc/interfaces/legacy/ModuleXbmc.cpp
-index 7bf9093..9bfdfed 100644
+index 7bf9093..dbf2a93 100644
 --- a/xbmc/interfaces/legacy/ModuleXbmc.cpp
 +++ b/xbmc/interfaces/legacy/ModuleXbmc.cpp
 @@ -56,6 +56,9 @@
@@ -22,7 +22,7 @@ index 7bf9093..9bfdfed 100644
  
  #include "threads/SystemClock.h"
  #include <vector>
-@@ -563,5 +566,61 @@ namespace XBMCAddon
+@@ -563,5 +566,67 @@ namespace XBMCAddon
      int getENGLISH_NAME() { return CLangCodeExpander::ENGLISH_NAME; }
  
      const int lLOGNOTICE = LOGNOTICE;
@@ -52,16 +52,12 @@ index 7bf9093..9bfdfed 100644
 +            return btPlayerId;
 +        }
 +
-+        void startBTPlayer(const char* track, const char* artist, const char* album)
++        void startBTPlayer()
 +        {
 +            XBMC_TRACE
 +            CFileItemList list;
 +            CFileItemPtr item;
 +            item.reset(new CFileItem("", false));
-+            item->GetMusicInfoTag()->SetArtist(artist);
-+            item->GetMusicInfoTag()->SetTitle(track);
-+            item->GetMusicInfoTag()->SetAlbum(album);
-+            item->GetMusicInfoTag()->SetLoaded(true);
 +            list.Add(item);
 +
 +            PLAYERCOREID btPlayerId = findBTPlayer();
@@ -82,36 +78,50 @@ index 7bf9093..9bfdfed 100644
 +                CApplicationMessenger::GetInstance().SendMsg(TMSG_MEDIA_STOP, static_cast<int>(btPlayerId));
 +            }
 +        }
++
++         bool isBTPlayerActive()
++        {
++            PLAYERCOREID btPlayerId = findBTPlayer();
++            if (g_application.m_pPlayer->GetCurrentPlayer() == btPlayerId)
++            {
++                return true;
++            }
++            return FALSE;
++        }
 +    }
    }
 -}
 diff --git a/xbmc/interfaces/legacy/ModuleXbmc.h b/xbmc/interfaces/legacy/ModuleXbmc.h
-index 09169dd..d79654c 100644
+index 09169dd..0900802 100644
 --- a/xbmc/interfaces/legacy/ModuleXbmc.h
 +++ b/xbmc/interfaces/legacy/ModuleXbmc.h
-@@ -418,7 +418,21 @@ namespace XBMCAddon
+@@ -418,7 +418,25 @@ namespace XBMCAddon
      */
      String convertLanguage(const char* language, int format); 
  
 -    SWIG_CONSTANT_FROM_GETTER(int,SERVER_WEBSERVER);
 +    /**
-+     * startBTPlayer(track, artist, album) -- Starts BTPlayer
++     * startBTPlayer()
 +     *
-+     * track: the name of the track that is playing
-+     * artist: the artist of the track that is playing
-+     * album: the name of the album the track is off
 +     *
 +     */
-+	 void startBTPlayer(const char* track, const char* artist, const char* album);
++	 void startBTPlayer();
 +
 +    /**
 +    * stopBTPlayer() -- Stops BTPlayer
 +    */
-+    void stopBTPlayer();    SWIG_CONSTANT_FROM_GETTER(int, SERVER_WEBSERVER);
++    void stopBTPlayer();
++
++    /**
++    * isBTPlayerActive() -- returns true if BTPlayer is active
++    */
++    bool isBTPlayerActive();
++
++    SWIG_CONSTANT_FROM_GETTER(int, SERVER_WEBSERVER);
 +
      SWIG_CONSTANT_FROM_GETTER(int,SERVER_AIRPLAYSERVER);
      SWIG_CONSTANT_FROM_GETTER(int,SERVER_UPNPSERVER);
      SWIG_CONSTANT_FROM_GETTER(int,SERVER_UPNPRENDERER);
 -- 
-2.7.1.windows.1
+2.5.0
 
