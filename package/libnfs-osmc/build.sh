@@ -5,7 +5,7 @@
 
 . ../common.sh
 
-pull_source "https://sites.google.com/site/libnfstarballs/li/libnfs-1.9.8.tar.gz" "$(pwd)/src"
+pull_source "https://github.com/sahlberg/libnfs/archive/libnfs-1.10.0.tar.gz" "$(pwd)/src"
 if [ $? != 0 ]; then echo -e "Error downloading" && exit 1; fi
 # Build in native environment
 build_in_env "${1}" $(pwd) "libnfs-osmc"
@@ -26,9 +26,11 @@ then
         echo "Depends: ${1}-libnfs-osmc (=${VERSION_NUM})" >> files-dev/DEBIAN/control
 	update_sources
 	handle_dep "autoconf"
+	handle_dep "automake"
 	handle_dep "libtool"
 	echo "Package: ${1}-libnfs-osmc" >> files/DEBIAN/control && echo "Package: ${1}-libnfs-dev-osmc" >> files-dev/DEBIAN/control
 	pushd src/libnfs-*
+	./bootstrap
 	./configure --prefix=/usr/osmc
 	$BUILD
 	make install DESTDIR=${out}
