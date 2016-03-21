@@ -6,9 +6,8 @@
 . ../common.sh
 if [ "$1" == "rbp1" ] || [ "$1" == "rbp2" ] || [ "$1" == "vero" ] || [ "$1" == "atv" ] || [ "$1" == "vero2" ]
 then
-#pull_source "https://github.com/popcornmix/xbmc/archive/f4d0af05c587aa4c1d827ecccb0d9f3722279422.tar.gz" "$(pwd)/src"
-#pull_source "https://github.com/popcornmix/xbmc/archive/f9513acfa7f9bc88197c4462aa5e62151e84f156.tar.gz" "$(pwd)/src"
-pull_source "https://github.com/popcornmix/xbmc/archive/e9f1717917d595739cbbe3293aee423fa010676c.tar.gz" "$(pwd)/src"
+pull_source "https://github.com/popcornmix/xbmc/archive/70bc4bc02cf553e0bf18b381cd1bb9f8b8cb0472.tar.gz" "$(pwd)/src"
+#pull_source "https://github.com/popcornmix/xbmc/archive/188ff0eebbeb7a4c8235f98bb34f2d811ad0b048.tar.gz" "$(pwd)/src"
 
 
 API_VERSION="17"
@@ -300,6 +299,8 @@ then
                 --disable-vaapi \
                 --enable-gles \
                 --enable-codec=aml \
+		--enable-player=amplayer \
+		--enable-alsa \
                 --disable-libcec \
                 --disable-debug \
                 --disable-texturepacker \
@@ -369,7 +370,7 @@ then
 	test "$1" == atv && echo "Depends: ${COMMON_DEPENDS}, i386-libcec-osmc, i386-libnfs-osmc, i386-librtmp-osmc, i386-libshairplay-osmc, i386-libbluray-osmc, i386-libsqlite-osmc, libxrandr2, libsdl-image1.2, libglew1.10, libglu1-mesa, i386-libcrystalhd-osmc, xserver-xorg-core, xserver-xorg, xinit, xfonts-base, x11-xserver-utils, xauth, alsa-utils, xserver-xorg-video-nvidia-legacy-304xx, nvidia-xconfig, i386-libcrossguid-osmc" >> files/DEBIAN/control
 	test "$1" == rbp1 && echo "Depends: ${COMMON_DEPENDS}, rbp1-libcec-osmc, armv6l-libnfs-osmc, armv6l-librtmp-osmc, armv6l-libshairplay-osmc, armv6l-libbluray-osmc, armv6l-libsqlite-osmc, rbp-userland-osmc, armv6l-splash-osmc, armv6l-libcrossguid-osmc" >> files/DEBIAN/control
 	test "$1" == rbp2 && echo "Depends: ${COMMON_DEPENDS}, rbp2-libcec-osmc, armv7-libnfs-osmc, armv7-librtmp-osmc, armv7-libshairplay-osmc, armv7-libbluray-osmc, armv7-libsqlite-osmc, rbp-userland-osmc, armv7-splash-osmc, armv7-libcrossguid-osmc" >> files/DEBIAN/control
-	test "$1" == vero && echo "Depends: ${COMMON_DEPENDS}, vero-libcec-osmc, armv7-libnfs-osmc, armv7-librtmp-osmc, armv7-libshairplay-osmc, armv7-libbluray-osmc, armv7-libsqlite-osmc, vero-userland-osmc, armv7-splash-osmc, armv7-libcrossguid-osmc" >> files/DEBIAN/control
+	test "$1" == vero2 && echo "Depends: ${COMMON_DEPENDS}, armv7-libnfs-osmc, armv7-librtmp-osmc, armv7-libshairplay-osmc, armv7-libbluray-osmc, armv7-libsqlite-osmc, vero2-userland-osmc, armv7-splash-osmc, armv7-libcrossguid-osmc, vero2-libamcodec-osmc" >> files/DEBIAN/control
 	cp patches/${1}-watchdog ${out}/usr/bin/mediacenter
 	cp patches/${1}-advancedsettings.xml ${out}/usr/share/kodi/system/advancedsettings.xml
 	chmod +x ${out}/usr/bin/mediacenter
