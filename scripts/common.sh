@@ -175,7 +175,7 @@ function pull_source()
 	then
 	echo -e "Detected tarball source"
 	if [ "$2" != "." ]; then mkdir -p ${2}; fi
-	wget ${1} -O source.tar
+	wget ${1} --no-passive-ftp -O source.tar
 	if [ $? != 0 ]; then echo "Downloading tarball failed" && exit 1; fi
 	tar -xvf source.tar -C ${2}
 	rm source.tar

@@ -1,7 +1,10 @@
 Origin: OSMC
-Version: 1.0.10-1
+Version: 1.0.11-1
 Section: libs
 Essential: No
 Priority: optional
 Maintainer: Sam G Nazarko <email@samnazarko.co.uk>
 Description: libplatform library
+Package: armv7-libplatform-osmc
+Architecture: armhf
+Installed-Size: 68

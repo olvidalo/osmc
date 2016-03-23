@@ -6,8 +6,8 @@
 . ../common.sh
 if [ "$1" == "rbp1" ] || [ "$1" == "rbp2" ] || [ "$1" == "vero" ] || [ "$1" == "atv" ] || [ "$1" == "vero2" ]
 then
-pull_source "https://github.com/popcornmix/xbmc/archive/70bc4bc02cf553e0bf18b381cd1bb9f8b8cb0472.tar.gz" "$(pwd)/src"
-#pull_source "https://github.com/popcornmix/xbmc/archive/188ff0eebbeb7a4c8235f98bb34f2d811ad0b048.tar.gz" "$(pwd)/src"
+#pull_source "https://github.com/popcornmix/xbmc/archive/6c187f4915b0e923f7a7e63589b80cfc086c1e74.tar.gz" "$(pwd)/src"
+pull_source "https://github.com/popcornmix/xbmc/archive/cbdddad97b318a8887a0239e59965d55adb544ad.tar.gz" "$(pwd)/src"
 
 
 API_VERSION="17"

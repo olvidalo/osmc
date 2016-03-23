@@ -1,10 +1,10 @@
 Origin: OSMC
 Package: rbp-bootloader-osmc
-Version: 1.2.5-1
+Version: 1.2.6-1
 Section: kernel
 Essential: No
 Priority: Required
 Architecture: armhf
 Maintainer: Sam G Nazarko <email@samnazarko.co.uk>
 Description: Raspberry Pi Bootloader components
-Installed-Size: 3759
+Installed-Size: 3794
