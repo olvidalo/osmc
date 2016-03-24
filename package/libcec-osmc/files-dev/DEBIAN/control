@@ -4,8 +4,11 @@ Essential: No
 Priority: optional
 Maintainer: Sam G Nazarko <email@samnazarko.co.uk>
 Description: libcec package with headers
+<<<<<<< HEAD
 Version: 3.1.0-1
 Depends: rbp2-libcec-osmc (=3.1.0-1)
 Package: rbp2-libcec-dev-osmc
 Architecture: armhf
 Installed-Size: 119
+=======
+>>>>>>> fcbdd42e2dafff1d7b0e61ff4255f4494612c9b1

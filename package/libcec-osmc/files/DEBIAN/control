@@ -1,5 +1,9 @@
 Origin: OSMC
+<<<<<<< HEAD
 Version: 3.1.0-1
+=======
+Version: 3.0.1-15
+>>>>>>> fcbdd42e2dafff1d7b0e61ff4255f4494612c9b1
 Section: libs
 Essential: No
 Priority: optional

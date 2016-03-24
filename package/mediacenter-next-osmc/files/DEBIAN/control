@@ -1,5 +1,5 @@
 Origin: OSMC
-Version: 16.8-047
+Version: 16.8-048
 Section: video
 Essential: No
 Priority: required
@@ -7,7 +7,6 @@ Provides: xbmc, kodi
 Conflicts: xbmc, kodi
 Maintainer: Sam G Nazarko <email@samnazarko.co.uk>
 Description: Media Center package for OSMC
-Package: rbp2-mediacenter-osmc
-Depends: niceprioritypolicy-osmc, mediacenter-send-osmc, libssh-4, libavahi-client3, python, python-imaging, python-unidecode, libsmbclient, libtiff5, libjpeg62-turbo, libsqlite3-0, libtinyxml2.6.2, libogg0, libmad0, libmicrohttpd10, libjasper1, libyajl2, libmysqlclient18, libasound2, libxml2, liblzo2-2, libxslt1.1, libpng12-0, libsamplerate0, libtag1-vanilla, libfribidi0, libgif4, libcdio13, libpcrecpp0, libfreetype6, libvorbis0a, libvorbisenc2, libass5, libcurl3, libssl1.0.0, libplist2, avahi-daemon, policykit-1, mediacenter-addon-osmc (>= 3.0.39), mediacenter-skin-osmc, diskmount-osmc (>= 1.2.9), rbp2-libcec-osmc, armv7-libnfs-osmc, armv7-librtmp-osmc, armv7-libshairplay-osmc, armv7-libbluray-osmc, armv7-libsqlite-osmc, rbp-userland-osmc, armv7-splash-osmc, armv7-libcrossguid-osmc
 Architecture: armhf
-Installed-Size: 89379
+Installed-Size: 95696
+Package: rbp2-mediacenter-osmc
