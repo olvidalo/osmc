@@ -6,6 +6,6 @@ Priority: required
 Maintainer: Sam G Nazarko <email@samnazarko.co.uk>
 Description: Kernel meta package bringing in the latest OSMC kernel for this device
 Package: rbp1-kernel-osmc
-Depends: rbp1-image-4.4.3-1-osmc
+Depends: rbp1-image-4.4.6-1-osmc
 Architecture: armhf
 Installed-Size: 21
