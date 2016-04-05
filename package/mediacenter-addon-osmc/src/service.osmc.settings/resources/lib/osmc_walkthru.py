@@ -705,7 +705,9 @@ class walkthru_gui(xbmcgui.WindowXMLDialog):
 			kb.doModal()
 			if kb.isConfirmed():
 				self.email = kb.getText()
-				requests.post('https://osmc.tv/wp-content/plugins/newsletter/do/subscribe.php', data={'ne': self.email})	
+				requests.post('https://osmc.tv/osmc/api/newsletter/?p=subscribe&id=1', 
+								data={'email': self.email, 'subscribe': 'subscribe'}
+							)
 
 
 	def get_selected_country(self, controlID):
@@ -802,7 +804,7 @@ class walkthru_gui(xbmcgui.WindowXMLDialog):
 	def random_name(self):
 
 		names = [	
-				"Alfonse", "Barnaby", "Aloyisius", "Archibald", "Algernon", "Basil", "Bertram", "Carston", "Cavendish", "Cecil", 
+				"Alfonse", "Barnaby", "Aloysius", "Archibald", "Algernon", "Basil", "Bertram", "Carston", "Cavendish", "Cecil", 
 				"Cyril", "Danforth", "Cuthbert", "Alastair", "Preston", "Giles", "Cortland", "Atticus",
 				"Edmund", "Gilbert", "Ethelbert", "Frederick", "Geoffrey", "Gideon", "Giggleswick", "Grumbole", "Hamilton",
 				"Ignatius", "Ebenezer", "Herbert", "Clement", "Humphrey", "Ian", "Ichabod", "Jonathan", "Malcolm",

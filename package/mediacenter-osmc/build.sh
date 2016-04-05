@@ -6,7 +6,7 @@
 . ../common.sh
 if [ "$1" == "rbp1" ] || [ "$1" == "rbp2" ] || [ "$1" == "vero" ] || [ "$1" == "atv" ] || [ "$1" == "vero2" ]
 then
-pull_source "https://github.com/xbmc/xbmc/archive/a5f3a997be62e7f2c0f1c1cf6878f096629a5db2.tar.gz" "$(pwd)/src"
+pull_source "https://github.com/xbmc/xbmc/archive/17dd50aae422d12610811b6799f1d341bdeafde2.tar.gz" "$(pwd)/src"
 API_VERSION="16"
 else
 pull_source "https://github.com/xbmc/xbmc/archive/master.tar.gz" "$(pwd)/kodi"
@@ -141,6 +141,7 @@ then
 	fi
         if [ "$1" == "vero2" ]
         then
+		handle_dep "vero2-libcec-dev-osmc"
 		handle_dep "vero2-userland-dev-osmc"
 		handle_dep "vero2-libamcodec-dev-osmc"
                 handle_dep "armv7-libshairplay-dev-osmc"
@@ -300,7 +301,7 @@ then
                 --enable-codec=amcodec \
 		--enable-player=amplayer \
 		--enable-alsa \
-                --disable-libcec \
+                --enable-libcec \
                 --disable-debug \
                 --disable-texturepacker \
                 --enable-optical-drive \
@@ -370,7 +371,7 @@ then
 	test "$1" == rbp1 && echo "Depends: ${COMMON_DEPENDS}, rbp1-libcec-osmc, armv6l-libnfs-osmc, armv6l-librtmp-osmc, armv6l-libshairplay-osmc, armv6l-libbluray-osmc, armv6l-libsqlite-osmc, rbp-userland-osmc, armv6l-splash-osmc, armv6l-libcrossguid-osmc" >> files/DEBIAN/control
 	test "$1" == rbp2 && echo "Depends: ${COMMON_DEPENDS}, rbp2-libcec-osmc, armv7-libnfs-osmc, armv7-librtmp-osmc, armv7-libshairplay-osmc, armv7-libbluray-osmc, armv7-libsqlite-osmc, rbp-userland-osmc, armv7-splash-osmc, armv7-libcrossguid-osmc" >> files/DEBIAN/control
 	test "$1" == vero && echo "Depends: ${COMMON_DEPENDS}, vero-libcec-osmc, armv7-libnfs-osmc, armv7-librtmp-osmc, armv7-libshairplay-osmc, armv7-libbluray-osmc, armv7-libsqlite-osmc, vero-userland-osmc, armv7-splash-osmc, armv7-libcrossguid-osmc" >> files/DEBIAN/control
-	test "$1" == vero2 && echo "Depends: ${COMMON_DEPENDS}, armv7-libnfs-osmc, armv7-librtmp-osmc, armv7-libshairplay-osmc, armv7-libbluray-osmc, armv7-libsqlite-osmc, vero2-userland-osmc, armv7-splash-osmc, armv7-libcrossguid-osmc, vero2-libamcodec-osmc" >> files/DEBIAN/control
+	test "$1" == vero2 && echo "Depends: ${COMMON_DEPENDS}, vero2-libcec-osmc, armv7-libnfs-osmc, armv7-librtmp-osmc, armv7-libshairplay-osmc, armv7-libbluray-osmc, armv7-libsqlite-osmc, vero2-userland-osmc, armv7-splash-osmc, armv7-libcrossguid-osmc, vero2-libamcodec-osmc" >> files/DEBIAN/control
 	cp patches/${1}-watchdog ${out}/usr/bin/mediacenter
 	cp patches/${1}-advancedsettings.xml ${out}/usr/share/kodi/system/advancedsettings.xml
 	chmod +x ${out}/usr/bin/mediacenter
