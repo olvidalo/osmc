@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<addon id="skin.osmc" version="0.0.1" name="OSMC" provider-name="FastColors">
+    <requires>
+        <import addon="xbmc.gui" version="5.11.0"/>
+    </requires>
+    <extension
+            point="xbmc.gui.skin"
+            debugging="true">
+        <res width="1920" height="1080" aspect="16:9" default="true" folder="1080i" />
+    </extension>
+    <extension point="xbmc.addon.metadata">
+        <summary>--</summary>
+        <description>--</description>
+        <disclaimer>Aliens'R'Us</disclaimer>
+        <platform>all</platform>
+        <licence></licence>
+        <forum>--</forum>
+        <source>--</source>
+        <email></email>
+    </extension>
+</addon>

@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window id="7">
+    <defaultcontrol always="true">9001</defaultcontrol>
+    <backgroundcolor>background</backgroundcolor>
+    <include>OpenClose</include>
+    <controls>
+        <include>osmc_back</include>
+        <control type="label" description="Heading">
+            <font>font45</font>
+            <align>center</align>
+            <label>130</label>
+        </control>
+        <control type="group">
+            <control type="grouplist" id="9001" description="TopHat">
+                <top>140</top>
+                <left>50</left>
+                <width>400</width>
+                <height>800</height>
+                <onleft>9000</onleft>
+                <onright>3</onright>
+                <onup>noop</onup>
+                <ondown>noop</ondown>
+                <itemgap>0</itemgap>
+                <control type="button" id="95" description="Summary">
+                    <width>300</width>
+                    <label>20037</label>
+                </control>
+                <control type="button" id="94" description="Storage">
+                    <width>300</width>
+                    <label>13277</label>
+                </control>
+                <control type="button" id="96" description="Network">
+                    <width>300</width>
+                    <label>13279</label>
+                </control>
+                <control type="button" id="97" description="Video">
+                    <width>300</width>
+                    <label>13280</label>
+                </control>
+                <control type="button" id="98" description="Hardware">
+                    <width>300</width>
+                    <label>13281</label>
+                </control>
+            </control>
+            <control type="grouplist" description="Stage">
+                <centerleft>960</centerleft>
+                <top>170</top>
+                <width>1420</width>
+                <height>860</height>
+                <itemgap>10</itemgap>
+                <control type="label" id="21">
+                    <description>CPU Text</description>
+                    <width>1420</width>
+                    <font>size26</font>
+                    <label>$LOCALIZE[13271] $INFO[System.CPUUsage]</label>
+                </control>
+                <control type="progress" id="22" description="CPU BAR">
+                    <width>1420</width>
+                    <height>15</height>
+                    <texturebg border="6,0,6,0">progress/ProgressBG.png</texturebg>
+                    <midtexture border="0,1,0,1">progress/ProgressM.png</midtexture>
+                    <righttexture border="1,1,6,1">progress/ProgressR.png</righttexture>
+                    <lefttexture border="6,1,1,1">progress/ProgressL.png</lefttexture>
+                    <overlaytexture>-</overlaytexture>
+                    <info>System.CPUUsage</info>
+                </control>
+                <control type="label" id="23">
+                    <description>Memory Text</description>
+                    <width>1420</width>
+                    <font>size26</font>
+                    <label>$LOCALIZE[31021] $INFO[system.memory(used.percent)]</label>
+                </control>
+                <control type="progress" id="24">
+                    <description>Memory BAR</description>
+                    <height>15</height>
+                    <width>1420</width>
+                    <texturebg border="6,0,6,0">progress/ProgressBG.png</texturebg>
+                    <midtexture border="0,1,0,1">progress/ProgressM.png</midtexture>
+                    <righttexture border="1,1,6,1">progress/ProgressR.png</righttexture>
+                    <lefttexture border="6,1,1,1">progress/ProgressL.png</lefttexture>
+                    <overlaytexture>-</overlaytexture>
+                    <info>system.memory(used)</info>
+                </control>
+                <control type="label" id="2">
+                    <description>Label 2</description>
+                    <height>45</height>
+                    <width>1420</width>
+                    <font>size27</font>
+                </control>
+                <control type="label" id="3">
+                    <description>Label 3</description>
+                    <height>45</height>
+                    <width>1420</width>
+                    <font>size27</font>
+                </control>
+                <control type="label" id="4">
+                    <description>Label 4</description>
+                    <height>45</height>
+                    <font>size27</font>
+                    <width>1420</width>
+                </control>
+                <control type="label" id="5">
+                    <description>Label 5</description>
+                    <height>45</height>
+                    <width>1420</width>
+                    <font>size27</font>
+                </control>
+                <control type="label" id="6">
+                    <description>Label 6</description>
+                    <height>45</height>
+                    <width>1420</width>
+                    <font>size27</font>
+                </control>
+                <control type="label" id="7">
+                    <description>Label 7</description>
+                    <height>45</height>
+                    <width>1420</width>
+                    <font>size27</font>
+                </control>
+                <control type="label" id="8">
+                    <description>Label 8</description>
+                    <height>45</height>
+                    <width>1420</width>
+                    <font>size27</font>
+                </control>
+                <control type="label" id="9">
+                    <description>Label 9</description>
+                    <height>45</height>
+                    <width>1420</width>
+                    <font>size27</font>
+                </control>
+                <control type="label" id="10">
+                    <description>Label 10</description>
+                    <height>45</height>
+                    <width>1420</width>
+                    <font>size27</font>
+                </control>
+                <control type="label" id="11">
+                    <description>Label 11</description>
+                    <height>45</height>
+                    <width>1420</width>
+                    <font>size27</font>
+                </control>
+                <control type="label" id="52" description="XBMC BUILD">
+                    <width>1420</width>
+                    <align>center</align>
+                    <font>size27</font>
+                </control>
+            </control>
+        </control>
+        <include>clockandkodi</include>
+    </controls>
+</window>

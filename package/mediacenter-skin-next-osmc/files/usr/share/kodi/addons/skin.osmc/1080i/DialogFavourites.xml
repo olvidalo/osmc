@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window type="dialog" id="134">
+    <defaultcontrol always="true">450</defaultcontrol>
+
+    <onunload>RunScript(script.favourites)</onunload>
+    <controls>
+        <control type="group">
+            <animation effect="slide" start="0,-700" end="0,0" time="600" reversible="true">WindowOpen</animation>
+            <animation effect="slide" start="0,0" end="0,-700" time="600" reversible="true">WindowClose</animation>
+            <control type="image">
+                <top>-60</top>
+                <width>1920</width>
+                <height>550</height>
+                <texture border="50">sidepanel/Back.png</texture>
+            </control>
+            <control type="group">
+                <left>960</left>
+                <top>0</top>
+                <control type="list" id="450">
+                    <width>960</width>
+                    <height>450</height>
+                    <onleft>noop</onleft>
+                    <onright condition="!Skin.HasSetting(Scrollbars_Passive)">60</onright>
+                    <onup>450</onup>
+                    <ondown>450</ondown>
+                    <pagecontrol>60</pagecontrol>
+                    <focusposition>1</focusposition>
+                    <movement>4</movement>
+                    <scrolltime tween="sine" easing="inout">280</scrolltime>
+                    <itemlayout width="890" height="70">
+                        <control type="label" description="Main Label">
+                            <left>45</left>
+                            <width>725</width>
+                            <include>BigListTitle</include>
+                            <label>$INFO[ListItem.label]</label>
+                        </control>
+                        <include>listline</include>
+                    </itemlayout>
+                    <focusedlayout width="890" height="70">
+                        <control type="image">
+                            <animation effect="fade" end="0" time="30">UnFocus</animation>
+                            <width>920</width>
+                            <height>70</height>
+                            <texture colordiffuse="$VAR[diffuseselect]">images/buttonselect1.png</texture>
+                        </control>
+                        <control type="label" description="Main Label">
+                            <left>45</left>
+                            <width>725</width>
+                            <include>BigListTitleFO</include>
+                            <label>$INFO[ListItem.label]</label>
+                        </control>
+                        <include>listline</include>
+                    </focusedlayout>
+                </control>
+            </control>
+            <control type="image">
+                <left>960</left>
+                <width>1</width>
+                <height>459</height>
+                <texture>lines/LineV.png</texture>
+            </control>
+            <control type="group" description="Thumbs">
+                 <control type="group">
+                    <control type="image" description="Thumb">
+                        <centerleft>480</centerleft>
+                        <centertop>225</centertop>
+                        <width>395</width>
+                        <height>395</height>
+                        <include>Icon_Fade</include>
+                        <texture diffuse="images/DiffuseB.png" background="true">$INFO[ListItem.Icon]</texture>
+                        <aspectratio>keep</aspectratio>
+                    </control>
+                </control>
+            </control>
+            <control type="scrollbar" id="60">
+                <left>51r</left>
+                <top>10</top>
+                <height>430</height>
+                <onleft>450</onleft>
+                <onright>noop</onright>
+            </control>
+        </control>
+    </controls>
+</window>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<includes>
+    <include name="powerhome">
+        <control type="group">
+            <visible>Control.HasFocus(9016) | ControlGroup(66).HasFocus</visible>
+            <animation condition="ControlGroup(66).HasFocus" effect="slide" time="200" end="-100,0">Conditional</animation>
+            <animation effect="slide" time="600" delay="600" start="1520,0" end="0,0">Visible</animation>
+            <control type="image">
+                <visible>!ControlGroup(9000).HasFocus</visible>
+                <animation effect="fade" start="100" end="0" time="200" delay="300">Hidden</animation>
+                <width>1600</width>
+                <aspectratio align="right">scale</aspectratio>
+                <texture>mainbackground.png</texture>
+            </control>
+            <control type="grouplist" id="66">
+                <top>140</top>
+                <left>50</left>
+                <width>800</width>
+                <height>800</height>
+                <onleft>9000</onleft>
+                <control type="label">
+                    <textcolor>main</textcolor>
+                    <align>left</align>
+                    <font>font45</font>
+                    <label>13008</label>
+                </control>
+                <control type="button" id="1">
+                    <align>left</align>
+                    <font>font45</font>
+                    <label>13009</label>
+                    <onclick>quit</onclick>
+                </control>
+                <control type="button" id="2">
+                    <visible>System.CanHibernate</visible>
+                    <align>left</align>
+                    <font>font45</font>
+                    <label>13010</label>
+                    <onclick>Hibernate</onclick>
+                </control>
+                <control type="button" id="3">
+                    <visible>System.CanSuspend</visible>
+                    <align>left</align>
+                    <font>font45</font>
+                    <label>13011</label>
+                    <onclick>Suspend</onclick>
+                </control>
+                <control type="button" id="4">
+                    <visible>System.CanReboot</visible>
+                    <align>left</align>
+                    <font>font45</font>
+                    <label>13013</label>
+                    <onclick>Reboot</onclick>
+                </control>
+                <control type="button" id="5">
+                    <visible>System.CanPowerDown</visible>
+                    <align>left</align>
+                    <font>font45</font>
+                    <label>13005</label>
+                    <onclick>Shutdown</onclick>
+                </control>
+            </control>
+        </control>
+    </include>
+</includes>

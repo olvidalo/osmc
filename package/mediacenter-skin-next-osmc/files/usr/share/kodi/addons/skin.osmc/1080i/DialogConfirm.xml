@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window type="dialog" id="101">
+    <defaultcontrol always="true">10</defaultcontrol>
+    <backgroundcolor>background</backgroundcolor>
+    <include>DialogOpenClose</include>
+    <controls>
+        <control type="image">
+            <left>270</left>
+            <top>210</top>
+            <width>1360</width>
+            <height>740</height>
+            <texture flipx="true" flipy="true">mainbackground.png</texture>
+        </control>
+        <control type="group">
+            <left>480</left>
+            <top>360</top>
+            <control type="label" id="1" description="Heading">
+                <width>960</width>
+                <label>-</label>
+                <font>font30</font>
+                <align>center</align>
+            </control>
+            <control type="textbox" id="9" description="content">
+                <left>0</left>
+                <top>108</top>
+                <label>-</label>
+                <width>960</width>
+                <height>135</height>
+                <font>font40</font>
+                <align>center</align>
+                <autoscroll>false</autoscroll>
+            </control>
+            <control type="progress" id="20">
+                <left>0</left>
+                <top>261</top>
+                <width>960</width>
+                <height>9</height>
+                <texturebg border="5,0,5,0">progress/ProgressBG.png</texturebg>
+                <midtexture border="0,1,0,1">progress/ProgressM.png</midtexture>
+                <righttexture border="1,1,5,1">progress/ProgressR.png</righttexture>
+                <lefttexture border="5,1,1,1">progress/ProgressL.png</lefttexture>
+            </control>
+            <control type="grouplist">
+                <top>370</top>
+                <orientation>horizontal</orientation>
+                <control type="button" id="10">
+                    <left>0</left>
+                    <align>center</align>
+                    <width>480</width>
+                    <font>font40</font>
+                    <label>107</label>
+                </control>
+                <control type="button" id="11">
+                    <left>480</left>
+                    <align>center</align>
+                    <width>480</width>
+                    <font>font40</font>
+                    <label>106</label>
+                </control>
+                <control type="button" id="12">
+                    <left>480</left>
+                    <align>center</align>
+                    <width>480</width>
+                    <font>font40</font>
+                    <label>106</label>
+                </control>
+            </control>
+        </control>
+    </controls>
+</window>

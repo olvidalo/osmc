@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window>
+    <defaultcontrol always="false">9000</defaultcontrol>
+    <backgroundcolor>black</backgroundcolor>
+    <include>openclose</include>
+    <controls>
+        <control type="group">
+            <animation effect="fade" start="100" end="25" time="200" condition="!ControlGroup(9000).HasFocus">Conditional</animation>
+            <include>osmc_back</include>
+            <control type="image">
+                <visible>Container(9000).HasNext</visible>
+                <include>visiblefade</include>
+                <left>200</left>
+                <top>1000</top>
+                <height>50</height>
+                <width>50</width>
+                <texture>arrow.png</texture>
+            </control>
+            <control type="image">
+                <visible>Container(9000).HasPrevious</visible>
+                <include>visiblefade</include>
+                <left>200</left>
+                <top>30</top>
+                <height>50</height>
+                <width>50</width>
+                <texture flipy="true">arrow.png</texture>
+            </control>
+            <control type="grouplist" id="9000">
+                <width>450</width>
+                <height>1080</height>
+                <scrolltime>600</scrolltime>
+                <onup>noop</onup>
+                <ondown>noop</ondown>
+                <onleft>1110</onleft>
+                <onright>700</onright>
+                <itemgap>0</itemgap>
+                <usecontrolcoords>true</usecontrolcoords>
+                <control type="button" id="9001">
+                    <!--MOVIES-->
+                    <top>210</top>
+                    <height>870</height>
+                    <width>400</width>
+                    <font>font_MainMenu</font>
+                    <aligny>top</aligny>
+                    <align>right</align>
+                    <label>20342</label>
+                </control>
+                <control type="button" id="9002">
+                    <!--TVSHOWS-->
+                    <top>210</top>
+                    <height>870</height>
+                    <width>400</width>
+                    <font>font_MainMenu</font>
+                    <aligny>top</aligny>
+                    <align>right</align>
+                    <label>20343</label>
+                </control>
+                <control type="button" id="9004">
+                    <!--MUSIC-->
+                    <top>210</top>
+                    <height>870</height>
+                    <width>400</width>
+                    <font>font_MainMenu</font>
+                    <aligny>top</aligny>
+                    <align>right</align>
+                    <label>2</label>
+                    <onclick>ActivateWindow(Music,Artists,return)</onclick>
+                </control>
+                <control type="button" id="9003">
+                    <!--ADDONS-->
+                    <top>210</top>
+                    <height>870</height>
+                    <width>400</width>
+                    <font>font_MainMenu</font>
+                    <aligny>top</aligny>
+                    <align>right</align>
+                    <label>24001</label>
+                </control>
+                <control type="button" id="9015">
+                    <!--SETTINGS-->
+                    <top>210</top>
+                    <height>870</height>
+                    <width>400</width>
+                    <font>font_MainMenu</font>
+                    <aligny>top</aligny>
+                    <align>right</align>
+                    <label>5</label>
+                    <onclick>ActivateWindow(Settings)</onclick>
+                </control>
+                <control type="button" id="9016">
+                    <top>210</top>
+                    <height>870</height>
+                    <width>400</width>
+                    <font>font_MainMenu</font>
+                    <aligny>top</aligny>
+                    <align>right</align>
+                    <label>33060</label>
+                </control>
+            </control>
+        </control>
+        <control type="group" id="700">
+            <left>420</left>
+            <include>moviehome</include>
+            <include>tvhome</include>
+            <include>musichome</include>
+            <include>addonshome</include>
+            <include>settingshome</include>
+            <include>powerhome</include>
+        </control>
+        <control type="label">
+            <top>100</top>
+            <right>160</right>
+            <height>20</height>
+            <width>auto</width>
+            <align>right</align>
+            <font>font40</font>
+            <info>System.Time</info>
+        </control>
+        <control type="image">
+            <top>75</top>
+            <left>70</left>
+            <height>80</height>
+            <width>80</width>
+            <texture>osmclogo.png</texture>
+        </control>
+        <control type="group" description="Side menu 1110 group">
+            <visible allowhiddenfocus="true">ControlGroup(1110).HasFocus()</visible>
+            <animation effect="slide" start="1540,0" end="0,0" time="600">VisibleChange</animation>
+            <left>380</left>
+            <control type="image" description="List back">
+                <width>1540</width>
+                <height>1080</height>
+                <texture border="50">mainbackground.png</texture>
+            </control>
+            <control type="grouplist" id="1110">
+                <left>50</left>
+                <align>left</align>
+                <onright>9000</onright>
+                <onleft>9000</onleft>
+                <width>1000</width>
+                <control type="button" id="1111">
+                    <enable>false</enable>
+                    <include>DialogButt</include>
+                    <label>•• $LOCALIZE[33063] ••</label>
+                </control>
+                <control type="button" id="1112" description="search">
+                    <visible>System.HasAddon(script.globalsearch)</visible>
+                    <include>DialogButt</include>
+                    <label>137</label>
+                    <onclick>RunAddon(script.globalsearch)</onclick>
+                    <onclick>right</onclick>
+                </control>
+                <control type="button" id="1113" description="PartyMode">
+                    <include>DialogButt</include>
+                    <label>$LOCALIZE[589] Music</label>
+                    <onclick>PlayerControl(Partymode(music))</onclick>
+                    <onclick>right</onclick>
+                </control>
+                <control type="button" id="1114" description="PartyMode">
+                    <include>DialogButt</include>
+                    <label>$LOCALIZE[589] MusicVideo</label>
+                    <onclick>PlayerControl(Partymode(video))</onclick>
+                    <onclick>right</onclick>
+                </control>
+                <control type="togglebutton" id="1115">
+                    <description>Update library</description>
+                    <include>DialogButt</include>
+                    <label>653</label>
+                    <onclick>UpdateLibrary(Video)</onclick>
+                    <altclick>-</altclick>
+                    <altlabel>13353</altlabel>
+                    <usealttexture>library.IsScanning</usealttexture>
+                </control>
+            </control>
+        </control>
+    </controls>
+</window>

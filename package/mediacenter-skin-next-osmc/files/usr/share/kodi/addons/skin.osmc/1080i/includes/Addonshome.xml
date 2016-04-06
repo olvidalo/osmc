@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<includes>
+    <include name="addonshome">
+        <control type="group">
+            <visible>Control.HasFocus(9003) | ControlGroup(53).HasFocus | Control.HasFocus(531)</visible>
+            <animation effect="slide" time="600" delay="600" start="1520,0" end="0,0">Visible</animation>
+            <animation condition="ControlGroup(53).HasFocus | Control.HasFocus(531)" effect="slide" time="200" end="-100,0">Conditional</animation>
+            <control type="image">
+                <visible>!ControlGroup(9000).HasFocus</visible>
+                <animation effect="fade" start="100" end="0" time="200" delay="300">Hidden</animation>
+                <width>1600</width>
+                <aspectratio align="right">scale</aspectratio>
+                <texture>mainbackground.png</texture>
+            </control>
+            <control type="grouplist" id="53">
+                <top>140</top>
+                <left>50</left>
+                <width>400</width>
+                <height>800</height>
+                <onleft>9000</onleft>
+                <onright>531</onright>
+                <onup>noop</onup>
+                <ondown>noop</ondown>
+                <control type="button" id="400">
+                    <font>font45</font>
+                    <label>157</label>
+                    <onfocus>Skin.SetString(addonshome,addons://sources/video/)</onfocus>
+                    <onclick>ActivateWindow(Videos,Addons,return)</onclick>
+                </control>
+                <control type="button" id="401">
+                    <font>font45</font>
+                    <label>292</label>
+                    <onfocus>Skin.SetString(addonshome,addons://sources/audio/)</onfocus>
+                    <onclick>ActivateWindow(Music,Addons,return)</onclick>
+                </control>
+                <control type="button" id="402">
+                    <font>font45</font>
+                    <label>350</label>
+                    <onfocus>Skin.SetString(addonshome,addons://sources/executable/)</onfocus>
+                    <onclick condition="!System.Platform.Android">ActivateWindow(Programs,Addons,return)</onclick>
+                    <onclick condition="System.Platform.Android">ActivateWindow(Programs)</onclick>
+                </control>
+                <control type="button" id="1008">
+                    <font>font45</font>
+                    <label>10040</label>
+                    <onfocus>Skin.SetString(addonshome,-)</onfocus>
+                    <onclick>activatewindow(AddonBrowser,root)</onclick>
+                </control>
+            </control>
+            <control type="image">
+                <visible>Control.HasFocus(531)</visible>
+                <width>1600</width>
+                <animation effect="fade" start="0" end="100" time="200">VisibleChange</animation>
+                <texture>darken.png</texture>
+            </control>
+            <control type="group" id="224">
+                <left>450</left>
+                <animation condition="Control.HasFocus(531)" effect="slide" time="200" start="0,0" end="-200,0">Conditional</animation>
+                <control type="image">
+                    <animation effect="fade" start="100" end="0" time="200" delay="300">Hidden</animation>
+                    <left>-50</left>
+                    <width>1400</width>
+                    <visible>Control.HasFocus(531)</visible>
+                    <texture>mainbackground.png</texture>
+                    <aspectratio align="right">scale</aspectratio>
+                </control>
+                <control type="panel" id="531">
+                    <onup>noop</onup>
+                    <onleft>53</onleft>
+                    <top>140</top>
+                    <width>450</width>
+                    <height>800</height>
+                    <scrolltime tween="sine" easing="out">200</scrolltime>
+                    <itemlayout height="100" width="500">
+                        <control type="textbox">
+                            <width>550</width>
+                            <height>120</height>
+                            <textcolor>black</textcolor>
+                            <font>font45</font>
+                            <align>left</align>
+                            <aligny>center</aligny>
+                            <info>ListItem.Label</info>
+                        </control>
+                    </itemlayout>
+                    <focusedlayout height="100" width="500">
+                        <control type="textbox">
+                            <width>550</width>
+                            <height>120</height>
+                            <font>font45</font>
+                            <align>left</align>
+                            <aligny>center</aligny>
+                            <info>ListItem.Label</info>
+                        </control>
+                    </focusedlayout>
+                    <content target="video">$INFO[Skin.String(addonshome)]</content>
+                </control>
+                <control type="image">
+                    <visible>Container(531).HasNext</visible>
+                    <include>visiblefade</include>
+                    <left>200</left>
+                    <top>1000</top>
+                    <height>50</height>
+                    <width>50</width>
+                    <texture>arrow.png</texture>
+                </control>
+                <control type="image">
+                    <visible>Container(531).HasPrevious</visible>
+                    <include>visiblefade</include>
+                    <left>200</left>
+                    <top>30</top>
+                    <height>50</height>
+                    <width>50</width>
+                    <texture flipy="true">arrow.png</texture>
+                </control>
+                <control type="group">
+                    <control type="image">
+                        <left>450</left>
+                        <top>180</top>
+                        <height>400</height>
+                        <width>400</width>
+                        <aspectratio align="top">keep</aspectratio>
+                        <texture>$INFO[Container(531).ListItem.Icon]</texture>
+                    </control>
+                    <control type="textbox">
+                        <left>890</left>
+                        <top>220</top>
+                        <height>160</height>
+                        <width>350</width>
+                        <textcolor>main</textcolor>
+                        <label>[B]$INFO[Container(531).ListItem.Label] $INFO[Container(531).ListItem.AddonVersion][CR][/B]$INFO[Container(531).ListItem.Addon.Creator,by ]</label>
+                    </control>
+                    <control type="textbox">
+                        <left>890</left>
+                        <top>400</top>
+                        <height>200</height>
+                        <width>350</width>
+                        <label>[COLOR red]$INFO[Container(531).ListItem.AddonDisclaimer][/COLOR]</label>
+                    </control>
+                    <control type="textbox">
+                        <left>450</left>
+                        <top>600</top>
+                        <height>310</height>
+                        <width>700</width>
+                        <textcolor>black</textcolor>
+                        <label>$INFO[Container(531).ListItem.AddonDescription]</label>
+                    </control>
+                </control>
+            </control>
+        </control>
+    </include>
+</includes>

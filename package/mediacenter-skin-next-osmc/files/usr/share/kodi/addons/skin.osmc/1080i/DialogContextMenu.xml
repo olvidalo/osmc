@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window id="106">
+    <defaultcontrol always="true">996</defaultcontrol>
+    <backgroundcolor>background</backgroundcolor>
+    <include>contextslide</include>
+    <!--<coordinates>-->
+        <!--<system>1</system>-->
+        <!--<origin x="570" y="10">Control.IsVisible(1012)</origin>-->
+        <!--<origin x="570" y="40">Control.IsVisible(1011)</origin>-->
+        <!--<origin x="570" y="70">Control.IsVisible(1010)</origin>-->
+        <!--<origin x="570" y="100">Control.IsVisible(1009)</origin>-->
+        <!--<origin x="570" y="130">Control.IsVisible(1008)</origin>-->
+        <!--<origin x="570" y="160">Control.IsVisible(1007)</origin>-->
+        <!--<origin x="570" y="190">Control.IsVisible(1006)</origin>-->
+        <!--<origin x="570" y="220">Control.IsVisible(1005)</origin>-->
+        <!--<origin x="570" y="250">Control.IsVisible(1004)</origin>-->
+        <!--<origin x="570" y="380">Control.IsVisible(1003)</origin>-->
+        <!--<origin x="570" y="310">Control.IsVisible(1002)</origin>-->
+        <!--<origin x="570" y="340" />-->
+    <!--</coordinates>-->
+    <coordinates>
+        <system>1</system>
+        <origin x="1200" y="0" />
+    </coordinates>
+    <controls>
+        <control type="image" id="999" description="Background image">
+            <top>0</top>
+            <height>2080</height>
+            <width>730</width>
+            <texture>mainbackground.png</texture>
+        </control>
+        <control type="grouplist" id="996" description="Context menu container">
+            <top>160</top>
+            <onleft>close</onleft>
+            <left>50</left>
+            <width>720</width>
+            <!--<height>1080</height>-->
+            <itemgap>3</itemgap>
+            <control type="button" id="1500">
+                <visible>System.HasAddon(script.cinema.experience) + Container.Content(movies)</visible>
+                <width>480</width>
+                <height>60</height>
+                <label>$LOCALIZE[31088]</label>
+                <onclick>RunScript(script.cinema.experience)</onclick>
+            </control>
+        </control>
+        <control type="button" id="1000" description="Buttons">
+            <width>480</width>
+            <height>80</height>
+            <font>font40</font>
+        </control>
+    </controls>
+</window>
