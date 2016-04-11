@@ -33,7 +33,7 @@ then
 	pushd src/libdvdnav-*
 	export CFLAGS="-D_XBMC $CFLAGS"
 	autoreconf -i
-	./configure --prefix=/usr/osmc --disable-shared --enable-static --with-pic
+	./configure --prefix=/usr/osmc
 	$BUILD
 	make install DESTDIR=${out}
 	if [ $? != 0 ]; then echo "Error occured during build" && exit 1; fi
