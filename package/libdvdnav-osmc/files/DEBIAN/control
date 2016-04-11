@@ -6,3 +6,5 @@ Priority: optional
 Maintainer: Sam G Nazarko <email@samnazarko.co.uk>
 Description: libdvdcss library
 Package: armv7-libdvdnav-osmc
+Architecture: armhf
+Installed-Size: 254
