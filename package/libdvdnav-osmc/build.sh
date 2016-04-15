@@ -40,7 +40,7 @@ then
 	strip_files "${out}"
 	popd
 	mkdir -p ${out}/usr/lib/kodi/system/players/VideoPlayer/
- 	ln -s /usr/osmc/lib/libdvdnav.so ${out}/usr/lib/kodi/system/players/VideoPlayer/libdvdnav-arm.so
+	ln -s /usr/osmc/lib/libdvdnav.so ${out}/usr/lib/kodi/system/players/VideoPlayer/libdvdnav-arm.so
 	mkdir -p files-dev/usr/osmc
 	mv files/usr/osmc/include  files-dev/usr/osmc
 	fix_arch_ctl "files/DEBIAN/control"
