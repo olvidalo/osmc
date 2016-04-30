@@ -10,12 +10,12 @@ INITRAMFS_EMBED=2
 INITRAMFS_NOBUILD=4
 
 . ../common.sh
-test $1 == rbp1 && VERSION="4.4.6" && REV="4" && FLAGS_INITRAMFS=$(($INITRAMFS_BUILD + $INITRAMFS_EMBED)) && IMG_TYPE="zImage"
-test $1 == rbp2 && VERSION="4.4.6" && REV="4" && FLAGS_INITRAMFS=$(($INITRAMFS_BUILD + $INITRAMFS_EMBED)) && IMG_TYPE="zImage"
-test $1 == vero && VERSION="4.4.6" && REV="1" && FLAGS_INITRAMFS=$(($INITRAMFS_BUILD + $INITRAMFS_EMBED)) && IMG_TYPE="zImage"
-test $1 == vero2 && VERSION="3.10.101" && REV="5" && FLAGS_INITRAMFS=$(($INITRAMFS_BUILD)) && IMG_TYPE="uImage"
-test $1 == atv && VERSION="4.2.3" && REV="7" && FLAGS_INITRAMFS=$(($INITRAMFS_NOBUILD)) && IMG_TYPE="zImage"
-test $1 == pc && VERSION="4.2.3" && REV="1" && FLAGS_INITRAMFS=$(($INITRAMFS_BUILD + $INITRAMFS_EMBED)) && IMG_TYPE="zImage"
+test $1 == rbp1 && VERSION="4.4.8" && REV="2" && FLAGS_INITRAMFS=$(($INITRAMFS_BUILD + $INITRAMFS_EMBED)) && IMG_TYPE="zImage"
+test $1 == rbp2 && VERSION="4.4.8" && REV="2" && FLAGS_INITRAMFS=$(($INITRAMFS_BUILD + $INITRAMFS_EMBED)) && IMG_TYPE="zImage"
+test $1 == vero && VERSION="4.4.6" && REV="4" && FLAGS_INITRAMFS=$(($INITRAMFS_BUILD + $INITRAMFS_EMBED)) && IMG_TYPE="zImage"
+test $1 == vero2 && VERSION="3.10.101" && REV="7" && FLAGS_INITRAMFS=$(($INITRAMFS_BUILD)) && IMG_TYPE="uImage"
+test $1 == atv && VERSION="4.2.3" && REV="9" && FLAGS_INITRAMFS=$(($INITRAMFS_NOBUILD)) && IMG_TYPE="zImage"
+test $1 == pc && VERSION="4.2.3" && REV="2" && FLAGS_INITRAMFS=$(($INITRAMFS_BUILD + $INITRAMFS_EMBED)) && IMG_TYPE="zImage"
 if [ $1 == "rbp1" ] || [ $1 == "rbp2" ] || [ $1 == "atv" ] || [ $1 == "pc" ]
 then
 	if [ -z $VERSION ]; then echo "Don't have a defined kernel version for this target!" && exit 1; fi
@@ -73,9 +73,6 @@ then
 	if [ "$1" == "rbp1" ] || [ "$1" == "rbp2" ]
 	then
 		install_patch "../../patches" "rbp"
-		rm -rf drivers/net/wireless/rtl8192cu
-		# have to do this after, because upstream brings its own rtl8192cu in! Other kernels use rtlwifi by default. Have to do earlier here or Kconfig won't find it!
-		mv drivers/net/wireless/rtl8192cu-new drivers/net/wireless/rtl8192cu
 	fi
 	install_patch "../../patches" "${1}"
 	# Set up DTC
@@ -136,15 +133,15 @@ then
 	if [ "$1" == "rbp1" ] || [ "$1" == "rbp2" ]
 	then
 		mv arch/arm/boot/dts/*.dtb ../../files-image/boot/dtb-${VERSION}-${REV}-osmc/
-		overlays=( "hifiberry-dac-overlay" "hifiberry-dacplus-overlay" "hifiberry-digi-overlay" "hifiberry-amp-overlay" "iqaudio-dac-overlay" "iqaudio-dacplus-overlay" "rpi-dac-overlay" "lirc-rpi-overlay" "w1-gpio-overlay" "w1-gpio-pullup-overlay" "hy28a-overlay" "hy28b-overlay" "piscreen-overlay" "piscreen2r-overlay" "rpi-display-overlay" "sdhost-overlay" "mmc-overlay" "rpi-proto-overlay" "i2c-rtc-overlay" "i2s-mmap-overlay" "pps-gpio-overlay" "uart1-overlay" "rpi-ft5406-overlay" "rpi-sense-overlay" "rpi-backlight-overlay" "pi3-disable-bt" "pi3-miniuart-bt" )
 		pushd arch/arm/boot/dts/overlays
-		for dtb in ${overlays[@]}
+		for dtb in *.dts
 		do
 			echo Building DT overlay $dtb
-			$DTC -@ -I dts -O dtb -o $dtb.dtb $dtb.dts
+			$DTC -@ -I dts -O dtb -o $dtb.db $dtb.dts
 		done
 		popd
 		mv arch/arm/boot/dts/overlays/*-overlay.dtb ../../files-image/boot/dtb-${VERSION}-${REV}-osmc/overlays
+		mv arch/arm/boot/dts/overlays/README ../../files-image/boot/dtb-${VERSION}-${REV}-osmc/overlays
 	fi
 	if [ "$1" == "vero" ]
 	then
@@ -180,7 +177,6 @@ then
 		if [ "$1" == "rbp1" ] || [ "$1" == "rbp2" ] || [ "$1" == "atv" ] || [ "$1" == "vero" ]
 		then
 		# Build RTL8192CU module
-		if [ "$1" == "atv" ] || [ "$1" == "vero" ]; then mv drivers/net/wireless/rtl8192cu-new drivers/net/wireless/rtl8192cu; fi
 		pushd drivers/net/wireless/rtl8192cu
 		$BUILD
 		if [ $? != 0 ]; then echo "Building kernel module failed" && exit 1; fi
@@ -208,6 +204,16 @@ then
 		mkdir -p ../../files-image/lib/modules/${VERSION}-${REV}-osmc/kernel/drivers/net/wireless/
 		cp drivers/net/wireless/rtl8192eu/8192eu.ko ../../files-image/lib/modules/${VERSION}-${REV}-osmc/kernel/drivers/net/wireless/
 		fi
+		if [ "$1" == "rbp1" ] || [ "$1" == "rbp2" ] || [ "$1" == "atv" ] || [ "$1" == "vero" ] || [ "$1" == "vero2" ]
+		then
+                # Build MT7610U model
+                pushd drivers/net/wireless/mt7610u
+                $BUILD
+                if [ $? != 0 ]; then echo -e "Building kernel module failed" && exit 1; fi
+                popd
+                mkdir -p ../../files-image/lib/modules/${VERSION}-${REV}-osmc/kernel/drivers/net/wireless/
+                cp drivers/net/wireless/mt7610u/os/linux/mt7610u_sta.ko ../../files-image/lib/modules/${VERSION}-${REV}-osmc/kernel/drivers/net/wireless/
+                fi
 		if [ "$1" == "atv" ]
 		then
 		# Build CrystalHD
