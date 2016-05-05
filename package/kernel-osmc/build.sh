@@ -10,8 +10,8 @@ INITRAMFS_EMBED=2
 INITRAMFS_NOBUILD=4
 
 . ../common.sh
-test $1 == rbp1 && VERSION="4.4.8" && REV="3" && FLAGS_INITRAMFS=$(($INITRAMFS_BUILD + $INITRAMFS_EMBED)) && IMG_TYPE="zImage"
-test $1 == rbp2 && VERSION="4.4.8" && REV="3" && FLAGS_INITRAMFS=$(($INITRAMFS_BUILD + $INITRAMFS_EMBED)) && IMG_TYPE="zImage"
+test $1 == rbp1 && VERSION="4.4.8" && REV="4" && FLAGS_INITRAMFS=$(($INITRAMFS_BUILD + $INITRAMFS_EMBED)) && IMG_TYPE="zImage"
+test $1 == rbp2 && VERSION="4.4.8" && REV="4" && FLAGS_INITRAMFS=$(($INITRAMFS_BUILD + $INITRAMFS_EMBED)) && IMG_TYPE="zImage"
 test $1 == vero && VERSION="4.4.6" && REV="4" && FLAGS_INITRAMFS=$(($INITRAMFS_BUILD + $INITRAMFS_EMBED)) && IMG_TYPE="zImage"
 test $1 == vero2 && VERSION="3.10.101" && REV="7" && FLAGS_INITRAMFS=$(($INITRAMFS_BUILD)) && IMG_TYPE="uImage"
 test $1 == atv && VERSION="4.2.3" && REV="9" && FLAGS_INITRAMFS=$(($INITRAMFS_NOBUILD)) && IMG_TYPE="zImage"
@@ -76,16 +76,8 @@ then
 	fi
 	install_patch "../../patches" "${1}"
 	# Set up DTC
-	if [ "$1" == "rbp1" ] || [ "$1" == "rbp2" ]
-	then
-		pushd dtc-overlays
-		$BUILD
-		popd
-		DTC=$(pwd)"/dtc-overlays/dtc"
-	else
-		$BUILD scripts
-		DTC=$(pwd)"/scripts/dtc/dtc"
-	fi
+	$BUILD scripts
+	DTC=$(pwd)"/scripts/dtc/dtc"
 	# Conver DTD to DTB
 	if [ "$1" == "vero2" ]
 	then
@@ -124,24 +116,11 @@ then
 	if [ "$1" == "vero" ]; then mkdir -p ../../files-image/boot/dtb-${VERSION}-${REV}-osmc; fi
 	if [ "$1" == "vero2" ]; then mkdir -p ../../files-image/boot; fi
 	if [ "$1" == "atv" ]; then mkdir -p ../../files-image/boot; fi
-	if [ "$1" == "rbp1" ]
-	then
-		make bcm2708-rpi-b.dtb
-		make bcm2708-rpi-b-plus.dtb
-	fi
-	if [ "$1" == "rbp2" ]; then make bcm2709-rpi-2-b.dtb && make bcm2710-rpi-3-b.dtb; fi #ToDo: Make separate build target for RBP3 when ARM64 is done
 	if [ "$1" == "rbp1" ] || [ "$1" == "rbp2" ]
 	then
+		$BUILD dtbs
 		mv arch/arm/boot/dts/*.dtb ../../files-image/boot/dtb-${VERSION}-${REV}-osmc/
-		pushd arch/arm/boot/dts/overlays
-		for dtb in *.dts
-		do
-			echo Building DT overlay $dtb
-			overlay_name=$(echo $dtb | cut -d . -f 1)
-			$DTC -@ -I dts -O dtb -o $overlay_name.dtb $overlay_name.dts
-		done
-		popd
-		mv arch/arm/boot/dts/overlays/*-overlay.dtb ../../files-image/boot/dtb-${VERSION}-${REV}-osmc/overlays
+		mv arch/arm/boot/dts/overlays/*.dtbo ../../files-image/boot/dtb-${VERSION}-${REV}-osmc/overlays
 		mv arch/arm/boot/dts/overlays/README ../../files-image/boot/dtb-${VERSION}-${REV}-osmc/overlays
 	fi
 	if [ "$1" == "vero" ]
