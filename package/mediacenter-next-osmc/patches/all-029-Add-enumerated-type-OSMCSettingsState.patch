@@ -18,9 +18,9 @@ index 4c8bf1d..e1f0b04 100644
    , m_musicInfoScanner(new CMusicInfoScanner)
    , m_fallbackLanguageLoaded(false)
 +  , m_eOSMCWalkthroughState(OSMC_WALKTHROUGH_NOTRUNNING)
- {
-   m_network = NULL;
-   TiXmlBase::SetCondenseWhiteSpace(false);
+   , m_WaitingExternalCalls(0)
+   , m_ProcessedExternalCalls(0) 
+ {    
 diff --git a/xbmc/Application.h b/xbmc/Application.h
 index cd52a73..f95add6 100644
 --- a/xbmc/Application.h
