@@ -87,13 +87,10 @@ function build_in_env()
             then
                 export BUILD_FLAGS+="-fomit-frame-pointer "
             fi
-	    CC="/usr/bin/gcc"
-	    CXX="/usr/bin/g++"
             if ((($BUILD_OPTS & $BUILD_OPTION_USE_CCACHE) == $BUILD_OPTION_USE_CCACHE))
 	    then
 		export CCACHE_DIR="/root/.ccache"
-		export CC="/usr/bin/ccache $CC"
-		export CXX="/usr/bin/ccache $CXX"
+		export PATH=/usr/lib/ccache:$PATH
 	    fi
 	    if ((($BUILD_OPTS & $BUILD_OPTION_PREFER_LIBOSMC) == $BUILD_OPTION_PREFER_LIBOSMC))
 	    then
@@ -118,10 +115,13 @@ function build_in_env()
 	test $DEP == atv && DEP="i386"
 	test $DEP == pc && DEP="amd64"
 	TCDIR="/opt/osmc-tc/$DEP-toolchain-osmc"
+	CCACHEDIR="/opt/osmc-tc/$DEP-ccache-osmc"
+	mkdir -p $CCACHEDIR
 	if ((($BUILD_OPTS & $BUILD_OPTION_BUILD_FRESH) == $BUILD_OPTION_BUILD_FRESH))
 	then
 	    apt-get -y remove --purge "$DEP-toolchain-osmc"
 	    umount ${TCDIR}/mnt >/dev/null 2>&1
+	    umount ${TCDIR}/root/.ccache >/dev/null 2>&1
 	    umount ${TCDIR}/opt >/dev/null 2>&1
 	    umount ${TCDIR}/proc >/dev/null 2>&1
 	    rm -rf ${TCDIR}
@@ -130,7 +130,9 @@ function build_in_env()
 	if [ $? != 0 ]; then echo -e "Can't get upstream toolchain. Is apt.osmc.tv in your sources.list?" && exit 1; fi
 	configure_build_env "$TCDIR"
 	umount ${TCDIR}/mnt >/dev/null 2>&1 # May be dirty
+	umount ${TCDIR}/root/.ccache >/dev/null 2>&1 # Shouldn't be dirty, as 1.1, but play it safe and ensure we mount right thing later
 	mount --bind "$2/../../" "$TCDIR"/mnt
+	mount --bind "$CCACHEDIR" "$TCDIR"/root/.ccache
 	chroot $TCDIR /usr/bin/make $1 -C /mnt/package/$3
 	return=$?
 	if [ $return == 99 ]; then return 1; else return $return; fi
