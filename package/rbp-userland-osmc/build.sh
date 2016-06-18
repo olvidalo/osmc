@@ -5,7 +5,7 @@
 
 . ../common.sh
 
-REV="611d798ada7d36e4f4252459d55da5713b24853f"
+REV="fdbca29d3863ee16f5eee24c66e826bedf662db5"
 
 echo -e "Building package rbp-userland"
 out=$(pwd)/files
@@ -25,8 +25,6 @@ echo Moving files in to place
 mkdir -p files/opt/vc
 mkdir -p files-dev/opt/vc
 mkdir -p files-src/opt/vc
-mkdir -p files/etc/ld.so.conf.d
-echo "/opt/vc/lib" > files/etc/ld.so.conf.d/rbp.conf
 cp -ar src/firmware-${REV}/hardfp/opt/vc/bin/ files/opt/vc
 cp -ar src/firmware-${REV}/hardfp/opt/vc/lib files/opt/vc
 cp -ar src/firmware-${REV}/hardfp/opt/vc/include files-dev/opt/vc
