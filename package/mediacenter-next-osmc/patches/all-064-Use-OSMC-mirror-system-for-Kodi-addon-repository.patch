@@ -1,4 +1,4 @@
-From ad78107dd1ed0c03c52bfb7c1d7dc480ae193d32 Mon Sep 17 00:00:00 2001
+From 39cd7d26b563947aaa7bea6261a8e855b4bbbaaf Mon Sep 17 00:00:00 2001
 From: Sam Nazarko <email@samnazarko.co.uk>
 Date: Sat, 25 Jun 2016 20:45:11 +0100
 Subject: [PATCH] Use OSMC mirror system for Kodi add-on repository; bump repo
@@ -10,10 +10,10 @@ Signed-off-by: Sam Nazarko <email@samnazarko.co.uk>
  1 file changed, 4 insertions(+), 4 deletions(-)
 
 diff --git a/addons/repository.xbmc.org/addon.xml b/addons/repository.xbmc.org/addon.xml
-index 98484c6..f2803bb 100644
+index f0c23b1..cc8b3b3 100644
 --- a/addons/repository.xbmc.org/addon.xml
 +++ b/addons/repository.xbmc.org/addon.xml
-@@ -1,7 +1,7 @@
+@@ -1,15 +1,15 @@
  <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
  <addon id="repository.xbmc.org"
  		name="Kodi Add-on repository"
@@ -22,19 +22,17 @@ index 98484c6..f2803bb 100644
  		provider-name="Team Kodi">
    <requires>
      <import addon="xbmc.addon" version="12.0.0"/>
-@@ -9,9 +9,9 @@
- 	<extension point="xbmc.addon.repository"
- 		name="Official XBMC.org Add-on Repository">
- 		<dir minversion="16.9.0">
--			<info>http://mirrors.kodi.tv/addons/krypton/addons.xml.gz</info>
--			<checksum>http://mirrors.kodi.tv/addons/krypton/addons.xml.gz.md5</checksum>
--			<datadir zip="true">http://mirrors.kodi.tv/addons/krypton</datadir>
-+			<info>http://download.osmc.tv/kodi/addons/krypton/addons.xml.gz</info>
-+			<checksum>http://download.osmc.tv/kodi/addons/krypton/addons.xml.gz.md5</checksum>
-+			<datadir zip="true">http://download.osmc.tv/kodi/addons/krypton</datadir>
- 			<hashes>true</hashes>
- 		</dir>
+   </requires>
+ 	<extension point="xbmc.addon.repository">
+-		<info>http://mirrors.kodi.tv/addons/krypton/addons.xml.gz</info>
+-		<checksum>http://mirrors.kodi.tv/addons/krypton/addons.xml.gz.md5</checksum>
+-		<datadir>http://mirrors.kodi.tv/addons/krypton</datadir>
++		<info>http://download.osmc.tv/kodi/addons/krypton/addons.xml.gz</info>
++		<checksum>http://download.osmc.tv/kodi/addons/krypton/addons.xml.gz.md5</checksum>
++		<datadir zip="true">http://download.osmc.tv/kodi/addons/krypton</datadir>
+ 		<hashes>true</hashes>
  	</extension>
+ 	<extension point="xbmc.addon.metadata">
 -- 
 2.1.4
 
