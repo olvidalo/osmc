@@ -1,0 +1,10 @@
+Origin: OSMC
+Section: libs
+Essential: No
+Priority: optional
+Maintainer: Sam G Nazarko <email@samnazarko.co.uk>
+Description: libcec package with headers
+Architecture: armhf
+Installed-Size: 119
+Version: 3.1.1-2
+Depends: rbp1-libcec-osmc (=3.1.1-2)

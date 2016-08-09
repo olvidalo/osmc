@@ -1,0 +1,32 @@
+From 4f631a6fe208289f86c6c8309ed1527d5fd2e710 Mon Sep 17 00:00:00 2001
+From: Gerald Dachs <gda@dachsweb.de>
+Date: Thu, 17 Mar 2016 12:12:51 +0100
+Subject: [PATCH] use system audio mode request instead of power on to start
+ AVR reliable
+
+---
+ src/libcec/devices/CECBusDevice.cpp | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+diff --git a/src/libcec/devices/CECBusDevice.cpp b/src/libcec/devices/CECBusDevice.cpp
+index 62d00bb..d845ec8 100644
+--- a/src/libcec/devices/CECBusDevice.cpp
++++ b/src/libcec/devices/CECBusDevice.cpp
+@@ -1033,6 +1033,14 @@ bool CCECBusDevice::ActivateSource(uint64_t iDelay /* = 0 */)
+       {
+         LIB_CEC->AddLog(CEC_LOG_DEBUG, "powering up the AVR");
+         SystemAudioModeRequest();
++
++        cec_command command;
++
++        LIB_CEC->AddLog(CEC_LOG_DEBUG, "sending system audio mode request for '%s'", ToString(m_iLogicalAddress));
++        cec_command::Format(command, m_iLogicalAddress, CECDEVICE_AUDIOSYSTEM, CEC_OPCODE_SYSTEM_AUDIO_MODE_REQUEST);
++        command.parameters.PushBack((uint8_t) ((m_iPhysicalAddress >> 8) & 0xFF));
++        command.parameters.PushBack((uint8_t) (m_iPhysicalAddress & 0xFF));
++        bReturn = m_handler->Transmit(command, false, false);
+       }
+     }
+ 
+-- 
+2.1.4
+
