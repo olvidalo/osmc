@@ -6,7 +6,7 @@
 . ../common.sh
 if [ "$1" == "rbp1" ] || [ "$1" == "rbp2" ] || [ "$1" == "vero" ] || [ "$1" == "atv" ] || [ "$1" == "vero2" ]
 then
-pull_source "https://github.com/popcornmix/xbmc/archive/e2871311b23c72f32da4d4df8c92b471162abebf.tar.gz" "$(pwd)/src"
+pull_source "https://github.com/popcornmix/xbmc/archive/d8c9ca904134f3beb3b4a4b5d97c710df7a68e02.tar.gz" "$(pwd)/src"
 
 
 API_VERSION="17"
