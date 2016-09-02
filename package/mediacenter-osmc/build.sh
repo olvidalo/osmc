@@ -175,6 +175,7 @@ then
                 handle_dep "i386-libdvdnav-dev-osmc"
                 handle_dep "i386-libdvdread-dev-osmc"
                 handle_dep "i386-libdvdcss-dev-osmc"
+		handle_dep "libegl1-mesa-dev"
 	fi
 	if [ "$1" == "pc" ]
 	then
