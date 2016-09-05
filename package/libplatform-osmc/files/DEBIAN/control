@@ -5,6 +5,6 @@ Essential: No
 Priority: optional
 Maintainer: Sam G Nazarko <email@samnazarko.co.uk>
 Description: libplatform library
-Package: armv7-libplatform-osmc
 Architecture: armhf
 Installed-Size: 68
+Package: armv7-libplatform-osmc
