@@ -703,8 +703,8 @@ index 74f3690..bfbea46 100644
  #	HAVE_TDA995X_API          1 if TDA995X is supported
  #	HAVE_EXYNOS_API           1 if Exynos is supported
 +#	HAVE_AMLOGIC_API	  1 if AMLOGIC is supported
+ #       HAVE_P8_USB               1 if Pulse-Eight devices are supported
  #       HAVE_P8_USB_DETECT        1 if Pulse-Eight devices can be auto-detected
- #
  
 @@ -119,6 +120,18 @@ else()
    else()
