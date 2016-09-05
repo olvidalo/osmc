@@ -4,3 +4,8 @@ Essential: No
 Priority: optional
 Maintainer: Sam G Nazarko <email@samnazarko.co.uk>
 Description: libplatform library headers
+Version: 1.0.11-1
+Depends: armv7-libplatform-osmc (=1.0.11-1)
+Package: armv7-libplatform-dev-osmc
+Architecture: armhf
+Installed-Size: 254
