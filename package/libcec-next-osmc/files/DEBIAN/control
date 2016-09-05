@@ -6,4 +6,5 @@ Priority: optional
 Maintainer: Sam G Nazarko <email@samnazarko.co.uk>
 Description: libcec
 Architecture: armhf
-Installed-Size: 1153
+Installed-Size: 1156
+Package: vero2-libcec-osmc
