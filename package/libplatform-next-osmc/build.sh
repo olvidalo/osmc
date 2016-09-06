@@ -8,7 +8,7 @@
 pull_source "https://github.com/Pulse-Eight/platform/archive/p8-platform-2.0.1.tar.gz" "$(pwd)/src"
 if [ $? != 0 ]; then echo -e "Error downloading" && exit 1; fi
 # Build in native environment
-build_in_env "${1}" $(pwd) "libplatform-next-osmc"
+build_in_env "${1}" $(pwd) "libplatform-osmc"
 build_return=$?
 if [ $build_return == 99 ]
 then

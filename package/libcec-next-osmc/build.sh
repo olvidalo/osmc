@@ -8,7 +8,7 @@
 pull_source "https://github.com/Pulse-Eight/libcec/archive/62b8520cf801343d93e8427393d3d929e59d9c7e.tar.gz" "$(pwd)/src"
 if [ $? != 0 ]; then echo -e "Error downloading" && exit 1; fi
 # Build in native environment
-build_in_env "${1}" $(pwd) "libcec-next-osmc"
+build_in_env "${1}" $(pwd) "libcec-osmc"
 build_return=$?
 if [ $build_return == 99 ]
 then
@@ -37,6 +37,7 @@ then
 	if [ "$1" == "rbp1" ] || [ "$1" == "rbp2" ]; then handle_dep "rbp-userland-dev-osmc"; fi
 	if [ "$1" == "vero" ]; then handle_dep "vero-userland-dev-osmc"; fi
 	if [ "$1" == "i386" ]; then handle_dep "i386-libplatform-dev-osmc"; fi
+	if [ "$1" == "amd64" ]; then handle_dep "amd64-libplatform-dev-osmc"; fi
 	echo "Package: ${1}-libcec-osmc" >> files/DEBIAN/control && echo "Package: ${1}-libcec-dev-osmc" >> files-dev/DEBIAN/control >> files-dev/DEBIAN/control
 	pushd src/libcec*
 	install_patch "../../patches" "all"

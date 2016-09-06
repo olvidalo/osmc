@@ -1,0 +1,70 @@
+diff --git a/project/cmake/addons/CMakeLists.txt b/project/cmake/addons/CMakeLists.txt
+index 593e718..f35003f 100644
+--- a/project/cmake/addons/CMakeLists.txt
++++ b/project/cmake/addons/CMakeLists.txt
+@@ -1,6 +1,12 @@
+-cmake_minimum_required(VERSION 3.1)
+ project(kodi-addons)
+ 
++if(WIN32)
++  # there seems to be a bug in the CMake generator implementation in CMake 2.8.x releases for WIN32
++  cmake_minimum_required(VERSION 3.0)
++else()
++  cmake_minimum_required(VERSION 2.8)
++endif()
++
+ list(APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR})
+ 
+ option(ADDON_TARBALL_CACHING "Cache downloaded addon source tarballs?" ON)
+diff --git a/project/cmake/addons/bootstrap/CMakeLists.txt b/project/cmake/addons/bootstrap/CMakeLists.txt
+index 69dc860..8c59890 100644
+--- a/project/cmake/addons/bootstrap/CMakeLists.txt
++++ b/project/cmake/addons/bootstrap/CMakeLists.txt
+@@ -1,6 +1,7 @@
+-cmake_minimum_required(VERSION 3.1)
+ project(kodi-addons-bootstrap)
+ 
++cmake_minimum_required(VERSION 2.8)
++
+ list(APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR})
+ 
+ # make sure CMAKE_INSTALL_PREFIX is properly set
+diff --git a/project/cmake/addons/depends/CMakeLists.txt b/project/cmake/addons/depends/CMakeLists.txt
+index 4281dff..ff55167 100644
+--- a/project/cmake/addons/depends/CMakeLists.txt
++++ b/project/cmake/addons/depends/CMakeLists.txt
+@@ -1,6 +1,7 @@
+-cmake_minimum_required(VERSION 3.1)
+ project(kodi-addons-depends)
+ 
++cmake_minimum_required(VERSION 2.8)
++
+ list(APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR})
+ 
+ if(NOT CMAKE_BUILD_TYPE)
+diff --git a/project/cmake/addons/depends/common/tinyxml/CMakeLists.txt b/project/cmake/addons/depends/common/tinyxml/CMakeLists.txt
+index ec396ee..5468bfb 100644
+--- a/project/cmake/addons/depends/common/tinyxml/CMakeLists.txt
++++ b/project/cmake/addons/depends/common/tinyxml/CMakeLists.txt
+@@ -1,6 +1,7 @@
+-cmake_minimum_required(VERSION 3.1)
+ project(tinyxml)
+ 
++cmake_minimum_required(VERSION 2.8)
++
+ set(SOURCES src/tinystr.cpp
+             src/tinyxml.cpp
+             src/tinyxmlerror.cpp
+diff --git a/project/cmake/addons/depends/windows/CMakeLists.txt b/project/cmake/addons/depends/windows/CMakeLists.txt
+index e4411dc..2a56123 100644
+--- a/project/cmake/addons/depends/windows/CMakeLists.txt
++++ b/project/cmake/addons/depends/windows/CMakeLists.txt
+@@ -1,6 +1,7 @@
+-cmake_minimum_required(VERSION 3.1)
+ project(kodi-addons-depends-windows)
+ 
++cmake_minimum_required(VERSION 2.8)
++
+ list(APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR})
+ 
+ if(NOT CMAKE_BUILD_TYPE)

@@ -1,7 +1,7 @@
-From 5a4b8e2a20877ea2064c907925355542ad28cb35 Mon Sep 17 00:00:00 2001
+From 0a7a7e2cbd1b6c9c00a4b6dc3becd7e100749247 Mon Sep 17 00:00:00 2001
 From: mkreisl <manfred.kreisl@nexgo.de>
 Date: Tue, 9 Jun 2015 00:45:17 +0200
-Subject: [PATCH] Corrections for rebase to libcec version 3 - RPi2 tested
+Subject: [PATCH 3/3] Corrections for rebase to libcec version 3 - RPi2 tested
  successfully - i.MX6 build sucessfully
 
 ---
@@ -37,7 +37,7 @@ Subject: [PATCH] Corrections for rebase to libcec version 3 - RPi2 tested
  create mode 100644 src/libcec/adapter/IMX/mxc_hdmi-cec.h
 
 diff --git a/include/cectypes.h b/include/cectypes.h
-index 2b887e0..15c3604 100644
+index 95d1322..d68f579 100644
 --- a/include/cectypes.h
 +++ b/include/cectypes.h
 @@ -321,11 +321,6 @@ namespace CEC {
@@ -1721,10 +1721,10 @@ index 0000000..bc5bbce
 +#endif				/* !_HDMICEC_H_ */
 +
 diff --git a/src/libcec/cmake/CheckPlatformSupport.cmake b/src/libcec/cmake/CheckPlatformSupport.cmake
-index 85e67d4..9a4e67a 100644
+index c393309..cb8b4cf 100644
 --- a/src/libcec/cmake/CheckPlatformSupport.cmake
 +++ b/src/libcec/cmake/CheckPlatformSupport.cmake
-@@ -97,6 +97,20 @@ else()
+@@ -105,6 +105,20 @@ else()
      set(HAVE_RANDR 0)
    endif()
  
@@ -1745,7 +1745,7 @@ index 85e67d4..9a4e67a 100644
    # raspberry pi
    find_library(RPI_BCM_HOST bcm_host "${RPI_LIB_DIR}")
    check_library_exists(bcm_host bcm_host_init "${RPI_LIB_DIR}" HAVE_RPI_LIB)
-@@ -137,17 +151,7 @@ else()
+@@ -145,17 +159,7 @@ else()
      set(HAVE_EXYNOS_API 0)
    endif()
  
@@ -1779,5 +1779,5 @@ index 0496aa0..836a4ce 100644
  #cmakedefine HAVE_TDA995X_API @HAVE_TDA995X_API@
  
 -- 
-2.1.0
+2.7.4
 

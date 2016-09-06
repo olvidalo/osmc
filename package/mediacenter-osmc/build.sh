@@ -6,11 +6,11 @@
 . ../common.sh
 if [ "$1" == "rbp1" ] || [ "$1" == "rbp2" ] || [ "$1" == "vero" ] || [ "$1" == "atv" ] || [ "$1" == "pc" ] || [ "$1" == "vero2" ]
 then
-pull_source "https://github.com/xbmc/xbmc/archive/c327c53ac5346f71219e8353fe046e43e4d4a827.tar.gz" "$(pwd)/src"
-API_VERSION="16"
+pull_source "https://github.com/xbmc/xbmc/archive/81d5d261c37919a14183d22315554cd7773da36b.tar.gz" "$(pwd)/src"
+API_VERSION="17"
 else
 pull_source "https://github.com/xbmc/xbmc/archive/master.tar.gz" "$(pwd)/kodi"
-API_VERSION="17"
+API_VERSION="18"
 fi
 if [ $? != 0 ]; then echo -e "Error fetching Kodi source" && exit 1; fi
 # Build in native environment
@@ -39,8 +39,6 @@ then
 	handle_dep "gperf"
 	handle_dep "libasound2-dev"
 	handle_dep "libass-dev"
-	handle_dep "libboost-dev"
-	handle_dep "libboost-thread-dev"
 	handle_dep "libbz2-dev"
 	handle_dep "libcap-dev"
 	handle_dep "libcdio-dev"
@@ -51,16 +49,12 @@ then
 	handle_dep "libfribidi-dev"
 	handle_dep "libgif-dev"
 	handle_dep "libiso9660-dev"
-	handle_dep "libjasper-dev"
 	handle_dep "libjpeg62-turbo-dev"
 	handle_dep "liblzo2-dev"
 	handle_dep "libmad0-dev"
 	handle_dep "libmicrohttpd-dev"
 	handle_dep "libmodplug-dev"
-	handle_dep "libmpeg2-4-dev"
-	handle_dep "libmpeg3-dev"
 	handle_dep "libmysqlclient-dev"
-	handle_dep "libogg-dev"
 	handle_dep "libpcre3-dev"
 	handle_dep "libplist-dev"
 	handle_dep "libpng12-dev"
@@ -68,7 +62,6 @@ then
 	handle_dep "libssh-dev"
 	handle_dep "libavahi-client-dev"
 	handle_dep "libssl-dev"
-	handle_dep "libtiff5-dev"
 	handle_dep "libtinyxml-dev"
 	handle_dep "libtool"
 	handle_dep "libudev-dev"
@@ -110,10 +103,12 @@ then
 		handle_dep "armv6l-librtmp-dev-osmc"
 		handle_dep "armv6l-libnfs-dev-osmc"
 		handle_dep "armv6l-libplatform-dev-osmc"
-		handle_dep "armv6l-libdcadec-dev-osmc"
 		handle_dep "armv6l-libbluray-dev-osmc"
 		handle_dep "armv6l-libsqlite-dev-osmc"
 		handle_dep "armv6l-libcrossguid-dev-osmc"
+               handle_dep "armv6l-libdvdnav-dev-osmc"
+               handle_dep "armv6l-libdvdread-dev-osmc"
+               handle_dep "armv6l-libdvdcss-dev-osmc"
 	fi
 	if [ "$1" == "rbp2" ]
 	then
@@ -122,10 +117,12 @@ then
 		handle_dep "armv7-librtmp-dev-osmc"
 		handle_dep "armv7-libnfs-dev-osmc"
 		handle_dep "armv7-libplatform-dev-osmc"
-		handle_dep "armv7-libdcadec-dev-osmc"
 		handle_dep "armv7-libbluray-dev-osmc"
 		handle_dep "armv7-libsqlite-dev-osmc"
 		handle_dep "armv7-libcrossguid-dev-osmc"
+                handle_dep "armv7-libdvdnav-dev-osmc"
+                handle_dep "armv7-libdvdread-dev-osmc"
+                handle_dep "armv7-libdvdcss-dev-osmc"
 	fi
 	if [ "$1" == "vero" ]
 	then
@@ -134,10 +131,12 @@ then
 		handle_dep "armv7-librtmp-dev-osmc"
 		handle_dep "armv7-libnfs-dev-osmc"
 		handle_dep "armv7-libplatform-dev-osmc"
-		handle_dep "armv7-libdcadec-dev-osmc"
 		handle_dep "armv7-libbluray-dev-osmc"
 		handle_dep "armv7-libsqlite-dev-osmc"
 		handle_dep "armv7-libcrossguid-dev-osmc"
+                handle_dep "armv7-libdvdnav-dev-osmc"
+                handle_dep "armv7-libdvdread-dev-osmc"
+                handle_dep "armv7-libdvdcss-dev-osmc"
 	fi
         if [ "$1" == "vero2" ]
         then
@@ -148,10 +147,12 @@ then
                 handle_dep "armv7-librtmp-dev-osmc"
                 handle_dep "armv7-libnfs-dev-osmc"
                 handle_dep "armv7-libplatform-dev-osmc"
-                handle_dep "armv7-libdcadec-dev-osmc"
                 handle_dep "armv7-libbluray-dev-osmc"
                 handle_dep "armv7-libsqlite-dev-osmc"
 		handle_dep "armv7-libcrossguid-dev-osmc"
+                handle_dep "armv7-libdvdnav-dev-osmc"
+                handle_dep "armv7-libdvdread-dev-osmc"
+                handle_dep "armv7-libdvdcss-dev-osmc"
         fi
 	if [ "$1" == "atv" ] # later we change this to if_x11..
 	then
@@ -160,7 +161,6 @@ then
 		handle_dep "i386-librtmp-dev-osmc"
 		handle_dep "i386-libnfs-dev-osmc"
 		handle_dep "i386-libplatform-dev-osmc"
-		handle_dep "i386-libdcadec-dev-osmc"
 		handle_dep "i386-libbluray-dev-osmc"
 		handle_dep "i386-libsqlite-dev-osmc"
 		handle_dep "libglew-dev"
@@ -172,6 +172,10 @@ then
 		handle_dep "xserver-xorg-dev"
 		handle_dep "libxrandr-dev"
 		handle_dep "i386-libcrossguid-dev-osmc"
+                handle_dep "i386-libdvdnav-dev-osmc"
+                handle_dep "i386-libdvdread-dev-osmc"
+                handle_dep "i386-libdvdcss-dev-osmc"
+		handle_dep "libegl1-mesa-dev"
 	fi
 	if [ "$1" == "pc" ]
 	then
@@ -179,7 +183,6 @@ then
 		handle_dep "amd64-librtmp-dev-osmc"
 		handle_dep "amd64-libnfs-dev-osmc"
 		handle_dep "amd64-libplatform-dev-osmc"
-		handle_dep "amd64-libdcadec-dev-osmc"
 		handle_dep "amd64-libbluray-dev-osmc"
 		handle_dep "amd64-libsqlite-dev-osmc"
 		handle_dep "libglew-dev"
@@ -191,6 +194,9 @@ then
 		handle_dep "libxrandr-dev"
 		handle_dep "x11proto-randr-dev"
 		handle_dep "amd64-libcrossguid-dev-osmc"
+               handle_dep "amd64-libdvdnav-dev-osmc"
+                handle_dep "amd64-libdvdread-dev-osmc"
+                handle_dep "amd64-libdvdcss-dev-osmc"
 	fi
 	sed '/Package/d' -i files/DEBIAN/control
 	sed '/Depends/d' -i files/DEBIAN/control
@@ -224,7 +230,6 @@ then
 	export LDFLAGS="" && \
 	./configure \
 		--prefix=/usr \
-		--disable-vtbdecoder \
 		--disable-vaapi \
 		--disable-vdpau \
 		--disable-pulse \
@@ -232,8 +237,6 @@ then
 		--disable-openmax \
 		--enable-optical-drive \
 		--enable-libbluray \
-                --enable-dvdcss \
-                --disable-joystick \
                 --disable-debug \
                 --enable-libcec \
 		--disable-optimizations \
@@ -247,7 +250,6 @@ then
 	export LDFLAGS="" && \
 	./configure \
 		--prefix=/usr \
-		--disable-vtbdecoder \
 		--enable-vaapi \
 		--disable-vdpau \
 		--disable-pulse \
@@ -255,8 +257,6 @@ then
 		--disable-openmax \
 		--enable-optical-drive \
 		--enable-libbluray \
-		--enable-dvdcss \
-		--disable-joystick \
 		--disable-debug \
 		--disable-optimizations
 	# Raspberry Pi Configuration
@@ -284,10 +284,7 @@ then
 		--disable-openmax \
 		--enable-optical-drive \
 		--enable-libbluray \
-		--enable-dvdcss \
-		--disable-joystick \
 		--disable-debug \
-		--disable-vtbdecoder \
 		--disable-vaapi \
 		--disable-vdpau \
 		--disable-pulse \
@@ -316,10 +313,7 @@ then
 		--disable-debug \
 		--disable-texturepacker \
 		--enable-optical-drive \
-		--enable-dvdcss \
 		--enable-libbluray \
-		--disable-joystick \
-		--disable-vtbdecoder \
 		--disable-pulse \
 		--disable-optimizations \
 		--with-platform=vero \
@@ -346,10 +340,7 @@ then
                 --disable-debug \
                 --disable-texturepacker \
                 --enable-optical-drive \
-                --enable-dvdcss \
                 --enable-libbluray \
-                --disable-joystick \
-                --disable-vtbdecoder \
                 --disable-pulse \
                 --disable-optimizations \
                 --with-platform=vero2 \
@@ -385,7 +376,8 @@ then
         mkdir languages/
         pushd languages
         if [ "$API_VERSION" = "16" ]; then api_name="jarvis"; fi
-        if [ "$API_VERSION" = "17" ]; then api_name="tbc"; fi
+        if [ "$API_VERSION" = "17" ]; then api_name="krypton"; fi
+	if [ "$API_VERSION" = "18" ]; then api_name="tbc"; fi
         base_url="http://mirror.us.leaseweb.net/xbmc/addons/${api_name}"
 	handle_dep "wget" # We do not usually use wget in the build environment
         languages=$(wget ${base_url} -O- | grep resource.language. | sed -e 's/<a/\n<a/g' | sed -e 's/<a .*href=['"'"'"]//' -e 's/["'"'"'].*$//' -e '/^$/ d' | sed '/tr/d' | sed 's/resource.language.//' | tr -d /)
@@ -407,13 +399,13 @@ then
 	mkdir -p files-debug/usr/lib/kodi
 	cp -ar ${out}/usr/lib/kodi/kodi.bin files-debug/usr/lib/kodi/kodi.bin
 	strip -s ${out}/usr/lib/kodi/kodi.bin
-	COMMON_DEPENDS="niceprioritypolicy-osmc, mediacenter-send-osmc, libssh-4, libavahi-client3, python, python-imaging, python-unidecode, libsmbclient, libtiff5, libjpeg62-turbo, libsqlite3-0, libtinyxml2.6.2, libogg0, libmad0, libmicrohttpd10, libjasper1, libyajl2, libmysqlclient18, libasound2, libxml2, liblzo2-2, libxslt1.1, libpng12-0, libsamplerate0, libtag1-vanilla, libfribidi0, libgif4, libcdio13, libpcrecpp0, libfreetype6, libvorbis0a, libvorbisenc2, libass5, libcurl3, libssl1.0.0, libplist2, avahi-daemon, policykit-1, mediacenter-addon-osmc (>= 3.0.39), mediacenter-skin-osmc, diskmount-osmc (>= 1.2.9)"
-	test "$1" == atv && echo "Depends: ${COMMON_DEPENDS}, i386-libcec-osmc, i386-libnfs-osmc, i386-librtmp-osmc, i386-libshairplay-osmc, i386-libbluray-osmc, i386-libsqlite-osmc, libxrandr2, libsdl-image1.2, libglew1.10, libglu1-mesa, i386-libcrystalhd-osmc, xserver-xorg-core, xserver-xorg, xinit, xfonts-base, x11-xserver-utils, xauth, alsa-utils, xserver-xorg-video-nvidia-legacy-304xx, nvidia-xconfig, i386-libcrossguid-osmc" >> files/DEBIAN/control
-	test "$1" == pc && echo "Depends: ${COMMON_DEPENDS}, amd64-libnfs-osmc, amd64-librtmp-osmc, amd64-libshairplay-osmc, amd64-libbluray-osmc, amd64-libsqlite-osmc, libxrandr2, libsdl-image1.2, libglew1.10, libglu1-mesa, xserver-xorg-core, xserver-xorg, xinit, xfonts-base, x11-xserver-utils, xauth, alsa-utils, amd64-libcrossguid-osmc, xserver-xorg-video-intel" >> files/DEBIAN/control
-	test "$1" == rbp1 && echo "Depends: ${COMMON_DEPENDS}, rbp1-libcec-osmc, armv6l-libnfs-osmc, armv6l-librtmp-osmc, armv6l-libshairplay-osmc, armv6l-libbluray-osmc, armv6l-libsqlite-osmc, rbp-userland-osmc, armv6l-splash-osmc, armv6l-libcrossguid-osmc" >> files/DEBIAN/control
-	test "$1" == rbp2 && echo "Depends: ${COMMON_DEPENDS}, rbp2-libcec-osmc, armv7-libnfs-osmc, armv7-librtmp-osmc, armv7-libshairplay-osmc, armv7-libbluray-osmc, armv7-libsqlite-osmc, rbp-userland-osmc, armv7-splash-osmc, armv7-libcrossguid-osmc" >> files/DEBIAN/control
-	test "$1" == vero && echo "Depends: ${COMMON_DEPENDS}, vero-libcec-osmc, armv7-libnfs-osmc, armv7-librtmp-osmc, armv7-libshairplay-osmc, armv7-libbluray-osmc, armv7-libsqlite-osmc, vero-userland-osmc, armv7-splash-osmc, armv7-libcrossguid-osmc" >> files/DEBIAN/control
-	test "$1" == vero2 && echo "Depends: ${COMMON_DEPENDS}, vero2-libcec-osmc, armv7-libnfs-osmc, armv7-librtmp-osmc, armv7-libshairplay-osmc, armv7-libbluray-osmc, armv7-libsqlite-osmc, vero2-userland-osmc, armv7-splash-osmc, armv7-libcrossguid-osmc, vero2-libamcodec-osmc" >> files/DEBIAN/control
+	COMMON_DEPENDS="niceprioritypolicy-osmc, mediacenter-send-osmc, libssh-4, libavahi-client3, python, python-imaging, python-unidecode, libsmbclient, libjpeg62-turbo, libsqlite3-0, libtinyxml2.6.2, libmad0, libmicrohttpd10, libyajl2, libmysqlclient18, libasound2, libxml2, liblzo2-2, libxslt1.1, libpng12-0, libsamplerate0, libtag1-vanilla, libfribidi0, libgif4, libcdio13, libpcrecpp0, libfreetype6, libvorbis0a, libvorbisenc2, libass5, libcurl3, libssl1.0.0, libplist2, avahi-daemon, policykit-1, mediacenter-addon-osmc (>= 3.0.39), mediacenter-skin-osmc, diskmount-osmc (>= 1.2.9)"
+       test "$1" == atv && echo "Depends: ${COMMON_DEPENDS}, i386-libcec-osmc, i386-libnfs-osmc, i386-librtmp-osmc, i386-libshairplay-osmc, i386-libbluray-osmc, i386-libsqlite-osmc, libxrandr2, libsdl-image1.2, libglew1.10, libglu1-mesa, i386-libcrystalhd-osmc, xserver-xorg-core, xserver-xorg, xinit, xfonts-base, x11-xserver-utils, xauth, alsa-utils, xserver-xorg-video-nvidia-legacy-304xx, nvidia-xconfig, i386-libcrossguid-osmc, i386-libdvdnav-osmc, i386-libdvdread-osmc, i386-libdvdcss-osmc" >> files/DEBIAN/control
+       test "$1" == pc && echo "Depends: ${COMMON_DEPENDS}, amd64-libnfs-osmc, amd64-librtmp-osmc, amd64-libshairplay-osmc, amd64-libbluray-osmc, amd64-libsqlite-osmc, libxrandr2, libsdl-image1.2, libglew1.10, libglu1-mesa, xserver-xorg-core, xserver-xorg, xinit, xfonts-base, x11-xserver-utils, xauth, alsa-utils, amd64-libcrossguid-osmc, amd64-libdvdnav-osmc, amd64-libdvdread-osmc, amd64-libdvdcss-osmc, xserver-xorg-video-intel" >> files/DEBIAN/control
+       test "$1" == rbp1 && echo "Depends: ${COMMON_DEPENDS}, rbp1-libcec-osmc, armv6l-libnfs-osmc, armv6l-librtmp-osmc, armv6l-libshairplay-osmc, armv6l-libbluray-osmc, armv6l-libsqlite-osmc, rbp-userland-osmc, armv6l-splash-osmc, armv6l-libcrossguid-osmc, armv6l-libdvdnav-osmc, armv6l-libdvdread-osmc, armv6l-libdvdcss-osmc" >> files/DEBIAN/control
+       test "$1" == rbp2 && echo "Depends: ${COMMON_DEPENDS}, rbp2-libcec-osmc, armv7-libnfs-osmc, armv7-librtmp-osmc, armv7-libshairplay-osmc, armv7-libbluray-osmc, armv7-libsqlite-osmc, rbp-userland-osmc, armv7-splash-osmc, armv7-libcrossguid-osmc, armv7-libdvdnav-osmc, armv7-libdvdread-osmc, armv7-libdvdcss-osmc" >> files/DEBIAN/control
+       test "$1" == vero && echo "Depends: ${COMMON_DEPENDS}, vero-libcec-osmc, armv7-libnfs-osmc, armv7-librtmp-osmc, armv7-libshairplay-osmc, armv7-libbluray-osmc, armv7-libsqlite-osmc, vero-userland-osmc, armv7-splash-osmc, armv7-libcrossguid-osmc, armv7-libdvdnav-osmc, armv7-libdvdread-osmc, armv7-libdvdcss-osmc" >> files/DEBIAN/control
+       test "$1" == vero2 && echo "Depends: ${COMMON_DEPENDS}, vero2-libcec-osmc, armv7-libnfs-osmc, armv7-librtmp-osmc, armv7-libshairplay-osmc, armv7-libbluray-osmc, armv7-libsqlite-osmc, vero2-userland-osmc, armv7-splash-osmc, armv7-libcrossguid-osmc, armv7-libdvdnav-osmc, armv7-libdvdread-osmc, armv7-libdvdcss-osmc, vero2-libamcodec-osmc" >> files/DEBIAN/control
 	cp patches/${1}-watchdog ${out}/usr/bin/mediacenter
 	cp patches/${1}-advancedsettings.xml ${out}/usr/share/kodi/system/advancedsettings.xml
 	chmod +x ${out}/usr/bin/mediacenter
