@@ -4,8 +4,8 @@ Essential: No
 Priority: optional
 Maintainer: Sam G Nazarko <email@samnazarko.co.uk>
 Description: libcec package with headers
-Architecture: armhf
-Installed-Size: 120
 Version: 3.1.1-2
 Depends: vero2-libcec-osmc (=3.1.1-2)
 Package: vero2-libcec-dev-osmc
+Architecture: armhf
+Installed-Size: 120
