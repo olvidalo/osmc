@@ -1,4 +1,4 @@
-From 5ec6a6f3b007c7cb5fc53c1fadfb80e67bed3ea9 Mon Sep 17 00:00:00 2001
+From 624e28a54a486dac290053c965a7ff03f296483f Mon Sep 17 00:00:00 2001
 From: Sam Nazarko <email@samnazarko.co.uk>
 Date: Tue, 20 Oct 2015 17:38:50 +0100
 Subject: [PATCH] Do not enumerate the default device when we have PulseAudio
@@ -11,10 +11,10 @@ Signed-off-by: Sam Nazarko <email@samnazarko.co.uk>
  1 file changed, 11 insertions(+), 2 deletions(-)
 
 diff --git a/xbmc/cores/AudioEngine/Sinks/AESinkALSA.cpp b/xbmc/cores/AudioEngine/Sinks/AESinkALSA.cpp
-index d917d6d..fa603c8 100644
+index 6a9066b..f52d54a 100644
 --- a/xbmc/cores/AudioEngine/Sinks/AESinkALSA.cpp
 +++ b/xbmc/cores/AudioEngine/Sinks/AESinkALSA.cpp
-@@ -1134,7 +1134,8 @@ void CAESinkALSA::EnumerateDevicesEx(AEDeviceInfoList &list, bool force)
+@@ -1138,7 +1138,8 @@ void CAESinkALSA::EnumerateDevicesEx(AEDeviceInfoList &list, bool force)
     * will automatically add "@" instead to enable surroundXX mangling.
     * We don't want to do that if "default" can handle multichannel
     * itself (e.g. in case of a pulseaudio server). */
@@ -42,5 +42,5 @@ index d917d6d..fa603c8 100644
  
  bool CAESinkALSA::GetELD(snd_hctl_t *hctl, int device, CAEDeviceInfo& info, bool& badHDMI)
 -- 
-2.1.4
+2.7.4
 
