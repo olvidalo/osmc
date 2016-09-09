@@ -18,10 +18,10 @@ index 9ed74f1..6c0ef01 100644
  {
   m_eOSMCWalkthroughState = state;
 - CRepositoryUpdater::GetInstance().ScheduleUpdate();
-+    CSettings::GetInstance().SetInt(CSettings::SETTING_ADDONS_AUTOUPDATES, CSettings::GetInstance().GetInt(CSettings::SETTING_ADDONS_A
++    CSettings::GetInstance().SetInt(CSettings::SETTING_ADDONS_AUTOUPDATES, CSettings::GetInstance().GetInt(CSettings::SETTING_ADDONS_AUTOUPDATES));
  }
-
+ 
  bool CApplication::PlayMedia(const CFileItem& item, const std::string &player, int iPlaylist)
---
+-- 
 2.7.4
 
