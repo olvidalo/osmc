@@ -1,21 +1,68 @@
-From a236c9c7b83b7445587e9d139067da79a66c4f0d Mon Sep 17 00:00:00 2001
+From 1337f1dc8e0a2c13b94e492d7cf73d2f98c99dbe Mon Sep 17 00:00:00 2001
 From: Alex Deryskyba <alex@codesnake.com>
 Date: Fri, 19 Sep 2014 01:55:12 +0300
-Subject: [PATCH 3/9] Change the sample rates that are supported by ALSA but
+Subject: [PATCH] Change the sample rates that are supported by ALSA but
  unsupported by HDMI to the closest supported value
 
 Conflicts:
 
 	xbmc/cores/AudioEngine/Sinks/AESinkALSA.cpp
 ---
- xbmc/cores/AudioEngine/Sinks/AESinkALSA.cpp | 20 ++++++++++++++++++++
- 1 file changed, 20 insertions(+)
+ xbmc/cores/AudioEngine/Sinks/AESinkALSA.cpp | 53 ++++++++++++++++++++++++++++-
+ 1 file changed, 52 insertions(+), 1 deletion(-)
 
 diff --git a/xbmc/cores/AudioEngine/Sinks/AESinkALSA.cpp b/xbmc/cores/AudioEngine/Sinks/AESinkALSA.cpp
-index ae21ca6..464eb8d 100644
+index f52d54a..35e16be 100644
 --- a/xbmc/cores/AudioEngine/Sinks/AESinkALSA.cpp
 +++ b/xbmc/cores/AudioEngine/Sinks/AESinkALSA.cpp
-@@ -667,6 +667,26 @@ bool CAESinkALSA::InitializeHW(const ALSAConfig &inconfig, ALSAConfig &outconfig
+@@ -38,6 +38,7 @@
+ #include "settings/AdvancedSettings.h"
+ #if defined(HAS_LIBAMCODEC)
+ #include "utils/AMLUtils.h"
++#include "utils/SysfsUtils.h"
+ #endif
+ 
+ #ifdef TARGET_POSIX
+@@ -538,7 +539,37 @@ bool CAESinkALSA::Initialize(AEAudioFormat &format, std::string &device)
+   if (aml_present())
+   {
+     aml_set_audio_passthrough(m_passthrough);
+-    device = "default";
++
++    int aml_digital_codec;
++    switch(format.m_dataFormat)
++    {
++      case AE_FMT_AC3:
++        aml_digital_codec = 2;
++        break;
++
++      case AE_FMT_DTS:
++        aml_digital_codec = 3;
++        break;
++
++      case AE_FMT_EAC3:
++        aml_digital_codec = 4;
++        break;
++
++      case AE_FMT_DTSHD:
++        aml_digital_codec = 5;
++        break;
++
++      case AE_FMT_TRUEHD:
++        aml_digital_codec = 7;
++        break;
++
++      default:
++        if (inconfig.channels > 2)
++          aml_digital_codec = 6;
++        else
++          aml_digital_codec = 0;
++    }
++    SysfsUtils::SetInt("/sys/class/audiodsp/digital_codec", aml_digital_codec);
+   }
+ #endif
+ 
+@@ -666,6 +697,26 @@ bool CAESinkALSA::InitializeHW(const ALSAConfig &inconfig, ALSAConfig &outconfig
    snd_pcm_hw_params_set_access(m_pcm, hw_params, SND_PCM_ACCESS_RW_INTERLEAVED);
  
    unsigned int sampleRate   = inconfig.sampleRate;
@@ -43,5 +90,5 @@ index ae21ca6..464eb8d 100644
  
    unsigned int channelCount = inconfig.channels;
 -- 
-2.1.0
+2.7.4
 
