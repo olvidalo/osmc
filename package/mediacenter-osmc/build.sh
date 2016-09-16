@@ -332,7 +332,7 @@ then
 	umount /proc/ > /dev/null 2>&1
 	$BUILD
 	if [ $? != 0 ]; then echo -e "Build failed!" && exit 1; fi
-	make install DESTDIR=${out}
+	make sudo-install DESTDIR=${out}
 	pushd project/cmake/addons/
 	mkdir build
 	cd build
