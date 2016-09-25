@@ -1,4 +1,0 @@
-/mnt/package/libcec-next-osmc/src/libcec-62b8520cf801343d93e8427393d3d929e59d9c7e/src/libcec/CMakeFiles/_cec.dir
-/mnt/package/libcec-next-osmc/src/libcec-62b8520cf801343d93e8427393d3d929e59d9c7e/src/libcec/CMakeFiles/cec.dir
-/mnt/package/libcec-next-osmc/src/libcec-62b8520cf801343d93e8427393d3d929e59d9c7e/src/cec-client/CMakeFiles/cec-client.dir
-/mnt/package/libcec-next-osmc/src/libcec-62b8520cf801343d93e8427393d3d929e59d9c7e/src/cecc-client/CMakeFiles/cecc-client.dir

@@ -1,1 +1,0 @@
-/usr/lib/ccache/cc  -O3 -fomit-frame-pointer -I/usr/osmc/include -L/usr/osmc/lib      CMakeFiles/cecc-client.dir/cecc-client.c.o  -o cecc-client-3.1.0 -rdynamic -L/usr/osmc//usr/osmc/lib -lp8-platform -lpthread -lpthread -ldl -Wl,-rpath,::::::::::::: 
