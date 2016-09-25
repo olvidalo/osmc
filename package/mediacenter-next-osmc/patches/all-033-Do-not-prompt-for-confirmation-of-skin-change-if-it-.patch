@@ -17,8 +17,8 @@ index 3b3fe9c..e914de9 100644
      {
        // now we can finally reload skins
        std::string builtin("ReloadSkin");
--      if (settingId == CSettings::SETTING_LOOKANDFEEL_SKIN && m_confirmSkinChange)
-+      if (settingId == CSettings::SETTING_LOOKANDFEEL_SKIN && m_confirmSkinChange && m_eOSMCWalkthroughState != OSMC_WALKTHROUGH_ISRUNNING)
+-      if (settingId == CSettings::SETTING_LOOKANDFEEL_SKIN && !m_skinReverting)
++      if (settingId == CSettings::SETTING_LOOKANDFEEL_SKIN && !m_skinReverting && m_eOSMCWalkthroughState != OSMC_WALKTHROUGH_ISRUNNING)
          builtin += "(confirm)";
 +     // We need to set ISDONE first so reloading is allowed
 +     if (m_eOSMCWalkthroughState == OSMC_WALKTHROUGH_ISRUNNING)
