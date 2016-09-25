@@ -1,0 +1,16 @@
+/usr/osmc/bin/./cec-client-3.1.0
+/usr/osmc/bin/./cec-client
+/usr/osmc/bin/./cecc-client-3.1.0
+/usr/osmc/bin/./cecc-client
+/usr/osmc/bin/./pyCecClient.py
+/usr/osmc/lib/python2.7/dist-packages/cec/_cec.so
+/usr/osmc/lib/python2.7/dist-packages/cec/__init__.py
+/usr/osmc/lib/pkgconfig/libcec.pc
+/usr/osmc/include/libcec/cec.h
+/usr/osmc/include/libcec/cecc.h
+/usr/osmc/include/libcec/cecloader.h
+/usr/osmc/include/libcec/cectypes.h
+/usr/osmc/include/libcec/version.h
+/usr/osmc/lib/libcec.so.3.1.0
+/usr/osmc/lib/libcec.so.3
+/usr/osmc/lib/libcec.so

@@ -1,0 +1,12 @@
+prefix=/usr/osmc
+exec_prefix=
+libdir=/usr/osmc//usr/osmc/lib
+includedir=/usr/osmc/include
+
+Name: libcec
+Description: Pulse-Eight libCEC 3.1.0
+URL: http://www.pulse-eight.com/
+Version: 3.1.0
+Requires: p8-platform  
+Libs: -L${libdir} -lcec
+Cflags: -I${includedir} -I${includedir}/libcec

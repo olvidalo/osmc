@@ -1,0 +1,58 @@
+Determining if the pthread_create exist failed with the following output:
+Change Dir: /mnt/package/libplatform-next-osmc/src/platform-p8-platform-2.0.1/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTryCompileExec1031611361/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec1031611361.dir/build.make CMakeFiles/cmTryCompileExec1031611361.dir/build
+make[1]: Entering directory '/mnt/package/libplatform-next-osmc/src/platform-p8-platform-2.0.1/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /mnt/package/libplatform-next-osmc/src/platform-p8-platform-2.0.1/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec1031611361.dir/CheckSymbolExists.c.o
+/usr/lib/ccache/cc   -O3 -fomit-frame-pointer -I/usr/osmc/include -L/usr/osmc/lib      -o CMakeFiles/cmTryCompileExec1031611361.dir/CheckSymbolExists.c.o   -c /mnt/package/libplatform-next-osmc/src/platform-p8-platform-2.0.1/CMakeFiles/CMakeTmp/CheckSymbolExists.c
+Linking C executable cmTryCompileExec1031611361
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec1031611361.dir/link.txt --verbose=1
+/usr/lib/ccache/cc  -O3 -fomit-frame-pointer -I/usr/osmc/include -L/usr/osmc/lib       CMakeFiles/cmTryCompileExec1031611361.dir/CheckSymbolExists.c.o  -o cmTryCompileExec1031611361 -rdynamic 
+CMakeFiles/cmTryCompileExec1031611361.dir/CheckSymbolExists.c.o: In function `main':
+CheckSymbolExists.c:(.text.startup+0x0): undefined reference to `pthread_create'
+CheckSymbolExists.c:(.text.startup+0x4): undefined reference to `pthread_create'
+collect2: error: ld returned 1 exit status
+CMakeFiles/cmTryCompileExec1031611361.dir/build.make:88: recipe for target 'cmTryCompileExec1031611361' failed
+make[1]: *** [cmTryCompileExec1031611361] Error 1
+make[1]: Leaving directory '/mnt/package/libplatform-next-osmc/src/platform-p8-platform-2.0.1/CMakeFiles/CMakeTmp'
+Makefile:118: recipe for target 'cmTryCompileExec1031611361/fast' failed
+make: *** [cmTryCompileExec1031611361/fast] Error 2
+
+File /mnt/package/libplatform-next-osmc/src/platform-p8-platform-2.0.1/CMakeFiles/CMakeTmp/CheckSymbolExists.c:
+/* */
+#include <pthread.h>
+
+int main(int argc, char** argv)
+{
+  (void)argv;
+#ifndef pthread_create
+  return ((int*)(&pthread_create))[argc];
+#else
+  (void)argc;
+  return 0;
+#endif
+}
+
+Determining if the function pthread_create exists in the pthreads failed with the following output:
+Change Dir: /mnt/package/libplatform-next-osmc/src/platform-p8-platform-2.0.1/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTryCompileExec4111247995/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec4111247995.dir/build.make CMakeFiles/cmTryCompileExec4111247995.dir/build
+make[1]: Entering directory '/mnt/package/libplatform-next-osmc/src/platform-p8-platform-2.0.1/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /mnt/package/libplatform-next-osmc/src/platform-p8-platform-2.0.1/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec4111247995.dir/CheckFunctionExists.c.o
+/usr/lib/ccache/cc   -O3 -fomit-frame-pointer -I/usr/osmc/include -L/usr/osmc/lib   -DCHECK_FUNCTION_EXISTS=pthread_create   -o CMakeFiles/cmTryCompileExec4111247995.dir/CheckFunctionExists.c.o   -c /usr/share/cmake-3.0/Modules/CheckFunctionExists.c
+Linking C executable cmTryCompileExec4111247995
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec4111247995.dir/link.txt --verbose=1
+/usr/lib/ccache/cc  -O3 -fomit-frame-pointer -I/usr/osmc/include -L/usr/osmc/lib   -DCHECK_FUNCTION_EXISTS=pthread_create    CMakeFiles/cmTryCompileExec4111247995.dir/CheckFunctionExists.c.o  -o cmTryCompileExec4111247995 -rdynamic -lpthreads 
+/usr/bin/ld: cannot find -lpthreads
+collect2: error: ld returned 1 exit status
+CMakeFiles/cmTryCompileExec4111247995.dir/build.make:88: recipe for target 'cmTryCompileExec4111247995' failed
+make[1]: *** [cmTryCompileExec4111247995] Error 1
+make[1]: Leaving directory '/mnt/package/libplatform-next-osmc/src/platform-p8-platform-2.0.1/CMakeFiles/CMakeTmp'
+Makefile:118: recipe for target 'cmTryCompileExec4111247995/fast' failed
+make: *** [cmTryCompileExec4111247995/fast] Error 2
+
+

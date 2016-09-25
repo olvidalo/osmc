@@ -1,0 +1,1 @@
+/mnt/package/libplatform-next-osmc/src/platform-p8-platform-2.0.1/CMakeFiles/p8-platform.dir

@@ -1,0 +1,367 @@
+The system is: Linux - 4.4.13-5-osmc - armv7l
+Compiling the C compiler identification source file "CMakeCCompilerId.c" succeeded.
+Compiler: /usr/lib/ccache/cc 
+Build flags: -O3;-fomit-frame-pointer;-I/usr/osmc/include;-L/usr/osmc/lib;
+Id flags: 
+
+The output was:
+0
+
+
+Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "a.out"
+
+The C compiler identification is GNU, found in "/mnt/package/libplatform-next-osmc/src/platform-p8-platform-2.0.1/CMakeFiles/3.0.2/CompilerIdC/a.out"
+
+Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" succeeded.
+Compiler: /usr/lib/ccache/c++ 
+Build flags: -O3;-fomit-frame-pointer;-I/usr/osmc/include;-L/usr/osmc/lib;
+Id flags: 
+
+The output was:
+0
+
+
+Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "a.out"
+
+The CXX compiler identification is GNU, found in "/mnt/package/libplatform-next-osmc/src/platform-p8-platform-2.0.1/CMakeFiles/3.0.2/CompilerIdCXX/a.out"
+
+Determining if the C compiler works passed with the following output:
+Change Dir: /mnt/package/libplatform-next-osmc/src/platform-p8-platform-2.0.1/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTryCompileExec1691150159/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec1691150159.dir/build.make CMakeFiles/cmTryCompileExec1691150159.dir/build
+make[1]: Entering directory '/mnt/package/libplatform-next-osmc/src/platform-p8-platform-2.0.1/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /mnt/package/libplatform-next-osmc/src/platform-p8-platform-2.0.1/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec1691150159.dir/testCCompiler.c.o
+/usr/lib/ccache/cc   -O3 -fomit-frame-pointer -I/usr/osmc/include -L/usr/osmc/lib      -o CMakeFiles/cmTryCompileExec1691150159.dir/testCCompiler.c.o   -c /mnt/package/libplatform-next-osmc/src/platform-p8-platform-2.0.1/CMakeFiles/CMakeTmp/testCCompiler.c
+Linking C executable cmTryCompileExec1691150159
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec1691150159.dir/link.txt --verbose=1
+/usr/lib/ccache/cc  -O3 -fomit-frame-pointer -I/usr/osmc/include -L/usr/osmc/lib       CMakeFiles/cmTryCompileExec1691150159.dir/testCCompiler.c.o  -o cmTryCompileExec1691150159 -rdynamic 
+make[1]: Leaving directory '/mnt/package/libplatform-next-osmc/src/platform-p8-platform-2.0.1/CMakeFiles/CMakeTmp'
+
+
+Detecting C compiler ABI info compiled with the following output:
+Change Dir: /mnt/package/libplatform-next-osmc/src/platform-p8-platform-2.0.1/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTryCompileExec1027496928/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec1027496928.dir/build.make CMakeFiles/cmTryCompileExec1027496928.dir/build
+make[1]: Entering directory '/mnt/package/libplatform-next-osmc/src/platform-p8-platform-2.0.1/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /mnt/package/libplatform-next-osmc/src/platform-p8-platform-2.0.1/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec1027496928.dir/CMakeCCompilerABI.c.o
+/usr/lib/ccache/cc   -O3 -fomit-frame-pointer -I/usr/osmc/include -L/usr/osmc/lib      -o CMakeFiles/cmTryCompileExec1027496928.dir/CMakeCCompilerABI.c.o   -c /usr/share/cmake-3.0/Modules/CMakeCCompilerABI.c
+Linking C executable cmTryCompileExec1027496928
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec1027496928.dir/link.txt --verbose=1
+/usr/lib/ccache/cc  -O3 -fomit-frame-pointer -I/usr/osmc/include -L/usr/osmc/lib     -v CMakeFiles/cmTryCompileExec1027496928.dir/CMakeCCompilerABI.c.o  -o cmTryCompileExec1027496928 -rdynamic  
+Using built-in specs.
+COLLECT_GCC=/usr/bin/cc
+COLLECT_LTO_WRAPPER=/usr/lib/gcc/arm-linux-gnueabihf/4.9/lto-wrapper
+Target: arm-linux-gnueabihf
+Configured with: ../src/configure -v --with-pkgversion='Debian 4.9.2-10' --with-bugurl=file:///usr/share/doc/gcc-4.9/README.Bugs --enable-languages=c,c++,java,go,d,fortran,objc,obj-c++ --prefix=/usr --program-suffix=-4.9 --enable-shared --enable-linker-build-id --libexecdir=/usr/lib --without-included-gettext --enable-threads=posix --with-gxx-include-dir=/usr/include/c++/4.9 --libdir=/usr/lib --enable-nls --with-sysroot=/ --enable-clocale=gnu --enable-libstdcxx-debug --enable-libstdcxx-time=yes --enable-gnu-unique-object --disable-libitm --disable-libquadmath --enable-plugin --with-system-zlib --disable-browser-plugin --enable-java-awt=gtk --enable-gtk-cairo --with-java-home=/usr/lib/jvm/java-1.5.0-gcj-4.9-armhf/jre --enable-java-home --with-jvm-root-dir=/usr/lib/jvm/java-1.5.0-gcj-4.9-armhf --with-jvm-jar-dir=/usr/lib/jvm-exports/java-1.5.0-gcj-4.9-armhf --with-arch-directory=arm --with-ecj-jar=/usr/share/java/eclipse-ecj.jar --enable-objc-gc --enable-multiarch --disable-sjlj-exceptions --with-arch=armv7-a --with-fpu=vfpv3-d16 --with-float=hard --with-mode=thumb --enable-checking=release --build=arm-linux-gnueabihf --host=arm-linux-gnueabihf --target=arm-linux-gnueabihf
+Thread model: posix
+gcc version 4.9.2 (Debian 4.9.2-10) 
+COMPILER_PATH=/usr/lib/gcc/arm-linux-gnueabihf/4.9/:/usr/lib/gcc/arm-linux-gnueabihf/4.9/:/usr/lib/gcc/arm-linux-gnueabihf/:/usr/lib/gcc/arm-linux-gnueabihf/4.9/:/usr/lib/gcc/arm-linux-gnueabihf/
+LIBRARY_PATH=/usr/lib/gcc/arm-linux-gnueabihf/4.9/:/usr/lib/gcc/arm-linux-gnueabihf/4.9/../../../arm-linux-gnueabihf/:/usr/lib/gcc/arm-linux-gnueabihf/4.9/../../../:/lib/arm-linux-gnueabihf/:/lib/:/usr/lib/arm-linux-gnueabihf/:/usr/lib/
+COLLECT_GCC_OPTIONS='-O3' '-fomit-frame-pointer' '-I' '/usr/osmc/include' '-L/usr/osmc/lib' '-v' '-o' 'cmTryCompileExec1027496928' '-rdynamic' '-march=armv7-a' '-mfloat-abi=hard' '-mfpu=vfpv3-d16' '-mthumb' '-mtls-dialect=gnu'
+ /usr/lib/gcc/arm-linux-gnueabihf/4.9/collect2 -plugin /usr/lib/gcc/arm-linux-gnueabihf/4.9/liblto_plugin.so -plugin-opt=/usr/lib/gcc/arm-linux-gnueabihf/4.9/lto-wrapper -plugin-opt=-fresolution=/tmp/ccCLWg3g.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s --sysroot=/ --build-id --eh-frame-hdr -export-dynamic -dynamic-linker /lib/ld-linux-armhf.so.3 -X --hash-style=gnu -m armelf_linux_eabi -o cmTryCompileExec1027496928 /usr/lib/gcc/arm-linux-gnueabihf/4.9/../../../arm-linux-gnueabihf/crt1.o /usr/lib/gcc/arm-linux-gnueabihf/4.9/../../../arm-linux-gnueabihf/crti.o /usr/lib/gcc/arm-linux-gnueabihf/4.9/crtbegin.o -L/usr/osmc/lib -L/usr/lib/gcc/arm-linux-gnueabihf/4.9 -L/usr/lib/gcc/arm-linux-gnueabihf/4.9/../../../arm-linux-gnueabihf -L/usr/lib/gcc/arm-linux-gnueabihf/4.9/../../.. -L/lib/arm-linux-gnueabihf -L/usr/lib/arm-linux-gnueabihf CMakeFiles/cmTryCompileExec1027496928.dir/CMakeCCompilerABI.c.o -lgcc --as-needed -lgcc_s --no-as-needed -lc -lgcc --as-needed -lgcc_s --no-as-needed /usr/lib/gcc/arm-linux-gnueabihf/4.9/crtend.o /usr/lib/gcc/arm-linux-gnueabihf/4.9/../../../arm-linux-gnueabihf/crtn.o
+make[1]: Leaving directory '/mnt/package/libplatform-next-osmc/src/platform-p8-platform-2.0.1/CMakeFiles/CMakeTmp'
+
+
+Parsed C implicit link information from above output:
+  link line regex: [^( *|.*[/\])(ld|([^/\]+-)?ld|collect2)[^/\]*( |$)]
+  ignore line: [Change Dir: /mnt/package/libplatform-next-osmc/src/platform-p8-platform-2.0.1/CMakeFiles/CMakeTmp]
+  ignore line: []
+  ignore line: [Run Build Command:"/usr/bin/make" "cmTryCompileExec1027496928/fast"]
+  ignore line: [/usr/bin/make -f CMakeFiles/cmTryCompileExec1027496928.dir/build.make CMakeFiles/cmTryCompileExec1027496928.dir/build]
+  ignore line: [make[1]: Entering directory '/mnt/package/libplatform-next-osmc/src/platform-p8-platform-2.0.1/CMakeFiles/CMakeTmp']
+  ignore line: [/usr/bin/cmake -E cmake_progress_report /mnt/package/libplatform-next-osmc/src/platform-p8-platform-2.0.1/CMakeFiles/CMakeTmp/CMakeFiles 1]
+  ignore line: [Building C object CMakeFiles/cmTryCompileExec1027496928.dir/CMakeCCompilerABI.c.o]
+  ignore line: [/usr/lib/ccache/cc   -O3 -fomit-frame-pointer -I/usr/osmc/include -L/usr/osmc/lib      -o CMakeFiles/cmTryCompileExec1027496928.dir/CMakeCCompilerABI.c.o   -c /usr/share/cmake-3.0/Modules/CMakeCCompilerABI.c]
+  ignore line: [Linking C executable cmTryCompileExec1027496928]
+  ignore line: [/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec1027496928.dir/link.txt --verbose=1]
+  ignore line: [/usr/lib/ccache/cc  -O3 -fomit-frame-pointer -I/usr/osmc/include -L/usr/osmc/lib     -v CMakeFiles/cmTryCompileExec1027496928.dir/CMakeCCompilerABI.c.o  -o cmTryCompileExec1027496928 -rdynamic  ]
+  ignore line: [Using built-in specs.]
+  ignore line: [COLLECT_GCC=/usr/bin/cc]
+  ignore line: [COLLECT_LTO_WRAPPER=/usr/lib/gcc/arm-linux-gnueabihf/4.9/lto-wrapper]
+  ignore line: [Target: arm-linux-gnueabihf]
+  ignore line: [Configured with: ../src/configure -v --with-pkgversion='Debian 4.9.2-10' --with-bugurl=file:///usr/share/doc/gcc-4.9/README.Bugs --enable-languages=c,c++,java,go,d,fortran,objc,obj-c++ --prefix=/usr --program-suffix=-4.9 --enable-shared --enable-linker-build-id --libexecdir=/usr/lib --without-included-gettext --enable-threads=posix --with-gxx-include-dir=/usr/include/c++/4.9 --libdir=/usr/lib --enable-nls --with-sysroot=/ --enable-clocale=gnu --enable-libstdcxx-debug --enable-libstdcxx-time=yes --enable-gnu-unique-object --disable-libitm --disable-libquadmath --enable-plugin --with-system-zlib --disable-browser-plugin --enable-java-awt=gtk --enable-gtk-cairo --with-java-home=/usr/lib/jvm/java-1.5.0-gcj-4.9-armhf/jre --enable-java-home --with-jvm-root-dir=/usr/lib/jvm/java-1.5.0-gcj-4.9-armhf --with-jvm-jar-dir=/usr/lib/jvm-exports/java-1.5.0-gcj-4.9-armhf --with-arch-directory=arm --with-ecj-jar=/usr/share/java/eclipse-ecj.jar --enable-objc-gc --enable-multiarch --disable-sjlj-exceptions --with-arch=armv7-a --with-fpu=vfpv3-d16 --with-float=hard --with-mode=thumb --enable-checking=release --build=arm-linux-gnueabihf --host=arm-linux-gnueabihf --target=arm-linux-gnueabihf]
+  ignore line: [Thread model: posix]
+  ignore line: [gcc version 4.9.2 (Debian 4.9.2-10) ]
+  ignore line: [COMPILER_PATH=/usr/lib/gcc/arm-linux-gnueabihf/4.9/:/usr/lib/gcc/arm-linux-gnueabihf/4.9/:/usr/lib/gcc/arm-linux-gnueabihf/:/usr/lib/gcc/arm-linux-gnueabihf/4.9/:/usr/lib/gcc/arm-linux-gnueabihf/]
+  ignore line: [LIBRARY_PATH=/usr/lib/gcc/arm-linux-gnueabihf/4.9/:/usr/lib/gcc/arm-linux-gnueabihf/4.9/../../../arm-linux-gnueabihf/:/usr/lib/gcc/arm-linux-gnueabihf/4.9/../../../:/lib/arm-linux-gnueabihf/:/lib/:/usr/lib/arm-linux-gnueabihf/:/usr/lib/]
+  ignore line: [COLLECT_GCC_OPTIONS='-O3' '-fomit-frame-pointer' '-I' '/usr/osmc/include' '-L/usr/osmc/lib' '-v' '-o' 'cmTryCompileExec1027496928' '-rdynamic' '-march=armv7-a' '-mfloat-abi=hard' '-mfpu=vfpv3-d16' '-mthumb' '-mtls-dialect=gnu']
+  link line: [ /usr/lib/gcc/arm-linux-gnueabihf/4.9/collect2 -plugin /usr/lib/gcc/arm-linux-gnueabihf/4.9/liblto_plugin.so -plugin-opt=/usr/lib/gcc/arm-linux-gnueabihf/4.9/lto-wrapper -plugin-opt=-fresolution=/tmp/ccCLWg3g.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s --sysroot=/ --build-id --eh-frame-hdr -export-dynamic -dynamic-linker /lib/ld-linux-armhf.so.3 -X --hash-style=gnu -m armelf_linux_eabi -o cmTryCompileExec1027496928 /usr/lib/gcc/arm-linux-gnueabihf/4.9/../../../arm-linux-gnueabihf/crt1.o /usr/lib/gcc/arm-linux-gnueabihf/4.9/../../../arm-linux-gnueabihf/crti.o /usr/lib/gcc/arm-linux-gnueabihf/4.9/crtbegin.o -L/usr/osmc/lib -L/usr/lib/gcc/arm-linux-gnueabihf/4.9 -L/usr/lib/gcc/arm-linux-gnueabihf/4.9/../../../arm-linux-gnueabihf -L/usr/lib/gcc/arm-linux-gnueabihf/4.9/../../.. -L/lib/arm-linux-gnueabihf -L/usr/lib/arm-linux-gnueabihf CMakeFiles/cmTryCompileExec1027496928.dir/CMakeCCompilerABI.c.o -lgcc --as-needed -lgcc_s --no-as-needed -lc -lgcc --as-needed -lgcc_s --no-as-needed /usr/lib/gcc/arm-linux-gnueabihf/4.9/crtend.o /usr/lib/gcc/arm-linux-gnueabihf/4.9/../../../arm-linux-gnueabihf/crtn.o]
+    arg [/usr/lib/gcc/arm-linux-gnueabihf/4.9/collect2] ==> ignore
+    arg [-plugin] ==> ignore
+    arg [/usr/lib/gcc/arm-linux-gnueabihf/4.9/liblto_plugin.so] ==> ignore
+    arg [-plugin-opt=/usr/lib/gcc/arm-linux-gnueabihf/4.9/lto-wrapper] ==> ignore
+    arg [-plugin-opt=-fresolution=/tmp/ccCLWg3g.res] ==> ignore
+    arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
+    arg [-plugin-opt=-pass-through=-lgcc_s] ==> ignore
+    arg [-plugin-opt=-pass-through=-lc] ==> ignore
+    arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
+    arg [-plugin-opt=-pass-through=-lgcc_s] ==> ignore
+    arg [--sysroot=/] ==> ignore
+    arg [--build-id] ==> ignore
+    arg [--eh-frame-hdr] ==> ignore
+    arg [-export-dynamic] ==> ignore
+    arg [-dynamic-linker] ==> ignore
+    arg [/lib/ld-linux-armhf.so.3] ==> ignore
+    arg [-X] ==> ignore
+    arg [--hash-style=gnu] ==> ignore
+    arg [-m] ==> ignore
+    arg [armelf_linux_eabi] ==> ignore
+    arg [-o] ==> ignore
+    arg [cmTryCompileExec1027496928] ==> ignore
+    arg [/usr/lib/gcc/arm-linux-gnueabihf/4.9/../../../arm-linux-gnueabihf/crt1.o] ==> ignore
+    arg [/usr/lib/gcc/arm-linux-gnueabihf/4.9/../../../arm-linux-gnueabihf/crti.o] ==> ignore
+    arg [/usr/lib/gcc/arm-linux-gnueabihf/4.9/crtbegin.o] ==> ignore
+    arg [-L/usr/osmc/lib] ==> dir [/usr/osmc/lib]
+    arg [-L/usr/lib/gcc/arm-linux-gnueabihf/4.9] ==> dir [/usr/lib/gcc/arm-linux-gnueabihf/4.9]
+    arg [-L/usr/lib/gcc/arm-linux-gnueabihf/4.9/../../../arm-linux-gnueabihf] ==> dir [/usr/lib/gcc/arm-linux-gnueabihf/4.9/../../../arm-linux-gnueabihf]
+    arg [-L/usr/lib/gcc/arm-linux-gnueabihf/4.9/../../..] ==> dir [/usr/lib/gcc/arm-linux-gnueabihf/4.9/../../..]
+    arg [-L/lib/arm-linux-gnueabihf] ==> dir [/lib/arm-linux-gnueabihf]
+    arg [-L/usr/lib/arm-linux-gnueabihf] ==> dir [/usr/lib/arm-linux-gnueabihf]
+    arg [CMakeFiles/cmTryCompileExec1027496928.dir/CMakeCCompilerABI.c.o] ==> ignore
+    arg [-lgcc] ==> lib [gcc]
+    arg [--as-needed] ==> ignore
+    arg [-lgcc_s] ==> lib [gcc_s]
+    arg [--no-as-needed] ==> ignore
+    arg [-lc] ==> lib [c]
+    arg [-lgcc] ==> lib [gcc]
+    arg [--as-needed] ==> ignore
+    arg [-lgcc_s] ==> lib [gcc_s]
+    arg [--no-as-needed] ==> ignore
+    arg [/usr/lib/gcc/arm-linux-gnueabihf/4.9/crtend.o] ==> ignore
+    arg [/usr/lib/gcc/arm-linux-gnueabihf/4.9/../../../arm-linux-gnueabihf/crtn.o] ==> ignore
+  remove lib [gcc]
+  remove lib [gcc_s]
+  remove lib [gcc]
+  remove lib [gcc_s]
+  collapse library dir [/usr/osmc/lib] ==> [/usr/osmc/lib]
+  collapse library dir [/usr/lib/gcc/arm-linux-gnueabihf/4.9] ==> [/usr/lib/gcc/arm-linux-gnueabihf/4.9]
+  collapse library dir [/usr/lib/gcc/arm-linux-gnueabihf/4.9/../../../arm-linux-gnueabihf] ==> [/usr/lib/arm-linux-gnueabihf]
+  collapse library dir [/usr/lib/gcc/arm-linux-gnueabihf/4.9/../../..] ==> [/usr/lib]
+  collapse library dir [/lib/arm-linux-gnueabihf] ==> [/lib/arm-linux-gnueabihf]
+  collapse library dir [/usr/lib/arm-linux-gnueabihf] ==> [/usr/lib/arm-linux-gnueabihf]
+  implicit libs: [c]
+  implicit dirs: [/usr/osmc/lib;/usr/lib/gcc/arm-linux-gnueabihf/4.9;/usr/lib/arm-linux-gnueabihf;/usr/lib;/lib/arm-linux-gnueabihf]
+  implicit fwks: []
+
+
+Determining if the CXX compiler works passed with the following output:
+Change Dir: /mnt/package/libplatform-next-osmc/src/platform-p8-platform-2.0.1/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTryCompileExec4256861076/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec4256861076.dir/build.make CMakeFiles/cmTryCompileExec4256861076.dir/build
+make[1]: Entering directory '/mnt/package/libplatform-next-osmc/src/platform-p8-platform-2.0.1/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /mnt/package/libplatform-next-osmc/src/platform-p8-platform-2.0.1/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building CXX object CMakeFiles/cmTryCompileExec4256861076.dir/testCXXCompiler.cxx.o
+/usr/lib/ccache/c++    -O3 -fomit-frame-pointer -I/usr/osmc/include -L/usr/osmc/lib      -o CMakeFiles/cmTryCompileExec4256861076.dir/testCXXCompiler.cxx.o -c /mnt/package/libplatform-next-osmc/src/platform-p8-platform-2.0.1/CMakeFiles/CMakeTmp/testCXXCompiler.cxx
+Linking CXX executable cmTryCompileExec4256861076
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec4256861076.dir/link.txt --verbose=1
+/usr/lib/ccache/c++   -O3 -fomit-frame-pointer -I/usr/osmc/include -L/usr/osmc/lib       CMakeFiles/cmTryCompileExec4256861076.dir/testCXXCompiler.cxx.o  -o cmTryCompileExec4256861076 -rdynamic 
+make[1]: Leaving directory '/mnt/package/libplatform-next-osmc/src/platform-p8-platform-2.0.1/CMakeFiles/CMakeTmp'
+
+
+Detecting CXX compiler ABI info compiled with the following output:
+Change Dir: /mnt/package/libplatform-next-osmc/src/platform-p8-platform-2.0.1/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTryCompileExec3572065300/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec3572065300.dir/build.make CMakeFiles/cmTryCompileExec3572065300.dir/build
+make[1]: Entering directory '/mnt/package/libplatform-next-osmc/src/platform-p8-platform-2.0.1/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /mnt/package/libplatform-next-osmc/src/platform-p8-platform-2.0.1/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building CXX object CMakeFiles/cmTryCompileExec3572065300.dir/CMakeCXXCompilerABI.cpp.o
+/usr/lib/ccache/c++    -O3 -fomit-frame-pointer -I/usr/osmc/include -L/usr/osmc/lib      -o CMakeFiles/cmTryCompileExec3572065300.dir/CMakeCXXCompilerABI.cpp.o -c /usr/share/cmake-3.0/Modules/CMakeCXXCompilerABI.cpp
+Linking CXX executable cmTryCompileExec3572065300
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec3572065300.dir/link.txt --verbose=1
+/usr/lib/ccache/c++   -O3 -fomit-frame-pointer -I/usr/osmc/include -L/usr/osmc/lib     -v CMakeFiles/cmTryCompileExec3572065300.dir/CMakeCXXCompilerABI.cpp.o  -o cmTryCompileExec3572065300 -rdynamic  
+Using built-in specs.
+COLLECT_GCC=/usr/bin/c++
+COLLECT_LTO_WRAPPER=/usr/lib/gcc/arm-linux-gnueabihf/4.9/lto-wrapper
+Target: arm-linux-gnueabihf
+Configured with: ../src/configure -v --with-pkgversion='Debian 4.9.2-10' --with-bugurl=file:///usr/share/doc/gcc-4.9/README.Bugs --enable-languages=c,c++,java,go,d,fortran,objc,obj-c++ --prefix=/usr --program-suffix=-4.9 --enable-shared --enable-linker-build-id --libexecdir=/usr/lib --without-included-gettext --enable-threads=posix --with-gxx-include-dir=/usr/include/c++/4.9 --libdir=/usr/lib --enable-nls --with-sysroot=/ --enable-clocale=gnu --enable-libstdcxx-debug --enable-libstdcxx-time=yes --enable-gnu-unique-object --disable-libitm --disable-libquadmath --enable-plugin --with-system-zlib --disable-browser-plugin --enable-java-awt=gtk --enable-gtk-cairo --with-java-home=/usr/lib/jvm/java-1.5.0-gcj-4.9-armhf/jre --enable-java-home --with-jvm-root-dir=/usr/lib/jvm/java-1.5.0-gcj-4.9-armhf --with-jvm-jar-dir=/usr/lib/jvm-exports/java-1.5.0-gcj-4.9-armhf --with-arch-directory=arm --with-ecj-jar=/usr/share/java/eclipse-ecj.jar --enable-objc-gc --enable-multiarch --disable-sjlj-exceptions --with-arch=armv7-a --with-fpu=vfpv3-d16 --with-float=hard --with-mode=thumb --enable-checking=release --build=arm-linux-gnueabihf --host=arm-linux-gnueabihf --target=arm-linux-gnueabihf
+Thread model: posix
+gcc version 4.9.2 (Debian 4.9.2-10) 
+COMPILER_PATH=/usr/lib/gcc/arm-linux-gnueabihf/4.9/:/usr/lib/gcc/arm-linux-gnueabihf/4.9/:/usr/lib/gcc/arm-linux-gnueabihf/:/usr/lib/gcc/arm-linux-gnueabihf/4.9/:/usr/lib/gcc/arm-linux-gnueabihf/
+LIBRARY_PATH=/usr/lib/gcc/arm-linux-gnueabihf/4.9/:/usr/lib/gcc/arm-linux-gnueabihf/4.9/../../../arm-linux-gnueabihf/:/usr/lib/gcc/arm-linux-gnueabihf/4.9/../../../:/lib/arm-linux-gnueabihf/:/lib/:/usr/lib/arm-linux-gnueabihf/:/usr/lib/
+COLLECT_GCC_OPTIONS='-O3' '-fomit-frame-pointer' '-I' '/usr/osmc/include' '-L/usr/osmc/lib' '-v' '-o' 'cmTryCompileExec3572065300' '-rdynamic' '-shared-libgcc' '-march=armv7-a' '-mfloat-abi=hard' '-mfpu=vfpv3-d16' '-mthumb' '-mtls-dialect=gnu'
+ /usr/lib/gcc/arm-linux-gnueabihf/4.9/collect2 -plugin /usr/lib/gcc/arm-linux-gnueabihf/4.9/liblto_plugin.so -plugin-opt=/usr/lib/gcc/arm-linux-gnueabihf/4.9/lto-wrapper -plugin-opt=-fresolution=/tmp/ccXOk8El.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --sysroot=/ --build-id --eh-frame-hdr -export-dynamic -dynamic-linker /lib/ld-linux-armhf.so.3 -X --hash-style=gnu -m armelf_linux_eabi -o cmTryCompileExec3572065300 /usr/lib/gcc/arm-linux-gnueabihf/4.9/../../../arm-linux-gnueabihf/crt1.o /usr/lib/gcc/arm-linux-gnueabihf/4.9/../../../arm-linux-gnueabihf/crti.o /usr/lib/gcc/arm-linux-gnueabihf/4.9/crtbegin.o -L/usr/osmc/lib -L/usr/lib/gcc/arm-linux-gnueabihf/4.9 -L/usr/lib/gcc/arm-linux-gnueabihf/4.9/../../../arm-linux-gnueabihf -L/usr/lib/gcc/arm-linux-gnueabihf/4.9/../../.. -L/lib/arm-linux-gnueabihf -L/usr/lib/arm-linux-gnueabihf CMakeFiles/cmTryCompileExec3572065300.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /usr/lib/gcc/arm-linux-gnueabihf/4.9/crtend.o /usr/lib/gcc/arm-linux-gnueabihf/4.9/../../../arm-linux-gnueabihf/crtn.o
+make[1]: Leaving directory '/mnt/package/libplatform-next-osmc/src/platform-p8-platform-2.0.1/CMakeFiles/CMakeTmp'
+
+
+Parsed CXX implicit link information from above output:
+  link line regex: [^( *|.*[/\])(ld|([^/\]+-)?ld|collect2)[^/\]*( |$)]
+  ignore line: [Change Dir: /mnt/package/libplatform-next-osmc/src/platform-p8-platform-2.0.1/CMakeFiles/CMakeTmp]
+  ignore line: []
+  ignore line: [Run Build Command:"/usr/bin/make" "cmTryCompileExec3572065300/fast"]
+  ignore line: [/usr/bin/make -f CMakeFiles/cmTryCompileExec3572065300.dir/build.make CMakeFiles/cmTryCompileExec3572065300.dir/build]
+  ignore line: [make[1]: Entering directory '/mnt/package/libplatform-next-osmc/src/platform-p8-platform-2.0.1/CMakeFiles/CMakeTmp']
+  ignore line: [/usr/bin/cmake -E cmake_progress_report /mnt/package/libplatform-next-osmc/src/platform-p8-platform-2.0.1/CMakeFiles/CMakeTmp/CMakeFiles 1]
+  ignore line: [Building CXX object CMakeFiles/cmTryCompileExec3572065300.dir/CMakeCXXCompilerABI.cpp.o]
+  ignore line: [/usr/lib/ccache/c++    -O3 -fomit-frame-pointer -I/usr/osmc/include -L/usr/osmc/lib      -o CMakeFiles/cmTryCompileExec3572065300.dir/CMakeCXXCompilerABI.cpp.o -c /usr/share/cmake-3.0/Modules/CMakeCXXCompilerABI.cpp]
+  ignore line: [Linking CXX executable cmTryCompileExec3572065300]
+  ignore line: [/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec3572065300.dir/link.txt --verbose=1]
+  ignore line: [/usr/lib/ccache/c++   -O3 -fomit-frame-pointer -I/usr/osmc/include -L/usr/osmc/lib     -v CMakeFiles/cmTryCompileExec3572065300.dir/CMakeCXXCompilerABI.cpp.o  -o cmTryCompileExec3572065300 -rdynamic  ]
+  ignore line: [Using built-in specs.]
+  ignore line: [COLLECT_GCC=/usr/bin/c++]
+  ignore line: [COLLECT_LTO_WRAPPER=/usr/lib/gcc/arm-linux-gnueabihf/4.9/lto-wrapper]
+  ignore line: [Target: arm-linux-gnueabihf]
+  ignore line: [Configured with: ../src/configure -v --with-pkgversion='Debian 4.9.2-10' --with-bugurl=file:///usr/share/doc/gcc-4.9/README.Bugs --enable-languages=c,c++,java,go,d,fortran,objc,obj-c++ --prefix=/usr --program-suffix=-4.9 --enable-shared --enable-linker-build-id --libexecdir=/usr/lib --without-included-gettext --enable-threads=posix --with-gxx-include-dir=/usr/include/c++/4.9 --libdir=/usr/lib --enable-nls --with-sysroot=/ --enable-clocale=gnu --enable-libstdcxx-debug --enable-libstdcxx-time=yes --enable-gnu-unique-object --disable-libitm --disable-libquadmath --enable-plugin --with-system-zlib --disable-browser-plugin --enable-java-awt=gtk --enable-gtk-cairo --with-java-home=/usr/lib/jvm/java-1.5.0-gcj-4.9-armhf/jre --enable-java-home --with-jvm-root-dir=/usr/lib/jvm/java-1.5.0-gcj-4.9-armhf --with-jvm-jar-dir=/usr/lib/jvm-exports/java-1.5.0-gcj-4.9-armhf --with-arch-directory=arm --with-ecj-jar=/usr/share/java/eclipse-ecj.jar --enable-objc-gc --enable-multiarch --disable-sjlj-exceptions --with-arch=armv7-a --with-fpu=vfpv3-d16 --with-float=hard --with-mode=thumb --enable-checking=release --build=arm-linux-gnueabihf --host=arm-linux-gnueabihf --target=arm-linux-gnueabihf]
+  ignore line: [Thread model: posix]
+  ignore line: [gcc version 4.9.2 (Debian 4.9.2-10) ]
+  ignore line: [COMPILER_PATH=/usr/lib/gcc/arm-linux-gnueabihf/4.9/:/usr/lib/gcc/arm-linux-gnueabihf/4.9/:/usr/lib/gcc/arm-linux-gnueabihf/:/usr/lib/gcc/arm-linux-gnueabihf/4.9/:/usr/lib/gcc/arm-linux-gnueabihf/]
+  ignore line: [LIBRARY_PATH=/usr/lib/gcc/arm-linux-gnueabihf/4.9/:/usr/lib/gcc/arm-linux-gnueabihf/4.9/../../../arm-linux-gnueabihf/:/usr/lib/gcc/arm-linux-gnueabihf/4.9/../../../:/lib/arm-linux-gnueabihf/:/lib/:/usr/lib/arm-linux-gnueabihf/:/usr/lib/]
+  ignore line: [COLLECT_GCC_OPTIONS='-O3' '-fomit-frame-pointer' '-I' '/usr/osmc/include' '-L/usr/osmc/lib' '-v' '-o' 'cmTryCompileExec3572065300' '-rdynamic' '-shared-libgcc' '-march=armv7-a' '-mfloat-abi=hard' '-mfpu=vfpv3-d16' '-mthumb' '-mtls-dialect=gnu']
+  link line: [ /usr/lib/gcc/arm-linux-gnueabihf/4.9/collect2 -plugin /usr/lib/gcc/arm-linux-gnueabihf/4.9/liblto_plugin.so -plugin-opt=/usr/lib/gcc/arm-linux-gnueabihf/4.9/lto-wrapper -plugin-opt=-fresolution=/tmp/ccXOk8El.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --sysroot=/ --build-id --eh-frame-hdr -export-dynamic -dynamic-linker /lib/ld-linux-armhf.so.3 -X --hash-style=gnu -m armelf_linux_eabi -o cmTryCompileExec3572065300 /usr/lib/gcc/arm-linux-gnueabihf/4.9/../../../arm-linux-gnueabihf/crt1.o /usr/lib/gcc/arm-linux-gnueabihf/4.9/../../../arm-linux-gnueabihf/crti.o /usr/lib/gcc/arm-linux-gnueabihf/4.9/crtbegin.o -L/usr/osmc/lib -L/usr/lib/gcc/arm-linux-gnueabihf/4.9 -L/usr/lib/gcc/arm-linux-gnueabihf/4.9/../../../arm-linux-gnueabihf -L/usr/lib/gcc/arm-linux-gnueabihf/4.9/../../.. -L/lib/arm-linux-gnueabihf -L/usr/lib/arm-linux-gnueabihf CMakeFiles/cmTryCompileExec3572065300.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /usr/lib/gcc/arm-linux-gnueabihf/4.9/crtend.o /usr/lib/gcc/arm-linux-gnueabihf/4.9/../../../arm-linux-gnueabihf/crtn.o]
+    arg [/usr/lib/gcc/arm-linux-gnueabihf/4.9/collect2] ==> ignore
+    arg [-plugin] ==> ignore
+    arg [/usr/lib/gcc/arm-linux-gnueabihf/4.9/liblto_plugin.so] ==> ignore
+    arg [-plugin-opt=/usr/lib/gcc/arm-linux-gnueabihf/4.9/lto-wrapper] ==> ignore
+    arg [-plugin-opt=-fresolution=/tmp/ccXOk8El.res] ==> ignore
+    arg [-plugin-opt=-pass-through=-lgcc_s] ==> ignore
+    arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
+    arg [-plugin-opt=-pass-through=-lc] ==> ignore
+    arg [-plugin-opt=-pass-through=-lgcc_s] ==> ignore
+    arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
+    arg [--sysroot=/] ==> ignore
+    arg [--build-id] ==> ignore
+    arg [--eh-frame-hdr] ==> ignore
+    arg [-export-dynamic] ==> ignore
+    arg [-dynamic-linker] ==> ignore
+    arg [/lib/ld-linux-armhf.so.3] ==> ignore
+    arg [-X] ==> ignore
+    arg [--hash-style=gnu] ==> ignore
+    arg [-m] ==> ignore
+    arg [armelf_linux_eabi] ==> ignore
+    arg [-o] ==> ignore
+    arg [cmTryCompileExec3572065300] ==> ignore
+    arg [/usr/lib/gcc/arm-linux-gnueabihf/4.9/../../../arm-linux-gnueabihf/crt1.o] ==> ignore
+    arg [/usr/lib/gcc/arm-linux-gnueabihf/4.9/../../../arm-linux-gnueabihf/crti.o] ==> ignore
+    arg [/usr/lib/gcc/arm-linux-gnueabihf/4.9/crtbegin.o] ==> ignore
+    arg [-L/usr/osmc/lib] ==> dir [/usr/osmc/lib]
+    arg [-L/usr/lib/gcc/arm-linux-gnueabihf/4.9] ==> dir [/usr/lib/gcc/arm-linux-gnueabihf/4.9]
+    arg [-L/usr/lib/gcc/arm-linux-gnueabihf/4.9/../../../arm-linux-gnueabihf] ==> dir [/usr/lib/gcc/arm-linux-gnueabihf/4.9/../../../arm-linux-gnueabihf]
+    arg [-L/usr/lib/gcc/arm-linux-gnueabihf/4.9/../../..] ==> dir [/usr/lib/gcc/arm-linux-gnueabihf/4.9/../../..]
+    arg [-L/lib/arm-linux-gnueabihf] ==> dir [/lib/arm-linux-gnueabihf]
+    arg [-L/usr/lib/arm-linux-gnueabihf] ==> dir [/usr/lib/arm-linux-gnueabihf]
+    arg [CMakeFiles/cmTryCompileExec3572065300.dir/CMakeCXXCompilerABI.cpp.o] ==> ignore
+    arg [-lstdc++] ==> lib [stdc++]
+    arg [-lm] ==> lib [m]
+    arg [-lgcc_s] ==> lib [gcc_s]
+    arg [-lgcc] ==> lib [gcc]
+    arg [-lc] ==> lib [c]
+    arg [-lgcc_s] ==> lib [gcc_s]
+    arg [-lgcc] ==> lib [gcc]
+    arg [/usr/lib/gcc/arm-linux-gnueabihf/4.9/crtend.o] ==> ignore
+    arg [/usr/lib/gcc/arm-linux-gnueabihf/4.9/../../../arm-linux-gnueabihf/crtn.o] ==> ignore
+  remove lib [gcc_s]
+  remove lib [gcc]
+  remove lib [gcc_s]
+  remove lib [gcc]
+  collapse library dir [/usr/osmc/lib] ==> [/usr/osmc/lib]
+  collapse library dir [/usr/lib/gcc/arm-linux-gnueabihf/4.9] ==> [/usr/lib/gcc/arm-linux-gnueabihf/4.9]
+  collapse library dir [/usr/lib/gcc/arm-linux-gnueabihf/4.9/../../../arm-linux-gnueabihf] ==> [/usr/lib/arm-linux-gnueabihf]
+  collapse library dir [/usr/lib/gcc/arm-linux-gnueabihf/4.9/../../..] ==> [/usr/lib]
+  collapse library dir [/lib/arm-linux-gnueabihf] ==> [/lib/arm-linux-gnueabihf]
+  collapse library dir [/usr/lib/arm-linux-gnueabihf] ==> [/usr/lib/arm-linux-gnueabihf]
+  implicit libs: [stdc++;m;c]
+  implicit dirs: [/usr/osmc/lib;/usr/lib/gcc/arm-linux-gnueabihf/4.9;/usr/lib/arm-linux-gnueabihf;/usr/lib;/lib/arm-linux-gnueabihf]
+  implicit fwks: []
+
+
+Determining if files pthread.h exist passed with the following output:
+Change Dir: /mnt/package/libplatform-next-osmc/src/platform-p8-platform-2.0.1/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTryCompileExec1689190599/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec1689190599.dir/build.make CMakeFiles/cmTryCompileExec1689190599.dir/build
+make[1]: Entering directory '/mnt/package/libplatform-next-osmc/src/platform-p8-platform-2.0.1/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /mnt/package/libplatform-next-osmc/src/platform-p8-platform-2.0.1/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec1689190599.dir/CheckIncludeFiles.c.o
+/usr/lib/ccache/cc   -O3 -fomit-frame-pointer -I/usr/osmc/include -L/usr/osmc/lib      -o CMakeFiles/cmTryCompileExec1689190599.dir/CheckIncludeFiles.c.o   -c /mnt/package/libplatform-next-osmc/src/platform-p8-platform-2.0.1/CMakeFiles/CMakeTmp/CheckIncludeFiles.c
+Linking C executable cmTryCompileExec1689190599
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec1689190599.dir/link.txt --verbose=1
+/usr/lib/ccache/cc  -O3 -fomit-frame-pointer -I/usr/osmc/include -L/usr/osmc/lib       CMakeFiles/cmTryCompileExec1689190599.dir/CheckIncludeFiles.c.o  -o cmTryCompileExec1689190599 -rdynamic 
+make[1]: Leaving directory '/mnt/package/libplatform-next-osmc/src/platform-p8-platform-2.0.1/CMakeFiles/CMakeTmp'
+
+
+Determining if the function pthread_create exists in the pthread passed with the following output:
+Change Dir: /mnt/package/libplatform-next-osmc/src/platform-p8-platform-2.0.1/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTryCompileExec1993298287/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec1993298287.dir/build.make CMakeFiles/cmTryCompileExec1993298287.dir/build
+make[1]: Entering directory '/mnt/package/libplatform-next-osmc/src/platform-p8-platform-2.0.1/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /mnt/package/libplatform-next-osmc/src/platform-p8-platform-2.0.1/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec1993298287.dir/CheckFunctionExists.c.o
+/usr/lib/ccache/cc   -O3 -fomit-frame-pointer -I/usr/osmc/include -L/usr/osmc/lib   -DCHECK_FUNCTION_EXISTS=pthread_create   -o CMakeFiles/cmTryCompileExec1993298287.dir/CheckFunctionExists.c.o   -c /usr/share/cmake-3.0/Modules/CheckFunctionExists.c
+Linking C executable cmTryCompileExec1993298287
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec1993298287.dir/link.txt --verbose=1
+/usr/lib/ccache/cc  -O3 -fomit-frame-pointer -I/usr/osmc/include -L/usr/osmc/lib   -DCHECK_FUNCTION_EXISTS=pthread_create    CMakeFiles/cmTryCompileExec1993298287.dir/CheckFunctionExists.c.o  -o cmTryCompileExec1993298287 -rdynamic -lpthread 
+make[1]: Leaving directory '/mnt/package/libplatform-next-osmc/src/platform-p8-platform-2.0.1/CMakeFiles/CMakeTmp'
+
+
+Determining if the function __atomic_fetch_add_4 exists in the atomic passed with the following output:
+Change Dir: /mnt/package/libplatform-next-osmc/src/platform-p8-platform-2.0.1/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTryCompileExec115056071/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec115056071.dir/build.make CMakeFiles/cmTryCompileExec115056071.dir/build
+make[1]: Entering directory '/mnt/package/libplatform-next-osmc/src/platform-p8-platform-2.0.1/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /mnt/package/libplatform-next-osmc/src/platform-p8-platform-2.0.1/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec115056071.dir/CheckFunctionExists.c.o
+/usr/lib/ccache/cc   -O3 -fomit-frame-pointer -I/usr/osmc/include -L/usr/osmc/lib   -DCHECK_FUNCTION_EXISTS=__atomic_fetch_add_4   -o CMakeFiles/cmTryCompileExec115056071.dir/CheckFunctionExists.c.o   -c /usr/share/cmake-3.0/Modules/CheckFunctionExists.c
+/usr/share/cmake-3.0/Modules/CheckFunctionExists.c:3:6: warning: conflicting types for built-in function '__atomic_fetch_add_4'
+ char CHECK_FUNCTION_EXISTS();
+      ^
+Linking C executable cmTryCompileExec115056071
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec115056071.dir/link.txt --verbose=1
+/usr/lib/ccache/cc  -O3 -fomit-frame-pointer -I/usr/osmc/include -L/usr/osmc/lib   -DCHECK_FUNCTION_EXISTS=__atomic_fetch_add_4    CMakeFiles/cmTryCompileExec115056071.dir/CheckFunctionExists.c.o  -o cmTryCompileExec115056071 -rdynamic -latomic 
+make[1]: Leaving directory '/mnt/package/libplatform-next-osmc/src/platform-p8-platform-2.0.1/CMakeFiles/CMakeTmp'
+
+
+Performing C++ SOURCE FILE Test HAS_BUILTIN_SYNC_ADD_AND_FETCH succeded with the following output:
+Change Dir: /mnt/package/libplatform-next-osmc/src/platform-p8-platform-2.0.1/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTryCompileExec1630484075/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec1630484075.dir/build.make CMakeFiles/cmTryCompileExec1630484075.dir/build
+make[1]: Entering directory '/mnt/package/libplatform-next-osmc/src/platform-p8-platform-2.0.1/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /mnt/package/libplatform-next-osmc/src/platform-p8-platform-2.0.1/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building CXX object CMakeFiles/cmTryCompileExec1630484075.dir/src.cxx.o
+/usr/lib/ccache/c++    -O3 -fomit-frame-pointer -I/usr/osmc/include -L/usr/osmc/lib   -DHAS_BUILTIN_SYNC_ADD_AND_FETCH   -o CMakeFiles/cmTryCompileExec1630484075.dir/src.cxx.o -c /mnt/package/libplatform-next-osmc/src/platform-p8-platform-2.0.1/CMakeFiles/CMakeTmp/src.cxx
+Linking CXX executable cmTryCompileExec1630484075
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec1630484075.dir/link.txt --verbose=1
+/usr/lib/ccache/c++   -O3 -fomit-frame-pointer -I/usr/osmc/include -L/usr/osmc/lib   -DHAS_BUILTIN_SYNC_ADD_AND_FETCH    CMakeFiles/cmTryCompileExec1630484075.dir/src.cxx.o  -o cmTryCompileExec1630484075 -rdynamic -latomic 
+make[1]: Leaving directory '/mnt/package/libplatform-next-osmc/src/platform-p8-platform-2.0.1/CMakeFiles/CMakeTmp'
+
+Source file was:
+int main() { long* temp=0; long ret=__sync_add_and_fetch(temp, 1); return 0; }
+Performing C++ SOURCE FILE Test HAS_BUILTIN_SYNC_SUB_AND_FETCH succeded with the following output:
+Change Dir: /mnt/package/libplatform-next-osmc/src/platform-p8-platform-2.0.1/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTryCompileExec2270807476/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec2270807476.dir/build.make CMakeFiles/cmTryCompileExec2270807476.dir/build
+make[1]: Entering directory '/mnt/package/libplatform-next-osmc/src/platform-p8-platform-2.0.1/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /mnt/package/libplatform-next-osmc/src/platform-p8-platform-2.0.1/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building CXX object CMakeFiles/cmTryCompileExec2270807476.dir/src.cxx.o
+/usr/lib/ccache/c++    -O3 -fomit-frame-pointer -I/usr/osmc/include -L/usr/osmc/lib   -DHAS_BUILTIN_SYNC_SUB_AND_FETCH   -o CMakeFiles/cmTryCompileExec2270807476.dir/src.cxx.o -c /mnt/package/libplatform-next-osmc/src/platform-p8-platform-2.0.1/CMakeFiles/CMakeTmp/src.cxx
+Linking CXX executable cmTryCompileExec2270807476
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec2270807476.dir/link.txt --verbose=1
+/usr/lib/ccache/c++   -O3 -fomit-frame-pointer -I/usr/osmc/include -L/usr/osmc/lib   -DHAS_BUILTIN_SYNC_SUB_AND_FETCH    CMakeFiles/cmTryCompileExec2270807476.dir/src.cxx.o  -o cmTryCompileExec2270807476 -rdynamic -latomic 
+make[1]: Leaving directory '/mnt/package/libplatform-next-osmc/src/platform-p8-platform-2.0.1/CMakeFiles/CMakeTmp'
+
+Source file was:
+int main() { long* temp=0; long ret=__sync_sub_and_fetch(temp, 1); return 0; }
+Performing C++ SOURCE FILE Test HAS_BUILTIN_SYNC_VAL_COMPARE_AND_SWAP succeded with the following output:
+Change Dir: /mnt/package/libplatform-next-osmc/src/platform-p8-platform-2.0.1/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTryCompileExec510835370/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec510835370.dir/build.make CMakeFiles/cmTryCompileExec510835370.dir/build
+make[1]: Entering directory '/mnt/package/libplatform-next-osmc/src/platform-p8-platform-2.0.1/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /mnt/package/libplatform-next-osmc/src/platform-p8-platform-2.0.1/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building CXX object CMakeFiles/cmTryCompileExec510835370.dir/src.cxx.o
+/usr/lib/ccache/c++    -O3 -fomit-frame-pointer -I/usr/osmc/include -L/usr/osmc/lib   -DHAS_BUILTIN_SYNC_VAL_COMPARE_AND_SWAP   -o CMakeFiles/cmTryCompileExec510835370.dir/src.cxx.o -c /mnt/package/libplatform-next-osmc/src/platform-p8-platform-2.0.1/CMakeFiles/CMakeTmp/src.cxx
+Linking CXX executable cmTryCompileExec510835370
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec510835370.dir/link.txt --verbose=1
+/usr/lib/ccache/c++   -O3 -fomit-frame-pointer -I/usr/osmc/include -L/usr/osmc/lib   -DHAS_BUILTIN_SYNC_VAL_COMPARE_AND_SWAP    CMakeFiles/cmTryCompileExec510835370.dir/src.cxx.o  -o cmTryCompileExec510835370 -rdynamic -latomic 
+make[1]: Leaving directory '/mnt/package/libplatform-next-osmc/src/platform-p8-platform-2.0.1/CMakeFiles/CMakeTmp'
+
+Source file was:
+int main() { long *temp = 0; long ret=__sync_val_compare_and_swap(temp, 1, 1); return 0; }

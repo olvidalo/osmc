@@ -1,0 +1,44 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/mnt/package/libplatform-next-osmc/src/platform-p8-platform-2.0.1/src/util/StringUtils.cpp
+StringUtils.h
+/mnt/package/libplatform-next-osmc/src/platform-p8-platform-2.0.1/src/util/StringUtils.h
+locale
+-
+assert.h
+-
+math.h
+-
+sstream
+-
+time.h
+-
+stdlib.h
+-
+string.h
+-
+stdio.h
+-
+memory.h
+-
+algorithm
+-
+functional
+-
+
+/mnt/package/libplatform-next-osmc/src/platform-p8-platform-2.0.1/src/util/StringUtils.h
+vector
+-
+stdarg.h
+-
+stdint.h
+-
+string
+-
+
