@@ -91,7 +91,6 @@ then
 	handle_dep "libtag1-dev"
 	handle_dep "libsamplerate0-dev"
 	handle_dep "libltdl-dev"
-	handle_dep "cmake"
 	handle_dep "libgnutls28-dev"
 	handle_dep "git"
 	handle_dep "uuid-dev"
@@ -114,6 +113,7 @@ then
 		handle_dep "armv6l-libbluray-dev-osmc"
 		handle_dep "armv6l-libsqlite-dev-osmc"
 		handle_dep "armv6l-libcrossguid-dev-osmc"
+		handle_dep "armv6l-cmake-osmc"
 	fi
 	if [ "$1" == "rbp2" ]
 	then
@@ -126,6 +126,7 @@ then
 		handle_dep "armv7-libbluray-dev-osmc"
 		handle_dep "armv7-libsqlite-dev-osmc"
 		handle_dep "armv7-libcrossguid-dev-osmc"
+		handle_dep "armv7-cmake-osmc"
 	fi
 	if [ "$1" == "vero" ]
 	then
@@ -138,6 +139,7 @@ then
 		handle_dep "armv7-libbluray-dev-osmc"
 		handle_dep "armv7-libsqlite-dev-osmc"
 		handle_dep "armv7-libcrossguid-dev-osmc"
+		handle_dep "armv7-cmake-osmc"
 	fi
         if [ "$1" == "vero2" ]
         then
@@ -152,6 +154,7 @@ then
                 handle_dep "armv7-libbluray-dev-osmc"
                 handle_dep "armv7-libsqlite-dev-osmc"
 		handle_dep "armv7-libcrossguid-dev-osmc"
+		handle_dep "armv7-cmake-osmc"
         fi
 	if [ "$1" == "atv" ] # later we change this to if_x11..
 	then
@@ -172,6 +175,7 @@ then
 		handle_dep "xserver-xorg-dev"
 		handle_dep "libxrandr-dev"
 		handle_dep "i386-libcrossguid-dev-osmc"
+		handle_dep "i386-cmake-osmc"
 	fi
 	if [ "$1" == "pc" ]
 	then
@@ -191,6 +195,7 @@ then
 		handle_dep "libxrandr-dev"
 		handle_dep "x11proto-randr-dev"
 		handle_dep "amd64-libcrossguid-dev-osmc"
+		handle_dep "amd64-cmake-osmc"
 	fi
 	sed '/Package/d' -i files/DEBIAN/control
 	sed '/Depends/d' -i files/DEBIAN/control
