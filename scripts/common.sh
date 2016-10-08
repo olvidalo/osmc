@@ -59,7 +59,7 @@ function update_sources()
 {
 	echo -e "Updating sources"
 	apt-get update > /dev/null 2>&1
-	if [ $? != 0 ]; then echo -e "Failed to update sources" && return 1; else echo -e "Sources updated successfully" && return 0; fi
+	if [ $? != 0 ]; then echo -e "Failed to update sources" && exit 1; else echo -e "Sources updated successfully" && return 0; fi
 }
 
 function install_package()
