@@ -1,0 +1,37 @@
+From 9e652950287a60d1cac9c3d281d5273327075a99 Mon Sep 17 00:00:00 2001
+From: Sam Nazarko <email@samnazarko.co.uk>
+Date: Mon, 24 Oct 2016 16:55:07 +0100
+Subject: [PATCH] Add built-in function to ensure an addon is installed and
+ enabled. This is useful for the OSMC Skin which needs script.skinshortcuts to
+ support adjusting the Home Screen icons.
+
+Signed-off-by: Sam Nazarko <email@samnazarko.co.uk>
+---
+ xbmc/interfaces/builtins/AddonBuiltins.cpp | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
+
+diff --git a/xbmc/interfaces/builtins/AddonBuiltins.cpp b/xbmc/interfaces/builtins/AddonBuiltins.cpp
+index 5b5eb7e..2d1ae88 100644
+--- a/xbmc/interfaces/builtins/AddonBuiltins.cpp
++++ b/xbmc/interfaces/builtins/AddonBuiltins.cpp
+@@ -59,6 +59,18 @@ static int InstallAddon(const std::vector<std::string>& params)
+   return 0;
+ }
+ 
++/*! \brief Make sure an add-on is enabled and installed
++ *  \param params The parameters.
++ *  \details param[0] = add-on id.
++*/
++static int InstallAndEnable(const std::vector<std::string>& params)
++{
++   const std::string& addonid = params[0];
++   AddonPtr addon;
++   CAddonInstaller::GetInstance().InstallModal(addonid, addon);
++   CAddonMgr::GetInstance().EnableAddon(addonid);
++}
++
+ /*! \brief Run a plugin.
+  *  \param params The parameters.
+  *  \details params[0] = plugin:// URL to script.
+-- 
+2.7.4
