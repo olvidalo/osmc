@@ -1,10 +1,10 @@
 Origin: OSMC
 Package: mediacenter-skin-osmc
-Version: 3.9.0-1
+Version: 4.2.0-1
 Section: video
 Essential: No
 Priority: optional
 Architecture: all
 Maintainer: Sam G Nazarko <email@samnazarko.co.uk>
 Description: OSMC skin for mediacenter
-Installed-Size: 31768
+Installed-Size: 56619
