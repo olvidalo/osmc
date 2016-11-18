@@ -378,7 +378,7 @@ then
  	ADDONS_AUDIO_DECODERS="audiodecoder.modplug audiodecoder.nosefart audiodecoder.sidplay audiodecoder.snesapu"
 	ADDONS_AUDIO_ENCODERS="audioencoder.flac audioencoder.lame audioencoder.vorbis audioencoder.wav"
 	ADDONS_INPUTSTREAM="inputstream.mpd"
-	ADDONS_PERIPHERAL="peripheral.joystick"
+	#ADDONS_PERIPHERAL="peripheral.joystick"
 	ADDONS_PVR="pvr.argustv pvr.demo pvr.dvblink pvr.dvbviewer pvr.filmon pvr.hdhomerun pvr.hts pvr.iptvsimple pvr.mediaportal.tvserver pvr.mythtv pvr.nextpvr pvr.njoy pvr.pctv pvr.stalker pvr.vbox pvr.vdr.vnsi pvr.vuplus pvr.wmc"
 	ADDONS_SCREENSAVERS="screensaver.asteroids screensaver.biogenesis screensaver.greynetic screensaver.matrixtrails screensaver.pingpong screensaver.pyro screensavers.rsxs screensaver.stars"
 	ADDONS_VISUALIZATIONS="visualization.fishbmc visualization.goom visualization.projectm visualization.shadertoy visualization.spectrum visualization.vsxu visualization.waveform"
