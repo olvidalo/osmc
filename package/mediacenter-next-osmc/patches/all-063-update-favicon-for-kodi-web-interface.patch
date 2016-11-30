@@ -9,7 +9,7 @@ Signed-off-by: Sam Nazarko <email@samnazarko.co.uk>
  favicon.png | Bin 1446 -> 9309 bytes
  2 files changed, 0 insertions(+), 0 deletions(-)
 
-diff --git a/favicon.ico b/favicon.ico
+diff --git a/addons/webinterface.default/favicon.ico b/addons/webinterface.default/favicon.ico
 index 078637f078647e6e45a196f5b731b1156427878e..95ee9302cb680cc07d8da757370b08740330552d 100644
 GIT binary patch
 literal 15086
@@ -989,7 +989,7 @@ zuHJJm&r^o&)w?3VQ_7<6iz&<X@lV-jp!+3v%Lz{n=Ao)~%nEnc?Zqt(=Kj9ecD0hx
 ze`RNp{|lbx4_vPLeO&fioC9+~3EPd9)~>KmkLW7O-H#yOh3Z~>ULM<wEWx-da`h#F
 draX3w@z@m9uoQ3b9Qc~=@iWfDdASUi{eR7FXNdp+
 
-diff --git a/favicon.png b/favicon.png
+diff --git a/addons/webinterface.default/favicon.png b/addons/webinterface.default/favicon.png
 index 2454bec6bd80d8a685ea4d32d519687bfa838285..613c0d1f92fe27030fd0b3f36040095a9d03ae42 100644
 GIT binary patch
 literal 9309
