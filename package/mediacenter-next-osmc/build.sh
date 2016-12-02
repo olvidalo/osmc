@@ -225,7 +225,6 @@ then
 	export LDFLAGS="" && \
 	./configure \
 		--prefix=/usr \
-		--disable-vtbdecoder \
 		--disable-vaapi \
 		--disable-vdpau \
 		--disable-pulse \
@@ -233,8 +232,6 @@ then
 		--disable-openmax \
 		--enable-optical-drive \
 		--enable-libbluray \
-                --enable-dvdcss \
-                --disable-joystick \
                 --disable-debug \
                 --enable-libcec \
 		--disable-optimizations \
