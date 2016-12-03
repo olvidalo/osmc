@@ -24,8 +24,8 @@ index 0e6bd95..07ee861 100644
 @@ -652,6 +652,7 @@ bool CApplication::Create()
      return false;
    }
-   CSettings::GetInstance().SetLoaded();
-+  CSettings::GetInstance().SetString(CSettings::SETTING_SERVICES_DEVICENAME, hostname);
+   m_ServiceManager->GetSettings().SetLoaded();                                     
++  m_ServiceManager->GetSettings().SetString(CSettings::SETTING_SERVICES_DEVICENAME, hostname);                     
  
    CLog::Log(LOGINFO, "creating subdirectories");
    CLog::Log(LOGINFO, "userdata folder: %s", CURL::GetRedacted(CProfilesManager::GetInstance().GetProfileUserDataFolder()).c_str());
