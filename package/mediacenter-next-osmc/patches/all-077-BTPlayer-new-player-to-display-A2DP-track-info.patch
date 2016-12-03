@@ -567,9 +567,9 @@ index 896b865..1c537a1 100644
 +    CPlayerCoreConfig* BTPlayer = new CPlayerCoreConfig("BTPlayer", "btplayer", nullptr);
 +    VideoPlayer->m_bPlaysAudio = true;
 +    m_vecPlayerConfigs.push_back(BTPlayer);    
-   }
- 
-   if (!pConfig || strcmpi(pConfig->Value(), "playercorefactory") != 0)
+
+    CPlayerCoreConfig* retroPlayer = new CPlayerCoreConfig("RetroPlayer", "game", nullptr);
+    m_vecPlayerConfigs.push_back(retroPlayer);
 @@ -349,6 +352,8 @@ bool CPlayerCoreFactory::LoadConfiguration(const std::string &file, bool clear)
          internaltype = "music";
        else if (type == "externalplayer")
