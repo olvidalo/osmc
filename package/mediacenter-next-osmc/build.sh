@@ -204,6 +204,8 @@ then
 	echo $VERSION_DBG >> files-debug/DEBIAN/control
 	echo "Depends: ${1}-mediacenter-osmc (=${VERSION_NUM})" >> files-debug/DEBIAN/control
 	pushd src/xbmc-*
+	touch bootstrap
+	chmod +x bootstrap
 	install_patch "../../patches" "all"
 	test "$1" == atv && install_patch "../../patches" "atv"
 	test "$1" == pc && install_patch "../../patches" "pc"
