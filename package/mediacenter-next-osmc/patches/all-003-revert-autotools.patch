@@ -1,30 +1,21 @@
-From 05db038f56bdd6e5a39d3d0d92c45330a69ca27c Mon Sep 17 00:00:00 2001
+From 01abb60cd097f74390dbab206d581ad401c0e5f3 Mon Sep 17 00:00:00 2001
 From: Greg McCarthy <greg@gjmccarthy.co.uk>
-Date: Thu, 8 Dec 2016 19:57:53 +0000
-Subject: [PATCH] Revert "remove autotools buildsystem"
+Date: Mon, 19 Dec 2016 09:59:34 +0000
+Subject: [PATCH] Revert autotools
 
-This reverts commit b30f74f7b7f7c303e0d29039691b15d95d4d1910.
 ---
  .dummy.am                                          |    2 +
- Makefile.in                                        |  662 ++++++
- Makefile.include.in                                |  153 ++
+ Makefile.in                                        |  638 ++++++
+ Makefile.include.in                                |  147 ++
  addons/skin.estouchy/media/Makefile.in             |   14 +
  addons/skin.estuary/media/Makefile.in              |   23 +
  bootstrap                                          |    3 +
  bootstrap.mk                                       |   20 +
  build-aux/.dummy                                   |    1 +
  codegenerator.mk                                   |   71 +
- configure.ac                                       | 2421 ++++++++++++++++++++
+ configure.ac                                       | 2408 ++++++++++++++++++++
  gitrev.sh                                          |   15 +
  lib/UnrarXLib/Makefile                             |   49 +
- lib/addons/library.kodi.adsp/Makefile.in           |   29 +
- lib/addons/library.kodi.audioengine/Makefile.in    |   29 +
- lib/addons/library.kodi.guilib/Makefile.in         |   38 +
- lib/addons/library.kodi.inputstream/Makefile.in    |   29 +
- lib/addons/library.kodi.peripheral/Makefile.in     |   29 +
- lib/addons/library.xbmc.addon/Makefile.in          |   29 +
- lib/addons/library.xbmc.codec/Makefile.in          |   29 +
- lib/addons/library.xbmc.pvr/Makefile.in            |   29 +
  lib/libUPnP/Makefile.in                            |  108 +
  lib/libexif/Makefile.in                            |   21 +
  m4/ax_cxx_compile_stdcxx_11.m4                     |  146 ++
@@ -32,21 +23,24 @@ This reverts commit b30f74f7b7f7c303e0d29039691b15d95d4d1910.
  m4/ax_prog_cxx_for_build.m4                        |  110 +
  m4/ax_python_devel.m4                              |  325 +++
  m4/xbmc_arch.m4                                    |   83 +
+ tools/EventClients/Clients/OSXRemote/Makefile.in   |   18 +
+ tools/EventClients/Makefile.in                     |   28 +
  tools/buildsteps/rbpi/prepare-xbmc                 |    1 +
  tools/depends/configure.ac                         |    4 +-
  tools/depends/m4/ax_cxx_compile_stdcxx_11.m4       |  146 --
  tools/depends/m4/xbmc_arch.m4                      |   83 -
  xbmc/Makefile.in                                   |   58 +
  xbmc/addons/Makefile                               |   39 +
- xbmc/addons/binary/interfaces/Makefile.in          |    6 +
- xbmc/addons/binary/interfaces/api1/Addon/Makefile  |    7 +
- .../binary/interfaces/api1/AudioDSP/Makefile       |    7 +
- .../binary/interfaces/api1/AudioEngine/Makefile    |    6 +
- xbmc/addons/binary/interfaces/api1/Codec/Makefile  |    7 +
- xbmc/addons/binary/interfaces/api1/GUI/Makefile    |    9 +
- .../binary/interfaces/api1/InputStream/Makefile    |    7 +
- xbmc/addons/binary/interfaces/api1/PVR/Makefile    |    6 +
- .../binary/interfaces/api1/Peripheral/Makefile     |    7 +
+ xbmc/addons/interfaces/Addon/Makefile              |    7 +
+ xbmc/addons/interfaces/AudioDSP/Makefile           |    7 +
+ xbmc/addons/interfaces/AudioEngine/Makefile        |    6 +
+ xbmc/addons/interfaces/Codec/Makefile              |    7 +
+ xbmc/addons/interfaces/GUI/Makefile                |    9 +
+ xbmc/addons/interfaces/Game/Makefile               |    7 +
+ xbmc/addons/interfaces/InputStream/Makefile        |    7 +
+ xbmc/addons/interfaces/Makefile.in                 |    6 +
+ xbmc/addons/interfaces/PVR/Makefile                |    6 +
+ xbmc/addons/interfaces/Peripheral/Makefile         |    7 +
  xbmc/addons/test/Makefile                          |   12 +
  xbmc/cdrip/Makefile.in                             |    9 +
  xbmc/commons/Makefile                              |    8 +
@@ -59,6 +53,7 @@ This reverts commit b30f74f7b7f7c303e0d29039691b15d95d4d1910.
  xbmc/cores/DllLoader/exports/util/Makefile         |    6 +
  xbmc/cores/ExternalPlayer/Makefile                 |    6 +
  xbmc/cores/Makefile.in                             |    7 +
+ xbmc/cores/RetroPlayer/Makefile.in                 |   13 +
  xbmc/cores/VideoPlayer/DVDAudio.h                  |    3 +
  .../VideoPlayer/DVDCodecs/Audio/DVDAudioCodec.h    |    4 +
  xbmc/cores/VideoPlayer/DVDCodecs/Audio/Makefile.in |   12 +
@@ -75,7 +70,7 @@ This reverts commit b30f74f7b7f7c303e0d29039691b15d95d4d1910.
  xbmc/cores/VideoPlayer/DVDDemuxers/DVDDemuxBXA.h   |    4 +
  xbmc/cores/VideoPlayer/DVDDemuxers/DVDDemuxCDDA.h  |    4 +
  .../VideoPlayer/DVDDemuxers/DVDDemuxUtils.cpp      |    3 +
- xbmc/cores/VideoPlayer/DVDDemuxers/Makefile.in     |   20 +
+ xbmc/cores/VideoPlayer/DVDDemuxers/Makefile.in     |   18 +
  .../DVDInputStreams/DVDStateSerializer.cpp         |    3 +
  xbmc/cores/VideoPlayer/DVDInputStreams/Makefile    |   21 +
  xbmc/cores/VideoPlayer/DVDStreamInfo.h             |    4 +
@@ -111,16 +106,28 @@ This reverts commit b30f74f7b7f7c303e0d29039691b15d95d4d1910.
  xbmc/filesystem/posix/PosixFile.cpp                |    5 +
  xbmc/filesystem/test/Makefile                      |   14 +
  xbmc/freebsd/Makefile.in                           |    8 +
+ xbmc/games/Makefile                                |    7 +
+ xbmc/games/addons/Makefile                         |   12 +
+ xbmc/games/addons/playback/Makefile                |    7 +
+ xbmc/games/addons/savestates/Makefile              |   14 +
  xbmc/games/controllers/Makefile                    |    9 +
  xbmc/games/controllers/dialogs/Makefile            |    6 +
  xbmc/games/controllers/guicontrols/Makefile        |   11 +
  xbmc/games/controllers/windows/Makefile            |    9 +
+ xbmc/games/dialogs/Makefile                        |    6 +
+ xbmc/games/ports/Makefile                          |    7 +
+ xbmc/games/tags/Makefile                           |    6 +
+ xbmc/games/windows/Makefile                        |    7 +
  xbmc/guilib/Makefile.in                            |   97 +
  xbmc/input/Makefile                                |   18 +
  xbmc/input/joysticks/Makefile                      |   13 +
  xbmc/input/joysticks/dialogs/Makefile              |    6 +
  xbmc/input/joysticks/generic/Makefile              |    9 +
+ xbmc/input/keyboard/Makefile                       |    6 +
+ xbmc/input/keyboard/generic/Makefile               |    6 +
  xbmc/input/linux/Makefile.in                       |    7 +
+ xbmc/input/mouse/Makefile                          |    6 +
+ xbmc/input/mouse/generic/Makefile                  |    6 +
  xbmc/input/touch/Makefile                          |    6 +
  xbmc/input/touch/generic/Makefile                  |   10 +
  xbmc/interfaces/Makefile.in                        |    6 +
@@ -186,9 +193,9 @@ This reverts commit b30f74f7b7f7c303e0d29039691b15d95d4d1910.
  xbmc/platform/posix/Makefile.in                    |    8 +
  xbmc/platform/win32/strverscmp.cpp                 |    3 +
  xbmc/playlists/Makefile                            |   15 +
- xbmc/powermanagement/Makefile                      |    9 +
+ xbmc/powermanagement/Makefile                      |    8 +
  xbmc/powermanagement/android/Makefile              |    6 +
- xbmc/powermanagement/linux/Makefile                |   10 +
+ xbmc/powermanagement/linux/Makefile                |    9 +
  xbmc/powermanagement/osx/Makefile                  |    6 +
  xbmc/profiles/Makefile                             |    7 +
  xbmc/profiles/dialogs/Makefile                     |    7 +
@@ -242,7 +249,7 @@ This reverts commit b30f74f7b7f7c303e0d29039691b15d95d4d1910.
  xbmc/windowing/egl/Makefile.in                     |   19 +
  xbmc/windowing/osx/Makefile                        |   10 +
  xbmc/windows/Makefile                              |   17 +
- 237 files changed, 7227 insertions(+), 243 deletions(-)
+ 245 files changed, 7095 insertions(+), 243 deletions(-)
  create mode 100644 .dummy.am
  create mode 100644 Makefile.in
  create mode 100644 Makefile.include.in
@@ -255,14 +262,6 @@ This reverts commit b30f74f7b7f7c303e0d29039691b15d95d4d1910.
  create mode 100644 configure.ac
  create mode 100755 gitrev.sh
  create mode 100644 lib/UnrarXLib/Makefile
- create mode 100644 lib/addons/library.kodi.adsp/Makefile.in
- create mode 100644 lib/addons/library.kodi.audioengine/Makefile.in
- create mode 100644 lib/addons/library.kodi.guilib/Makefile.in
- create mode 100644 lib/addons/library.kodi.inputstream/Makefile.in
- create mode 100644 lib/addons/library.kodi.peripheral/Makefile.in
- create mode 100644 lib/addons/library.xbmc.addon/Makefile.in
- create mode 100644 lib/addons/library.xbmc.codec/Makefile.in
- create mode 100644 lib/addons/library.xbmc.pvr/Makefile.in
  create mode 100644 lib/libUPnP/Makefile.in
  create mode 100644 lib/libexif/Makefile.in
  create mode 100644 m4/ax_cxx_compile_stdcxx_11.m4
@@ -270,19 +269,22 @@ This reverts commit b30f74f7b7f7c303e0d29039691b15d95d4d1910.
  create mode 100644 m4/ax_prog_cxx_for_build.m4
  create mode 100644 m4/ax_python_devel.m4
  create mode 100644 m4/xbmc_arch.m4
+ create mode 100644 tools/EventClients/Clients/OSXRemote/Makefile.in
+ create mode 100644 tools/EventClients/Makefile.in
  delete mode 100644 tools/depends/m4/ax_cxx_compile_stdcxx_11.m4
  delete mode 100644 tools/depends/m4/xbmc_arch.m4
  create mode 100644 xbmc/Makefile.in
  create mode 100644 xbmc/addons/Makefile
- create mode 100644 xbmc/addons/binary/interfaces/Makefile.in
- create mode 100644 xbmc/addons/binary/interfaces/api1/Addon/Makefile
- create mode 100644 xbmc/addons/binary/interfaces/api1/AudioDSP/Makefile
- create mode 100644 xbmc/addons/binary/interfaces/api1/AudioEngine/Makefile
- create mode 100644 xbmc/addons/binary/interfaces/api1/Codec/Makefile
- create mode 100644 xbmc/addons/binary/interfaces/api1/GUI/Makefile
- create mode 100644 xbmc/addons/binary/interfaces/api1/InputStream/Makefile
- create mode 100644 xbmc/addons/binary/interfaces/api1/PVR/Makefile
- create mode 100644 xbmc/addons/binary/interfaces/api1/Peripheral/Makefile
+ create mode 100644 xbmc/addons/interfaces/Addon/Makefile
+ create mode 100644 xbmc/addons/interfaces/AudioDSP/Makefile
+ create mode 100644 xbmc/addons/interfaces/AudioEngine/Makefile
+ create mode 100644 xbmc/addons/interfaces/Codec/Makefile
+ create mode 100644 xbmc/addons/interfaces/GUI/Makefile
+ create mode 100644 xbmc/addons/interfaces/Game/Makefile
+ create mode 100644 xbmc/addons/interfaces/InputStream/Makefile
+ create mode 100644 xbmc/addons/interfaces/Makefile.in
+ create mode 100644 xbmc/addons/interfaces/PVR/Makefile
+ create mode 100644 xbmc/addons/interfaces/Peripheral/Makefile
  create mode 100644 xbmc/addons/test/Makefile
  create mode 100644 xbmc/cdrip/Makefile.in
  create mode 100644 xbmc/commons/Makefile
@@ -294,6 +296,7 @@ This reverts commit b30f74f7b7f7c303e0d29039691b15d95d4d1910.
  create mode 100644 xbmc/cores/DllLoader/exports/util/Makefile
  create mode 100644 xbmc/cores/ExternalPlayer/Makefile
  create mode 100644 xbmc/cores/Makefile.in
+ create mode 100644 xbmc/cores/RetroPlayer/Makefile.in
  create mode 100644 xbmc/cores/VideoPlayer/DVDCodecs/Audio/Makefile.in
  create mode 100644 xbmc/cores/VideoPlayer/DVDCodecs/Makefile.in
  create mode 100644 xbmc/cores/VideoPlayer/DVDCodecs/Overlay/Makefile.in
@@ -318,16 +321,28 @@ This reverts commit b30f74f7b7f7c303e0d29039691b15d95d4d1910.
  create mode 100644 xbmc/filesystem/VideoDatabaseDirectory/Makefile
  create mode 100644 xbmc/filesystem/test/Makefile
  create mode 100644 xbmc/freebsd/Makefile.in
+ create mode 100644 xbmc/games/Makefile
+ create mode 100644 xbmc/games/addons/Makefile
+ create mode 100644 xbmc/games/addons/playback/Makefile
+ create mode 100644 xbmc/games/addons/savestates/Makefile
  create mode 100644 xbmc/games/controllers/Makefile
  create mode 100644 xbmc/games/controllers/dialogs/Makefile
  create mode 100644 xbmc/games/controllers/guicontrols/Makefile
  create mode 100644 xbmc/games/controllers/windows/Makefile
+ create mode 100644 xbmc/games/dialogs/Makefile
+ create mode 100644 xbmc/games/ports/Makefile
+ create mode 100644 xbmc/games/tags/Makefile
+ create mode 100644 xbmc/games/windows/Makefile
  create mode 100644 xbmc/guilib/Makefile.in
  create mode 100644 xbmc/input/Makefile
  create mode 100644 xbmc/input/joysticks/Makefile
  create mode 100644 xbmc/input/joysticks/dialogs/Makefile
  create mode 100644 xbmc/input/joysticks/generic/Makefile
+ create mode 100644 xbmc/input/keyboard/Makefile
+ create mode 100644 xbmc/input/keyboard/generic/Makefile
  create mode 100644 xbmc/input/linux/Makefile.in
+ create mode 100644 xbmc/input/mouse/Makefile
+ create mode 100644 xbmc/input/mouse/generic/Makefile
  create mode 100644 xbmc/input/touch/Makefile
  create mode 100644 xbmc/input/touch/generic/Makefile
  create mode 100644 xbmc/interfaces/Makefile.in
@@ -430,10 +445,10 @@ index 0000000..a1cb390
 +# This exists solely so we can use AM_INIT_AUTOMAKE in configure.in
 diff --git a/Makefile.in b/Makefile.in
 new file mode 100644
-index 0000000..366031c
+index 0000000..d969646
 --- /dev/null
 +++ b/Makefile.in
-@@ -0,0 +1,662 @@
+@@ -0,0 +1,638 @@
 +include bootstrap.mk
 +
 +null :=
@@ -461,16 +476,16 @@ index 0000000..366031c
 +
 +DIRECTORY_ARCHIVES=$(VideoPlayer_ARCHIVES) \
 +                   xbmc/addons/addons.a \
-+                   xbmc/addons/binary/interfaces/addon-interfaces.a \
-+                   xbmc/addons/binary/interfaces/api1/Addon/addon-callbacks-addon.a \
-+                   xbmc/addons/binary/interfaces/api1/AudioDSP/addon-callbacks-audiodsp.a \
-+                   xbmc/addons/binary/interfaces/api1/AudioEngine/addon-callbacks-audioengine.a \
-+                   xbmc/addons/binary/interfaces/api1/Codec/addon-callbacks-codec.a \
-+                   xbmc/addons/binary/interfaces/api1/Game/addon-callbacks-game.a \
-+                   xbmc/addons/binary/interfaces/api1/GUI/addon-callbacks-gui.a \
-+                   xbmc/addons/binary/interfaces/api1/InputStream/addon-callbacks-inputstream.a \
-+                   xbmc/addons/binary/interfaces/api1/Peripheral/addon-callbacks-peripheral.a \
-+                   xbmc/addons/binary/interfaces/api1/PVR/addon-callbacks-pvr.a \
++                   xbmc/addons/interfaces/addon-interfaces.a \
++                   xbmc/addons/interfaces/Addon/addon-callbacks-addon.a \
++                   xbmc/addons/interfaces/AudioDSP/addon-callbacks-audiodsp.a \
++                   xbmc/addons/interfaces/AudioEngine/addon-callbacks-audioengine.a \
++                   xbmc/addons/interfaces/Codec/addon-callbacks-codec.a \
++                   xbmc/addons/interfaces/Game/addon-callbacks-game.a \
++                   xbmc/addons/interfaces/GUI/addon-callbacks-gui.a \
++                   xbmc/addons/interfaces/InputStream/addon-callbacks-inputstream.a \
++                   xbmc/addons/interfaces/Peripheral/addon-callbacks-peripheral.a \
++                   xbmc/addons/interfaces/PVR/addon-callbacks-pvr.a \
 +                   xbmc/contrib/kissfft/kissfft.a \
 +                   xbmc/cores/AudioEngine/audioengine.a \
 +                   xbmc/cores/DllLoader/dllloader.a \
@@ -671,17 +686,6 @@ index 0000000..366031c
 +	lib/cpluff \
 +	lib/xbmc-dll-symbols
 +
-+LIBADDON_DIRS=\
-+	lib/addons/library.xbmc.addon \
-+	lib/addons/library.kodi.adsp \
-+	lib/addons/library.kodi.audioengine \
-+	lib/addons/library.xbmc.codec \
-+	lib/addons/library.xbmc.pvr \
-+	lib/addons/library.kodi.guilib \
-+	lib/addons/library.kodi.inputstream \
-+	lib/addons/library.kodi.peripheral \
-+	lib/addons/library.kodi.game \
-+
 +ESTUARY_MEDIA=addons/skin.estuary/media
 +SKIN_DIRS=$(ESTUARY_MEDIA)
 +
@@ -753,7 +757,7 @@ index 0000000..366031c
 +include Makefile.include
 +
 +.PHONY : dllloader exports eventclients \
-+	dvdpcodecs dvdpextcodecs codecs externals force skins libaddon check \
++	dvdpcodecs dvdpextcodecs codecs externals force skins check \
 +	testframework testsuite
 +
 +# hack targets to keep build system up to date
@@ -796,16 +800,6 @@ index 0000000..366031c
 +	$(MAKE) -C xbmc/cores/DllLoader/exports wrapper.def
 +dllloader: exports xbmc/cores/DllLoader/dllloader.a
 +
-+libaddon: exports
-+	$(MAKE) -C lib/addons/library.xbmc.addon
-+	$(MAKE) -C lib/addons/library.kodi.adsp
-+	$(MAKE) -C lib/addons/library.kodi.audioengine
-+	$(MAKE) -C lib/addons/library.xbmc.codec
-+	$(MAKE) -C lib/addons/library.kodi.game
-+	$(MAKE) -C lib/addons/library.kodi.guilib
-+	$(MAKE) -C lib/addons/library.kodi.peripheral
-+	$(MAKE) -C lib/addons/library.xbmc.pvr
-+	$(MAKE) -C lib/addons/library.kodi.inputstream
 +dvdpcodecs: dllloader
 +	$(MAKE) -C lib/libdvd
 +
@@ -834,10 +828,10 @@ index 0000000..366031c
 +
 +libs: $(LIBSSE4) libexif system/libcpluff-@ARCH@.so
 +
-+externals: codecs libs libaddon
++externals: codecs libs
 +
 +xcode_depends: \
-+	codecs libs eventclients skins libaddon certs
++	codecs libs eventclients skins certs
 +
 +DYNOBJSXBMC= \
 +	xbmc/linux/linux.a \
@@ -886,7 +880,7 @@ index 0000000..366031c
 +BIN_DIRS = $(dir $(DIRECTORY_ARCHIVES)) $(dir $(NWAOBJSXBMC)) $(dir $(MAINOBJS))
 +
 +DIRS= $(BIN_DIRS) $(EC_DIRS) $(DVDPCODECS_DIRS) \
-+	$(LIB_DIRS) $(LIBADDON_DIRS) $(SKIN_DIRS) xbmc/platform xbmc/platform/darwin/osx
++	$(LIB_DIRS) $(SKIN_DIRS) xbmc/platform xbmc/platform/darwin/osx
 +
 +$(NWAOBJSXBMC) $(DIRECTORY_ARCHIVES) $(MAINOBJS): force
 +	@$(MAKE) $(if $(V),,-s) -C $(@D)
@@ -1061,13 +1055,10 @@ index 0000000..366031c
 +	for d in $(DVDPCODECS_DIRS); do if test -f $$d/Makefile; then $(MAKE) -C $$d clean; fi; done
 +clean-libs:
 +	for d in $(LIB_DIRS); do if test -f $$d/Makefile; then $(MAKE) -C $$d clean; fi; done
-+clean-libaddons:
-+	for d in $(LIBADDON_DIRS); do if test -f $$d/Makefile; then $(MAKE) -C $$d clean; fi; done
 +
 +clean-codecs: clean-dvdpcodecs
 +
-+clean-externals: clean-codecs clean-eventclients clean-libs \
-+	clean-libaddons
++clean-externals: clean-codecs clean-eventclients clean-libs
 +
 +ifeq (1,@GTEST_CONFIGURED@)
 +check: testsuite
@@ -1098,10 +1089,10 @@ index 0000000..366031c
 +endif
 diff --git a/Makefile.include.in b/Makefile.include.in
 new file mode 100644
-index 0000000..676fb57
+index 0000000..aa91100
 --- /dev/null
 +++ b/Makefile.include.in
-@@ -0,0 +1,153 @@
+@@ -0,0 +1,147 @@
 +AR=@AR@
 +ARFLAGS=crs
 +RM=rm -rf
@@ -1145,12 +1136,6 @@ index 0000000..676fb57
 +INCLUDES+=-I@abs_top_srcdir@/lib
 +INCLUDES+=-I@abs_top_srcdir@/xbmc
 +INCLUDES+=-I@abs_top_srcdir@/xbmc/addons/kodi-addon-dev-kit/include
-+INCLUDES+=-I@abs_top_srcdir@/addons/library.kodi.guilib
-+INCLUDES+=-I@abs_top_srcdir@/addons/library.xbmc.addon
-+INCLUDES+=-I@abs_top_srcdir@/addons/library.kodi.adsp
-+INCLUDES+=-I@abs_top_srcdir@/addons/library.kodi.audioengine
-+INCLUDES+=-I@abs_top_srcdir@/addons/library.xbmc.pvr
-+INCLUDES+=-I@abs_top_srcdir@/addons/library.xbmc.codec
 +INCLUDES+=$(sort @INCLUDES@)
 +INCLUDES+=-I@abs_top_srcdir@/xbmc/linux
 +INCLUDES+=-I@abs_top_srcdir@/xbmc/cores/VideoPlayer
@@ -1425,10 +1410,10 @@ index 0000000..5f8bdd9
 +endif
 diff --git a/configure.ac b/configure.ac
 new file mode 100644
-index 0000000..663ffaa
+index 0000000..f4b90ea
 --- /dev/null
 +++ b/configure.ac
-@@ -0,0 +1,2421 @@
+@@ -0,0 +1,2408 @@
 +#                                               -*- Autoconf -*-
 +# Process this file with autoconf to produce a configure script.
 +
@@ -2380,10 +2365,10 @@ index 0000000..663ffaa
 +      AC_DEFINE([HAVE_LIBEGL],[1],["Define to 1 if you have the `EGL' library (-lEGL)."])
 +      AC_DEFINE([HAVE_LIBGLESV2],[1],["Define to 1 if you have the `GLESv2' library (-lGLESv2)."])
 +      AC_MSG_RESULT(== WARNING: OpenGLES support is assumed.)
-+      LIBS="$LIBS -lbrcmEGL -lbrcmGLESv2 -lbcm_host -lvcos -lvchiq_arm -lmmal -lmmal_core -lmmal_util -lvcsm"
++      LIBS="$LIBS -lEGL -lGLESv2 -lbcm_host -lvcos -lvchiq_arm -lmmal -lmmal_core -lmmal_util -lvcsm"
 +    else
-+      AC_CHECK_LIB([GLESv2],[main],, AC_MSG_ERROR($missing_library))
 +      AC_CHECK_LIB([EGL],   [main],, AC_MSG_ERROR($missing_library))
++      AC_CHECK_LIB([GLESv2],[main],, AC_MSG_ERROR($missing_library))
 +    fi
 +  fi
 +else
@@ -3168,10 +3153,6 @@ index 0000000..663ffaa
 +case $add_players in
 +  *omxplayer*)
 +      XB_ADD_PLAYER([OMXPLAYER], [omxplayer])
-+      USE_OMXLIB=1; AC_DEFINE([HAVE_OMXLIB],[1],["Define to 1 if OMX libs is enabled"])
-+      USE_MMAL=1; AC_DEFINE([HAS_MMAL],[1],["Define to 1 if MMAL libs is enabled"])
-+      AC_DEFINE([TARGET_RASPBERRY_PI],[1],["Define to 1 for RASPBERRY_PI"])
-+      LIBS="$LIBS -lbcm_host -lvcos -lvchiq_arm -lmmal_vc_client -lmmal -lmmal_core -lmmal_util -lvcsm"
 +      CORE_SYSTEM_VARIANT=omx
 +      ;;
 +esac
@@ -3588,7 +3569,7 @@ index 0000000..663ffaa
 +    addons/skin.estuary/media/Makefile \
 +    addons/skin.estouchy/media/Makefile \
 +    xbmc/Makefile \
-+    xbmc/addons/binary/interfaces/Makefile \
++    xbmc/addons/interfaces/Makefile \
 +    xbmc/cdrip/Makefile \
 +    xbmc/cores/Makefile \
 +    xbmc/cores/VideoPlayer/VideoRenderers/Makefile \
@@ -3626,15 +3607,6 @@ index 0000000..663ffaa
 +    xbmc/filesystem/Makefile \
 +    xbmc/windowing/Makefile \
 +    xbmc/windowing/egl/Makefile \
-+    lib/addons/library.xbmc.addon/Makefile \
-+    lib/addons/library.kodi.adsp/Makefile \
-+    lib/addons/library.kodi.audioengine/Makefile \
-+    lib/addons/library.xbmc.codec/Makefile \
-+    lib/addons/library.kodi.game/Makefile \
-+    lib/addons/library.kodi.guilib/Makefile \
-+    lib/addons/library.kodi.peripheral/Makefile \
-+    lib/addons/library.xbmc.pvr/Makefile \
-+    lib/addons/library.kodi.inputstream/Makefile \
 +    tools/Linux/kodi.sh \
 +    tools/Linux/kodi-standalone.sh \
 +    tools/Linux/kodi-xsession.desktop \
@@ -3926,295 +3898,6 @@ index 0000000..79a172a
 +
 +include ../../Makefile.include
 +-include $(patsubst %.cpp,%.P,$(patsubst %.c,%.P,$(SRCS)))
-diff --git a/lib/addons/library.kodi.adsp/Makefile.in b/lib/addons/library.kodi.adsp/Makefile.in
-new file mode 100644
-index 0000000..77b880b
---- /dev/null
-+++ b/lib/addons/library.kodi.adsp/Makefile.in
-@@ -0,0 +1,29 @@
-+ARCH=@ARCH@
-+INCLUDES=-I. -I../../../xbmc/addons/kodi-addon-dev-kit/include/kodi -I../../../xbmc/addons/kodi-addon-dev-kit/include -I../../../xbmc -I../../../xbmc/cores/VideoPlayer/DVDDemuxers
-+DEFINES+=
-+CXXFLAGS=-fPIC
-+LIBNAME=libKODI_adsp
-+OBJS=$(LIBNAME).o
-+
-+ifeq ($(findstring osx,$(ARCH)), osx)
-+LIB_SHARED=../../../addons/library.kodi.adsp/$(LIBNAME)-$(ARCH).dylib
-+else
-+LIB_SHARED=../../../addons/library.kodi.adsp/$(LIBNAME)-$(ARCH).so
-+endif
-+
-+all: $(LIB_SHARED)
-+
-+$(LIB_SHARED): $(OBJS)
-+ifeq ($(findstring osx,$(ARCH)), osx)
-+	$(CXX) $(CXXFLAGS) $(LDFLAGS) -dynamiclib -o $@ $(OBJS)
-+else
-+	$(CXX) $(CFLAGS) $(LDFLAGS) -shared -g -o $(LIB_SHARED) $(OBJS)
-+endif
-+
-+CLEAN_FILES = \
-+	$(LIB_SHARED) \
-+
-+DISTCLEAN_FILES= \
-+	Makefile \
-+
-+include ../../../Makefile.include
-diff --git a/lib/addons/library.kodi.audioengine/Makefile.in b/lib/addons/library.kodi.audioengine/Makefile.in
-new file mode 100644
-index 0000000..2e3f7d7
---- /dev/null
-+++ b/lib/addons/library.kodi.audioengine/Makefile.in
-@@ -0,0 +1,29 @@
-+ARCH=@ARCH@
-+INCLUDES=-I. -I../../../xbmc/addons/kodi-addon-dev-kit/include/kodi -I../../../xbmc/addons/kodi-addon-dev-kit/include -I../../../xbmc
-+DEFINES+=
-+CXXFLAGS=-fPIC
-+LIBNAME=libKODI_audioengine
-+OBJS=$(LIBNAME).o
-+
-+ifeq ($(findstring osx,$(ARCH)), osx)
-+LIB_SHARED=../../../addons/library.kodi.audioengine/$(LIBNAME)-$(ARCH).dylib
-+else
-+LIB_SHARED=../../../addons/library.kodi.audioengine/$(LIBNAME)-$(ARCH).so
-+endif
-+
-+all: $(LIB_SHARED)
-+
-+$(LIB_SHARED): $(OBJS)
-+ifeq ($(findstring osx,$(ARCH)), osx)
-+	$(CXX) $(CXXFLAGS) $(LDFLAGS) -dynamiclib -o $@ $(OBJS)
-+else
-+	$(CXX) $(CFLAGS) $(LDFLAGS) -shared -g -o $(LIB_SHARED) $(OBJS)
-+endif
-+
-+CLEAN_FILES = \
-+	$(LIB_SHARED) \
-+
-+DISTCLEAN_FILES= \
-+	Makefile \
-+
-+include ../../../Makefile.include
-diff --git a/lib/addons/library.kodi.guilib/Makefile.in b/lib/addons/library.kodi.guilib/Makefile.in
-new file mode 100644
-index 0000000..350fbb2
---- /dev/null
-+++ b/lib/addons/library.kodi.guilib/Makefile.in
-@@ -0,0 +1,38 @@
-+ARCH=@ARCH@
-+INCLUDES=-I. -I../../../xbmc/addons/kodi-addon-dev-kit/include/kodi -I../../../xbmc/addons/kodi-addon-dev-kit/include -I../../../xbmc -I../../../xbmc/cores/VideoPlayer/DVDDemuxers
-+DEFINES+=
-+CXXFLAGS=-fPIC
-+LIBNAME=libKODI_guilib
-+OBJS=$(LIBNAME).o
-+
-+LIB_INTERFACE=../../../xbmc/addons/kodi-addon-dev-kit/include/kodi/libKODI_guilib.h
-+
-+ifeq ($(findstring osx,$(ARCH)), osx)
-+LIB_SHARED=../../../addons/library.kodi.guilib/$(LIBNAME)-$(ARCH).dylib
-+else
-+LIB_SHARED=../../../addons/library.kodi.guilib/$(LIBNAME)-$(ARCH).so
-+endif
-+
-+GENERATED_ADDON_GUILIB = ../../../addons/kodi.guilib/addon.xml
-+LIB_VERSION := $(shell sed -n 's/.*KODI_GUILIB_API_VERSION[[:space:]]*"\(.*\)"/\1/p' $(LIB_INTERFACE))
-+LIB_VERSION_MIN := $(shell sed -n 's/.*KODI_GUILIB_MIN_API_VERSION[[:space:]]*"\(.*\)"/\1/p' $(LIB_INTERFACE))
-+
-+all: $(LIB_SHARED) $(GENERATED_ADDON_GUILIB)
-+
-+$(LIB_SHARED): $(OBJS) $(LIB_INTERFACE)
-+ifeq ($(findstring osx,$(ARCH)), osx)
-+	$(CXX) $(CXXFLAGS) $(LDFLAGS) -dynamiclib -o $@ $(OBJS)
-+else
-+	$(CXX) $(CFLAGS) $(LDFLAGS) -shared -g -o $(LIB_SHARED) $(OBJS)
-+endif
-+
-+$(GENERATED_ADDON_GUILIB) : $(LIB_INTERFACE)
-+	sed -e s/@guilib_version@/$(LIB_VERSION)/g -e s/@guilib_version_min@/$(LIB_VERSION_MIN)/g $@.in > $@
-+
-+CLEAN_FILES = \
-+	$(LIB_SHARED) \
-+
-+DISTCLEAN_FILES= \
-+	Makefile \
-+
-+include ../../../Makefile.include
-diff --git a/lib/addons/library.kodi.inputstream/Makefile.in b/lib/addons/library.kodi.inputstream/Makefile.in
-new file mode 100644
-index 0000000..0d14a2e
---- /dev/null
-+++ b/lib/addons/library.kodi.inputstream/Makefile.in
-@@ -0,0 +1,29 @@
-+ARCH=@ARCH@
-+INCLUDES=-I. -I../../../xbmc/addons/include -I../../../xbmc
-+DEFINES+=
-+CXXFLAGS=-fPIC
-+LIBNAME=libKODI_inputstream
-+OBJS=$(LIBNAME).o
-+
-+ifeq ($(findstring osx,$(ARCH)), osx)
-+LIB_SHARED=../../../addons/library.kodi.inputstream/$(LIBNAME)-$(ARCH).dylib
-+else
-+LIB_SHARED=../../../addons/library.kodi.inputstream/$(LIBNAME)-$(ARCH).so
-+endif
-+
-+all: $(LIB_SHARED)
-+
-+$(LIB_SHARED): $(OBJS)
-+ifeq ($(findstring osx,$(ARCH)), osx)
-+	$(CXX) $(CXXFLAGS) $(LDFLAGS) -dynamiclib -o $@ $(OBJS)
-+else
-+	$(CXX) $(CFLAGS) $(LDFLAGS) -shared -g -o $(LIB_SHARED) $(OBJS)
-+endif
-+
-+CLEAN_FILES = \
-+	$(LIB_SHARED) \
-+
-+DISTCLEAN_FILES= \
-+	Makefile \
-+
-+include ../../../Makefile.include
-diff --git a/lib/addons/library.kodi.peripheral/Makefile.in b/lib/addons/library.kodi.peripheral/Makefile.in
-new file mode 100644
-index 0000000..520ad3a
---- /dev/null
-+++ b/lib/addons/library.kodi.peripheral/Makefile.in
-@@ -0,0 +1,29 @@
-+ARCH=@ARCH@
-+INCLUDES=-I. -I../../../xbmc/addons/include -I../../../xbmc
-+DEFINES+=
-+CXXFLAGS=-fPIC
-+LIBNAME=libKODI_peripheral
-+OBJS=$(LIBNAME).o
-+
-+ifeq ($(findstring osx,$(ARCH)), osx)
-+LIB_SHARED=../../../addons/library.kodi.peripheral/$(LIBNAME)-$(ARCH).dylib
-+else
-+LIB_SHARED=../../../addons/library.kodi.peripheral/$(LIBNAME)-$(ARCH).so
-+endif
-+
-+all: $(LIB_SHARED)
-+
-+$(LIB_SHARED): $(OBJS)
-+ifeq ($(findstring osx,$(ARCH)), osx)
-+	$(CXX) $(CXXFLAGS) $(LDFLAGS) -dynamiclib -o $@ $(OBJS)
-+else
-+	$(CXX) $(CFLAGS) $(LDFLAGS) -shared -g -o $(LIB_SHARED) $(OBJS)
-+endif
-+
-+CLEAN_FILES = \
-+	$(LIB_SHARED) \
-+
-+DISTCLEAN_FILES= \
-+	Makefile \
-+
-+include ../../../Makefile.include
-diff --git a/lib/addons/library.xbmc.addon/Makefile.in b/lib/addons/library.xbmc.addon/Makefile.in
-new file mode 100644
-index 0000000..14b12a4
---- /dev/null
-+++ b/lib/addons/library.xbmc.addon/Makefile.in
-@@ -0,0 +1,29 @@
-+ARCH=@ARCH@
-+INCLUDES=-I. -I../../../xbmc/addons/kodi-addon-dev-kit/include/kodi -I../../../xbmc/addons/kodi-addon-dev-kit/include -I../../../xbmc
-+DEFINES+=
-+CXXFLAGS=-fPIC
-+LIBNAME=libXBMC_addon
-+OBJS=$(LIBNAME).o
-+
-+ifeq ($(findstring osx,$(ARCH)), osx)
-+LIB_SHARED=../../../addons/library.xbmc.addon/$(LIBNAME)-$(ARCH).dylib
-+else
-+LIB_SHARED=../../../addons/library.xbmc.addon/$(LIBNAME)-$(ARCH).so
-+endif
-+
-+all: $(LIB_SHARED)
-+
-+$(LIB_SHARED): $(OBJS)
-+ifeq ($(findstring osx,$(ARCH)), osx)
-+	$(CXX) $(CXXFLAGS) $(LDFLAGS) -dynamiclib -o $@ $(OBJS)
-+else
-+	$(CXX) $(CFLAGS) $(LDFLAGS) -shared -g -o $(LIB_SHARED) $(OBJS)
-+endif
-+
-+CLEAN_FILES = \
-+	$(LIB_SHARED) \
-+
-+DISTCLEAN_FILES= \
-+	Makefile \
-+
-+include ../../../Makefile.include
-diff --git a/lib/addons/library.xbmc.codec/Makefile.in b/lib/addons/library.xbmc.codec/Makefile.in
-new file mode 100644
-index 0000000..b7d39d8
---- /dev/null
-+++ b/lib/addons/library.xbmc.codec/Makefile.in
-@@ -0,0 +1,29 @@
-+ARCH=@ARCH@
-+INCLUDES=-I. -I../../../xbmc/addons/kodi-addon-dev-kit/include/kodi -I../../../xbmc/addons/kodi-addon-dev-kit/include
-+DEFINES+=
-+CXXFLAGS=-fPIC
-+LIBNAME=libXBMC_codec
-+OBJS=$(LIBNAME).o
-+
-+ifeq ($(findstring osx,$(ARCH)), osx)
-+LIB_SHARED=../../../addons/library.xbmc.codec/$(LIBNAME)-$(ARCH).dylib
-+else
-+LIB_SHARED=../../../addons/library.xbmc.codec/$(LIBNAME)-$(ARCH).so
-+endif
-+
-+all: $(LIB_SHARED)
-+
-+$(LIB_SHARED): $(OBJS)
-+ifeq ($(findstring osx,$(ARCH)), osx)
-+	$(CXX) $(CXXFLAGS) $(LDFLAGS) -dynamiclib -o $@ $(OBJS)
-+else
-+	$(CXX) $(CFLAGS) $(LDFLAGS) -shared -g -o $(LIB_SHARED) $(OBJS)
-+endif
-+
-+CLEAN_FILES = \
-+	$(LIB_SHARED) \
-+
-+DISTCLEAN_FILES= \
-+	Makefile \
-+
-+include ../../../Makefile.include
-diff --git a/lib/addons/library.xbmc.pvr/Makefile.in b/lib/addons/library.xbmc.pvr/Makefile.in
-new file mode 100644
-index 0000000..472efce
---- /dev/null
-+++ b/lib/addons/library.xbmc.pvr/Makefile.in
-@@ -0,0 +1,29 @@
-+ARCH=@ARCH@
-+INCLUDES=-I. -I../../../xbmc/addons/kodi-addon-dev-kit/include -I../../../xbmc/addons/kodi-addon-dev-kit/include -I../../../xbmc -I../../../xbmc/cores/VideoPlayer/DVDDemuxers
-+DEFINES+=
-+CXXFLAGS=-fPIC
-+LIBNAME=libXBMC_pvr
-+OBJS=$(LIBNAME).o
-+
-+ifeq ($(findstring osx,$(ARCH)), osx)
-+LIB_SHARED=../../../addons/library.xbmc.pvr/$(LIBNAME)-$(ARCH).dylib
-+else
-+LIB_SHARED=../../../addons/library.xbmc.pvr/$(LIBNAME)-$(ARCH).so
-+endif
-+
-+all: $(LIB_SHARED)
-+
-+$(LIB_SHARED): $(OBJS)
-+ifeq ($(findstring osx,$(ARCH)), osx)
-+	$(CXX) $(CXXFLAGS) $(LDFLAGS) -dynamiclib -o $@ $(OBJS)
-+else
-+	$(CXX) $(CFLAGS) $(LDFLAGS) -shared -g -o $(LIB_SHARED) $(OBJS)
-+endif
-+
-+CLEAN_FILES = \
-+	$(LIB_SHARED) \
-+
-+DISTCLEAN_FILES= \
-+	Makefile \
-+
-+include ../../../Makefile.include
 diff --git a/lib/libUPnP/Makefile.in b/lib/libUPnP/Makefile.in
 new file mode 100644
 index 0000000..efdc05a
@@ -5175,6 +4858,64 @@ index 0000000..d28f263
 +  AC_SUBST(ARCH_DEFINES, "-DTARGET_POSIX -DTARGET_LINUX -D_LINUX -D_ARMEL -DTARGET_RASPBERRY_PI")
 +fi
 +])
+diff --git a/tools/EventClients/Clients/OSXRemote/Makefile.in b/tools/EventClients/Clients/OSXRemote/Makefile.in
+new file mode 100644
+index 0000000..1d08fb5
+--- /dev/null
++++ b/tools/EventClients/Clients/OSXRemote/Makefile.in
+@@ -0,0 +1,18 @@
++#convenience makefile to allow headless osx build
++
++DEBUG_FLAGS=@DEBUG_FLAGS@
++
++#check for debug build
++ifneq (,$(findstring _DEBUG, $(DEBUG_FLAGS)))
++  CONFIGURATION=Debug
++else
++  CONFIGURATION=Release
++endif
++
++all: 
++	xcodebuild -configuration $(CONFIGURATION)
++
++clean:
++	xcodebuild clean -configuration $(CONFIGURATION)
++
++.PHONY: all clean
+diff --git a/tools/EventClients/Makefile.in b/tools/EventClients/Makefile.in
+new file mode 100644
+index 0000000..2cd5712
+--- /dev/null
++++ b/tools/EventClients/Makefile.in
+@@ -0,0 +1,28 @@
++WII_EXTRA_OPTS=
++CLEAN_FILES=Clients/WiiRemote/WiiRemote
++PYTHON_SITEDIR := $(shell python -c "from distutils.sysconfig import get_python_lib; print get_python_lib()")
++
++all: install
++
++wiimote: Clients/WiiRemote/WiiRemote
++
++Clients/WiiRemote/WiiRemote:
++	cd Clients/WiiRemote && \
++	$(CXX) $(CXXFLAGS) $(LDFLAGS) CWIID_WiiRemote.cpp -lcwiid -lbluetooth -DICON_PATH="\"$(datarootdir)/pixmaps/@APP_NAME_LC@/\"" $(WII_EXTRA_OPTS) -o WiiRemote
++
++install: Clients/WiiRemote/WiiRemote
++	mkdir -p $(DESTDIR)$(bindir)
++	cp -a Clients/WiiRemote/WiiRemote $(DESTDIR)$(bindir)/@APP_NAME_LC@-wiiremote
++	cp -a Clients/PS3\ BD\ Remote/ps3_remote.py $(DESTDIR)$(bindir)/@APP_NAME_LC@-ps3remote
++	cp -a Clients/PS3\ Sixaxis\ Controller/ps3d.py $(DESTDIR)$(bindir)/@APP_NAME_LC@-ps3d
++	cp -a Clients/Kodi\ Send/kodi-send.py $(DESTDIR)$(bindir)/@APP_NAME_LC@-send
++	mkdir -p $(DESTDIR)$(PYTHON_SITEDIR)/@APP_NAME_LC@
++	echo 'ICON_PATH="$(datarootdir)/pixmaps/@APP_NAME_LC@/"' > $(DESTDIR)$(PYTHON_SITEDIR)/@APP_NAME_LC@/defs.py
++	cp -a lib/python/* $(DESTDIR)$(PYTHON_SITEDIR)/@APP_NAME_LC@/
++	cp -a Clients/PS3\ BD\ Remote/ps3_remote.py $(DESTDIR)$(PYTHON_SITEDIR)/@APP_NAME_LC@/
++	mkdir -p $(DESTDIR)$(includedir)/@APP_NAME_LC@
++	cp -a lib/c++/* $(DESTDIR)$(includedir)/@APP_NAME_LC@/
++	mkdir -p $(DESTDIR)$(datarootdir)/pixmaps/@APP_NAME_LC@
++	cp -a icons/* $(DESTDIR)$(datarootdir)/pixmaps/@APP_NAME_LC@/
++
++include ../../Makefile.include
 diff --git a/tools/buildsteps/rbpi/prepare-xbmc b/tools/buildsteps/rbpi/prepare-xbmc
 index 65e7915..15bd095 100755
 --- a/tools/buildsteps/rbpi/prepare-xbmc
@@ -5552,23 +5293,11 @@ index 0000000..65d30ca
 +include ../../Makefile.include
 +-include $(patsubst %.cpp,%.P,$(patsubst %.c,%.P,$(SRCS)))
 +
-diff --git a/xbmc/addons/binary/interfaces/Makefile.in b/xbmc/addons/binary/interfaces/Makefile.in
-new file mode 100644
-index 0000000..4f5e9bb
---- /dev/null
-+++ b/xbmc/addons/binary/interfaces/Makefile.in
-@@ -0,0 +1,6 @@
-+SRCS=AddonInterfaces.cpp \
-+
-+LIB=addon-interfaces.a
-+
-+include @abs_top_srcdir@/Makefile.include
-+-include $(patsubst %.cpp,%.P,$(patsubst %.c,%.P,$(SRCS)))
-diff --git a/xbmc/addons/binary/interfaces/api1/Addon/Makefile b/xbmc/addons/binary/interfaces/api1/Addon/Makefile
+diff --git a/xbmc/addons/interfaces/Addon/Makefile b/xbmc/addons/interfaces/Addon/Makefile
 new file mode 100644
 index 0000000..09ea40e
 --- /dev/null
-+++ b/xbmc/addons/binary/interfaces/api1/Addon/Makefile
++++ b/xbmc/addons/interfaces/Addon/Makefile
 @@ -0,0 +1,7 @@
 +SRCS=AddonCallbacksAddon.cpp \
 +
@@ -5577,11 +5306,11 @@ index 0000000..09ea40e
 +include ../../../../../../Makefile.include
 +-include $(patsubst %.cpp,%.P,$(patsubst %.c,%.P,$(SRCS)))
 +
-diff --git a/xbmc/addons/binary/interfaces/api1/AudioDSP/Makefile b/xbmc/addons/binary/interfaces/api1/AudioDSP/Makefile
+diff --git a/xbmc/addons/interfaces/AudioDSP/Makefile b/xbmc/addons/interfaces/AudioDSP/Makefile
 new file mode 100644
 index 0000000..16d077b
 --- /dev/null
-+++ b/xbmc/addons/binary/interfaces/api1/AudioDSP/Makefile
++++ b/xbmc/addons/interfaces/AudioDSP/Makefile
 @@ -0,0 +1,7 @@
 +SRCS=AddonCallbacksAudioDSP.cpp \
 +
@@ -5590,11 +5319,11 @@ index 0000000..16d077b
 +include ../../../../../../Makefile.include
 +-include $(patsubst %.cpp,%.P,$(patsubst %.c,%.P,$(SRCS)))
 +
-diff --git a/xbmc/addons/binary/interfaces/api1/AudioEngine/Makefile b/xbmc/addons/binary/interfaces/api1/AudioEngine/Makefile
+diff --git a/xbmc/addons/interfaces/AudioEngine/Makefile b/xbmc/addons/interfaces/AudioEngine/Makefile
 new file mode 100644
 index 0000000..74bf8a9
 --- /dev/null
-+++ b/xbmc/addons/binary/interfaces/api1/AudioEngine/Makefile
++++ b/xbmc/addons/interfaces/AudioEngine/Makefile
 @@ -0,0 +1,6 @@
 +SRCS=AddonCallbacksAudioEngine.cpp \
 +
@@ -5602,11 +5331,11 @@ index 0000000..74bf8a9
 +
 +include ../../../../../../Makefile.include
 +-include $(patsubst %.cpp,%.P,$(patsubst %.c,%.P,$(SRCS)))
-diff --git a/xbmc/addons/binary/interfaces/api1/Codec/Makefile b/xbmc/addons/binary/interfaces/api1/Codec/Makefile
+diff --git a/xbmc/addons/interfaces/Codec/Makefile b/xbmc/addons/interfaces/Codec/Makefile
 new file mode 100644
 index 0000000..f2cba21
 --- /dev/null
-+++ b/xbmc/addons/binary/interfaces/api1/Codec/Makefile
++++ b/xbmc/addons/interfaces/Codec/Makefile
 @@ -0,0 +1,7 @@
 +SRCS=AddonCallbacksCodec.cpp \
 +
@@ -5615,11 +5344,11 @@ index 0000000..f2cba21
 +include ../../../../../../Makefile.include
 +-include $(patsubst %.cpp,%.P,$(patsubst %.c,%.P,$(SRCS)))
 +
-diff --git a/xbmc/addons/binary/interfaces/api1/GUI/Makefile b/xbmc/addons/binary/interfaces/api1/GUI/Makefile
+diff --git a/xbmc/addons/interfaces/GUI/Makefile b/xbmc/addons/interfaces/GUI/Makefile
 new file mode 100644
 index 0000000..8832ee9
 --- /dev/null
-+++ b/xbmc/addons/binary/interfaces/api1/GUI/Makefile
++++ b/xbmc/addons/interfaces/GUI/Makefile
 @@ -0,0 +1,9 @@
 +SRCS=AddonCallbacksGUI.cpp \
 +     AddonGUIRenderingControl.cpp \
@@ -5630,11 +5359,24 @@ index 0000000..8832ee9
 +include ../../../../../../Makefile.include
 +-include $(patsubst %.cpp,%.P,$(patsubst %.c,%.P,$(SRCS)))
 +
-diff --git a/xbmc/addons/binary/interfaces/api1/InputStream/Makefile b/xbmc/addons/binary/interfaces/api1/InputStream/Makefile
+diff --git a/xbmc/addons/interfaces/Game/Makefile b/xbmc/addons/interfaces/Game/Makefile
+new file mode 100644
+index 0000000..460425b
+--- /dev/null
++++ b/xbmc/addons/interfaces/Game/Makefile
+@@ -0,0 +1,7 @@
++SRCS=AddonCallbacksGame.cpp \
++
++LIB=addon-callbacks-game.a
++
++include ../../../../../../Makefile.include
++-include $(patsubst %.cpp,%.P,$(patsubst %.c,%.P,$(SRCS)))
++
+diff --git a/xbmc/addons/interfaces/InputStream/Makefile b/xbmc/addons/interfaces/InputStream/Makefile
 new file mode 100644
 index 0000000..59a422a
 --- /dev/null
-+++ b/xbmc/addons/binary/interfaces/api1/InputStream/Makefile
++++ b/xbmc/addons/interfaces/InputStream/Makefile
 @@ -0,0 +1,7 @@
 +SRCS=AddonCallbacksInputStream.cpp \
 +
@@ -5643,11 +5385,23 @@ index 0000000..59a422a
 +include ../../../../../../Makefile.include
 +-include $(patsubst %.cpp,%.P,$(patsubst %.c,%.P,$(SRCS)))
 +
-diff --git a/xbmc/addons/binary/interfaces/api1/PVR/Makefile b/xbmc/addons/binary/interfaces/api1/PVR/Makefile
+diff --git a/xbmc/addons/interfaces/Makefile.in b/xbmc/addons/interfaces/Makefile.in
+new file mode 100644
+index 0000000..4f5e9bb
+--- /dev/null
++++ b/xbmc/addons/interfaces/Makefile.in
+@@ -0,0 +1,6 @@
++SRCS=AddonInterfaces.cpp \
++
++LIB=addon-interfaces.a
++
++include @abs_top_srcdir@/Makefile.include
++-include $(patsubst %.cpp,%.P,$(patsubst %.c,%.P,$(SRCS)))
+diff --git a/xbmc/addons/interfaces/PVR/Makefile b/xbmc/addons/interfaces/PVR/Makefile
 new file mode 100644
 index 0000000..a3dedd1
 --- /dev/null
-+++ b/xbmc/addons/binary/interfaces/api1/PVR/Makefile
++++ b/xbmc/addons/interfaces/PVR/Makefile
 @@ -0,0 +1,6 @@
 +SRCS=AddonCallbacksPVR.cpp \
 +
@@ -5655,11 +5409,11 @@ index 0000000..a3dedd1
 +
 +include ../../../../../../Makefile.include
 +-include $(patsubst %.cpp,%.P,$(patsubst %.c,%.P,$(SRCS)))
-diff --git a/xbmc/addons/binary/interfaces/api1/Peripheral/Makefile b/xbmc/addons/binary/interfaces/api1/Peripheral/Makefile
+diff --git a/xbmc/addons/interfaces/Peripheral/Makefile b/xbmc/addons/interfaces/Peripheral/Makefile
 new file mode 100644
 index 0000000..2f629d1
 --- /dev/null
-+++ b/xbmc/addons/binary/interfaces/api1/Peripheral/Makefile
++++ b/xbmc/addons/interfaces/Peripheral/Makefile
 @@ -0,0 +1,7 @@
 +SRCS=AddonCallbacksPeripheral.cpp \
 +
@@ -5946,6 +5700,25 @@ index 0000000..17feee8
 +
 +include @abs_top_srcdir@/Makefile.include
 +-include $(patsubst %.cpp,%.P,$(patsubst %.c,%.P,$(SRCS)))
+diff --git a/xbmc/cores/RetroPlayer/Makefile.in b/xbmc/cores/RetroPlayer/Makefile.in
+new file mode 100644
+index 0000000..976b7c7
+--- /dev/null
++++ b/xbmc/cores/RetroPlayer/Makefile.in
+@@ -0,0 +1,13 @@
++SRCS=PixelConverter.cpp \
++     RetroPlayer.cpp \
++     RetroPlayerAudio.cpp \
++     RetroPlayerVideo.cpp
++
++ifeq (@CORE_SYSTEM_NAME@,rbpi)
++  SRCS += PixelConverterRBP.cpp
++endif
++
++LIB=retroplayer.a
++
++include ../../../Makefile.include
++-include $(patsubst %.cpp,%.P,$(patsubst %.c,%.P,$(SRCS)))
 diff --git a/xbmc/cores/VideoPlayer/DVDAudio.h b/xbmc/cores/VideoPlayer/DVDAudio.h
 index ef0afb0..ed6974b 100644
 --- a/xbmc/cores/VideoPlayer/DVDAudio.h
@@ -6046,7 +5819,7 @@ index 0000000..000f3ef
 +-include $(patsubst %.cpp,%.P,$(patsubst %.c,%.P,$(SRCS)))
 +
 diff --git a/xbmc/cores/VideoPlayer/DVDCodecs/Video/DVDVideoCodecFFmpeg.cpp b/xbmc/cores/VideoPlayer/DVDCodecs/Video/DVDVideoCodecFFmpeg.cpp
-index 179fbe1..65d37b6 100644
+index 0e85581..47939e3 100644
 --- a/xbmc/cores/VideoPlayer/DVDCodecs/Video/DVDVideoCodecFFmpeg.cpp
 +++ b/xbmc/cores/VideoPlayer/DVDCodecs/Video/DVDVideoCodecFFmpeg.cpp
 @@ -19,6 +19,9 @@
@@ -6075,7 +5848,7 @@ index a0b76fe..a47a397 100644
  #endif
  
 diff --git a/xbmc/cores/VideoPlayer/DVDCodecs/Video/MMALCodec.cpp b/xbmc/cores/VideoPlayer/DVDCodecs/Video/MMALCodec.cpp
-index c8165da..89aacdf 100644
+index 303c629..b2b54fd 100644
 --- a/xbmc/cores/VideoPlayer/DVDCodecs/Video/MMALCodec.cpp
 +++ b/xbmc/cores/VideoPlayer/DVDCodecs/Video/MMALCodec.cpp
 @@ -18,7 +18,9 @@
@@ -6227,10 +6000,10 @@ index 66774e4..b4b591a 100644
  #include "utils/log.h"
 diff --git a/xbmc/cores/VideoPlayer/DVDDemuxers/Makefile.in b/xbmc/cores/VideoPlayer/DVDDemuxers/Makefile.in
 new file mode 100644
-index 0000000..7d19ec3
+index 0000000..e4f8aed
 --- /dev/null
 +++ b/xbmc/cores/VideoPlayer/DVDDemuxers/Makefile.in
-@@ -0,0 +1,20 @@
+@@ -0,0 +1,18 @@
 +INCLUDES+=-I@abs_top_srcdir@/xbmc/cores/VideoPlayer
 +
 +SRCS  = DemuxMultiSource.cpp
@@ -6243,8 +6016,6 @@ index 0000000..7d19ec3
 +SRCS += DVDDemuxVobsub.cpp
 +SRCS += DVDDemuxCC.cpp
 +SRCS += DVDFactoryDemuxer.cpp
-+SRCS += DemuxStreamSSIF.cpp
-+SRCS += DemuxMVC.cpp
 +
 +LIB = DVDDemuxers.a
 +
@@ -7056,6 +6827,70 @@ index 0000000..d070cdd
 +
 +include @abs_top_srcdir@/Makefile.include
 +
+diff --git a/xbmc/games/Makefile b/xbmc/games/Makefile
+new file mode 100644
+index 0000000..2aad479
+--- /dev/null
++++ b/xbmc/games/Makefile
+@@ -0,0 +1,7 @@
++SRCS=GameSettings.cpp \
++     GameUtils.cpp \
++
++LIB=games.a
++
++include ../../Makefile.include
++-include $(patsubst %.cpp,%.P,$(patsubst %.c,%.P,$(SRCS)))
+diff --git a/xbmc/games/addons/Makefile b/xbmc/games/addons/Makefile
+new file mode 100644
+index 0000000..6dd4b03
+--- /dev/null
++++ b/xbmc/games/addons/Makefile
+@@ -0,0 +1,12 @@
++SRCS=GameClient.cpp \
++     GameClientInput.cpp \
++     GameClientKeyboard.cpp \
++     GameClientMouse.cpp \
++     GameClientProperties.cpp \
++     GameClientTiming.cpp \
++     GameClientTranslator.cpp \
++
++LIB=gameaddons.a
++
++include ../../../Makefile.include
++-include $(patsubst %.cpp,%.P,$(patsubst %.c,%.P,$(SRCS)))
+diff --git a/xbmc/games/addons/playback/Makefile b/xbmc/games/addons/playback/Makefile
+new file mode 100644
+index 0000000..3a92133
+--- /dev/null
++++ b/xbmc/games/addons/playback/Makefile
+@@ -0,0 +1,7 @@
++SRCS=GameClientReversiblePlayback.cpp \
++     GameLoop.cpp \
++
++LIB=gameaddonplayback.a
++
++include ../../../../Makefile.include
++-include $(patsubst %.cpp,%.P,$(patsubst %.c,%.P,$(SRCS)))
+diff --git a/xbmc/games/addons/savestates/Makefile b/xbmc/games/addons/savestates/Makefile
+new file mode 100644
+index 0000000..178e6db
+--- /dev/null
++++ b/xbmc/games/addons/savestates/Makefile
+@@ -0,0 +1,14 @@
++SRCS=BasicMemoryStream.cpp \
++     DeltaPairMemoryStream.cpp \
++     LinearMemoryStream.cpp \
++     Savestate.cpp \
++     SavestateDatabase.cpp \
++     SavestateReader.cpp \
++     SavestateTranslator.cpp \
++     SavestateUtils.cpp \
++     SavestateWriter.cpp \
++
++LIB=gamesavestates.a
++
++include ../../../../Makefile.include
++-include $(patsubst %.cpp,%.P,$(patsubst %.c,%.P,$(SRCS)))
 diff --git a/xbmc/games/controllers/Makefile b/xbmc/games/controllers/Makefile
 new file mode 100644
 index 0000000..52cd56d
@@ -7115,6 +6950,56 @@ index 0000000..432fae5
 +LIB=controllerwindows.a
 +
 +include ../../../../Makefile.include
++-include $(patsubst %.cpp,%.P,$(patsubst %.c,%.P,$(SRCS)))
+diff --git a/xbmc/games/dialogs/Makefile b/xbmc/games/dialogs/Makefile
+new file mode 100644
+index 0000000..b544a0e
+--- /dev/null
++++ b/xbmc/games/dialogs/Makefile
+@@ -0,0 +1,6 @@
++SRCS=GUIDialogSelectGameClient.cpp \
++
++LIB=gamedialogs.a
++
++include ../../../Makefile.include
++-include $(patsubst %.cpp,%.P,$(patsubst %.c,%.P,$(SRCS)))
+diff --git a/xbmc/games/ports/Makefile b/xbmc/games/ports/Makefile
+new file mode 100644
+index 0000000..4f1829e
+--- /dev/null
++++ b/xbmc/games/ports/Makefile
+@@ -0,0 +1,7 @@
++SRCS=PortManager.cpp \
++     PortMapper.cpp \
++
++LIB=gameports.a
++
++include ../../../Makefile.include
++-include $(patsubst %.cpp,%.P,$(patsubst %.c,%.P,$(SRCS)))
+diff --git a/xbmc/games/tags/Makefile b/xbmc/games/tags/Makefile
+new file mode 100644
+index 0000000..7c47526
+--- /dev/null
++++ b/xbmc/games/tags/Makefile
+@@ -0,0 +1,6 @@
++SRCS=GameInfoTag.cpp \
++
++LIB=gameinfotags.a
++
++include ../../../Makefile.include
++-include $(patsubst %.cpp,%.P,$(patsubst %.c,%.P,$(SRCS)))
+diff --git a/xbmc/games/windows/Makefile b/xbmc/games/windows/Makefile
+new file mode 100644
+index 0000000..f800574
+--- /dev/null
++++ b/xbmc/games/windows/Makefile
+@@ -0,0 +1,7 @@
++SRCS=GUIViewStateWindowGames.cpp \
++     GUIWindowGames.cpp \
++
++LIB=gamewindows.a
++
++include ../../../Makefile.include
 +-include $(patsubst %.cpp,%.P,$(patsubst %.c,%.P,$(SRCS)))
 diff --git a/xbmc/guilib/Makefile.in b/xbmc/guilib/Makefile.in
 new file mode 100644
@@ -7289,6 +7174,30 @@ index 0000000..189df85
 +
 +include ../../../../Makefile.include
 +-include $(patsubst %.cpp,%.P,$(patsubst %.c,%.P,$(SRCS)))
+diff --git a/xbmc/input/keyboard/Makefile b/xbmc/input/keyboard/Makefile
+new file mode 100644
+index 0000000..939a34e
+--- /dev/null
++++ b/xbmc/input/keyboard/Makefile
+@@ -0,0 +1,6 @@
++SRCS=KeyboardEasterEgg.cpp \
++
++LIB=input_keyboard.a
++
++include ../../../Makefile.include
++-include $(patsubst %.cpp,%.P,$(patsubst %.c,%.P,$(SRCS)))
+diff --git a/xbmc/input/keyboard/generic/Makefile b/xbmc/input/keyboard/generic/Makefile
+new file mode 100644
+index 0000000..3094f26
+--- /dev/null
++++ b/xbmc/input/keyboard/generic/Makefile
+@@ -0,0 +1,6 @@
++SRCS=JoystickEmulation.cpp \
++
++LIB=input_keyboard_generic.a
++
++include ../../../../Makefile.include
++-include $(patsubst %.cpp,%.P,$(patsubst %.c,%.P,$(SRCS)))
 diff --git a/xbmc/input/linux/Makefile.in b/xbmc/input/linux/Makefile.in
 new file mode 100644
 index 0000000..33885a5
@@ -7301,6 +7210,30 @@ index 0000000..33885a5
 +LIB=input_linux.a
 +
 +include ../../../Makefile.include
++-include $(patsubst %.cpp,%.P,$(patsubst %.c,%.P,$(SRCS)))
+diff --git a/xbmc/input/mouse/Makefile b/xbmc/input/mouse/Makefile
+new file mode 100644
+index 0000000..62f682d
+--- /dev/null
++++ b/xbmc/input/mouse/Makefile
+@@ -0,0 +1,6 @@
++SRCS=MouseWindowingButtonMap.cpp \
++
++LIB=input_mouse.a
++
++include ../../../Makefile.include
++-include $(patsubst %.cpp,%.P,$(patsubst %.c,%.P,$(SRCS)))
+diff --git a/xbmc/input/mouse/generic/Makefile b/xbmc/input/mouse/generic/Makefile
+new file mode 100644
+index 0000000..0170855
+--- /dev/null
++++ b/xbmc/input/mouse/generic/Makefile
+@@ -0,0 +1,6 @@
++SRCS=MouseInputHandling.cpp \
++
++LIB=input_mouse_generic.a
++
++include ../../../../Makefile.include
 +-include $(patsubst %.cpp,%.P,$(patsubst %.c,%.P,$(SRCS)))
 diff --git a/xbmc/input/touch/Makefile b/xbmc/input/touch/Makefile
 new file mode 100644
@@ -8599,14 +8532,13 @@ index 0000000..afa879d
 +-include $(patsubst %.cpp,%.P,$(patsubst %.c,%.P,$(SRCS)))
 diff --git a/xbmc/powermanagement/Makefile b/xbmc/powermanagement/Makefile
 new file mode 100644
-index 0000000..e634fd6
+index 0000000..a456272
 --- /dev/null
 +++ b/xbmc/powermanagement/Makefile
-@@ -0,0 +1,9 @@
+@@ -0,0 +1,8 @@
 +SRCS=DPMSSupport.cpp \
 +     PowerManager.cpp \
 +     IPowerSyscall.cpp \
-+     PowerSyscallVirtualSleep.cpp \
 +
 +LIB=powermanagement.a
 +
@@ -8626,13 +8558,12 @@ index 0000000..64313a5
 +-include $(patsubst %.cpp,%.P,$(patsubst %.c,%.P,$(SRCS)))
 diff --git a/xbmc/powermanagement/linux/Makefile b/xbmc/powermanagement/linux/Makefile
 new file mode 100644
-index 0000000..b130812
+index 0000000..e9d95fb
 --- /dev/null
 +++ b/xbmc/powermanagement/linux/Makefile
-@@ -0,0 +1,10 @@
+@@ -0,0 +1,9 @@
 +SRCS=ConsoleDeviceKitPowerSyscall.cpp \
 +     ConsoleUPowerSyscall.cpp \
-+     RaspberryPIPowerSyscall.cpp \
 +     UPowerSyscall.cpp \
 +     LogindUPowerSyscall.cpp
 +
@@ -8990,7 +8921,7 @@ index 0000000..ad63d51
 +include ../../../Makefile.include
 +-include $(patsubst %.cpp,%.P,$(patsubst %.c,%.P,$(SRCS)))
 diff --git a/xbmc/system.h b/xbmc/system.h
-index 9c3555d..07dfe87 100644
+index 4760dab..a7452bd 100644
 --- a/xbmc/system.h
 +++ b/xbmc/system.h
 @@ -20,6 +20,10 @@
@@ -9382,7 +9313,7 @@ index 0000000..c2b31c6
 +include ../../Makefile.include
 +-include $(patsubst %.cpp,%.P,$(patsubst %.c,%.P,$(SRCS)))
 diff --git a/xbmc/video/VideoDatabase.cpp b/xbmc/video/VideoDatabase.cpp
-index ce71463..90bef09 100644
+index 03f9f96..6f433dc 100644
 --- a/xbmc/video/VideoDatabase.cpp
 +++ b/xbmc/video/VideoDatabase.cpp
 @@ -18,6 +18,10 @@
