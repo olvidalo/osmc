@@ -619,26 +619,26 @@ index 15a6570..2b1799b 100644
        return nullptr;
  
 diff --git a/xbmc/cores/playercorefactory/PlayerCoreFactory.cpp b/xbmc/cores/playercorefactory/PlayerCoreFactory.cpp
-index 896b865..1c537a1 100644
+index 9abf1cb..5dc020c 100644
 --- a/xbmc/cores/playercorefactory/PlayerCoreFactory.cpp
 +++ b/xbmc/cores/playercorefactory/PlayerCoreFactory.cpp
-@@ -323,6 +323,9 @@ bool CPlayerCoreFactory::LoadConfiguration(const std::string &file, bool clear)
+@@ -329,6 +329,9 @@ bool CPlayerCoreFactory::LoadConfiguration(const std::string &file, bool clear)
      CPlayerCoreConfig* paplayer = new CPlayerCoreConfig("PAPlayer", "music", nullptr);
      paplayer->m_bPlaysAudio = true;
      m_vecPlayerConfigs.push_back(paplayer);
 +    CPlayerCoreConfig* BTPlayer = new CPlayerCoreConfig("BTPlayer", "btplayer", nullptr);
 +    VideoPlayer->m_bPlaysAudio = true;
 +    m_vecPlayerConfigs.push_back(BTPlayer);    
-   }
- 
-   if (!pConfig || strcmpi(pConfig->Value(), "playercorefactory") != 0)
-@@ -349,6 +352,8 @@ bool CPlayerCoreFactory::LoadConfiguration(const std::string &file, bool clear)
+
+     CPlayerCoreConfig* retroPlayer = new CPlayerCoreConfig("RetroPlayer", "game", nullptr);
+     m_vecPlayerConfigs.push_back(retroPlayer);
+@@ -358,6 +361,8 @@ bool CPlayerCoreFactory::LoadConfiguration(const std::string &file, bool clear)
          internaltype = "music";
        else if (type == "externalplayer")
          internaltype = "external";
 +      else if (type == "btplayer")
 +        internaltype = "btplayer";
- 
+
        int count = 0;
        std::string playername = name;
 diff --git a/xbmc/linux/DBusUtil.cpp b/xbmc/linux/DBusUtil.cpp
