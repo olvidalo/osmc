@@ -5,13 +5,13 @@ Subject: [PATCH] Use OSMC Jarvis repository for binary addons
 
 Signed-off-by: Sam Nazarko <email@samnazarko.co.uk>
 ---
- project/cmake/addons/bootstrap/repositories/binary-addons.txt | 2 +-
+ cmake/addons/bootstrap/repositories/binary-addons.txt | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/project/cmake/addons/bootstrap/repositories/binary-addons.txt b/project/cmake/addons/bootstrap/repositories/binary-addons.
+diff --git a/cmake/addons/bootstrap/repositories/binary-addons.txt b/cmake/addons/bootstrap/repositories/binary-addons.
 index 8674f06..0263dfb 100644
---- a/project/cmake/addons/bootstrap/repositories/binary-addons.txt
-+++ b/project/cmake/addons/bootstrap/repositories/binary-addons.txt
+--- a/cmake/addons/bootstrap/repositories/binary-addons.txt
++++ b/cmake/addons/bootstrap/repositories/binary-addons.txt
 @@ -1 +1 @@
 -binary-addons https://github.com/AchimTuran/repo-binary-addons.git master
 \ No newline at end of file
