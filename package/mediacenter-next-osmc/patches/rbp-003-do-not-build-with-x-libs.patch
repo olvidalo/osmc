@@ -25,7 +25,7 @@ index 9ad9000..851c154 100644
                        --disable-devices
                        --disable-doc
 +		      --disable-vaapi 
-+		      --disable-vdpau \
++		      --disable-vdpau 
 +		      --disable-libxcb 
 +		      --disable-libxcb-shape 
 +		      --disable-libxcb-shm 
