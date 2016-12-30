@@ -204,8 +204,6 @@ then
 	echo $VERSION_DBG >> files-debug/DEBIAN/control
 	echo "Depends: ${1}-mediacenter-osmc (=${VERSION_NUM})" >> files-debug/DEBIAN/control
 	pushd src/xbmc-*
-	touch bootstrap
-	chmod +x bootstrap
 	install_patch "../../patches" "all"
 	test "$1" == atv && install_patch "../../patches" "atv"
 	test "$1" == pc && install_patch "../../patches" "pc"
@@ -277,25 +275,18 @@ then
 	export CXXFLAGS+=${COMPFLAGS} && \
 	export CPPFLAGS+=${COMPFLAGS} && \
 	export LDFLAGS="-L/opt/vc/lib" && \
-	./configure \
-		--prefix=/usr \
-		--enable-gles \
-		--disable-x11 \
-		--disable-openmax \
-		--enable-optical-drive \
-		--enable-libbluray \
-		--enable-dvdcss \
-		--disable-joystick \
-		--disable-debug \
-		--disable-vtbdecoder \
-		--disable-vaapi \
-		--disable-vdpau \
-		--disable-pulse \
-		--with-platform=$PIDEV \
-		--disable-optimizations \
-		--enable-libcec \
-		--enable-player=omxplayer \
-		--build=arm-linux
+	cmake -DCMAKE_INSTALL_PREFIX=/usr/osmc \               
+            -DENABLE_X11=0 \                            
+            -DENABLE_OPENGLES=1 \                      
+            -DENABLE_OPTICAL=1 \                     
+            -DENABLE_DVDCSS=1 \                        
+            -DDISABLE_VTBDECODER=1 \                    
+            -DDISABLE_VAAPI=1 \                         
+            -DDISABLE_VDPAU=1 \                      
+            -DDISABLE_PULSEAUDIO=1 \                           
+            -DDISABLE_OPTIMIZATIONS=1 \              
+            -DENABLE_LIBCEC=1 \                         
+        .   
 	fi
 	if [ "$1" == "vero" ]; then
 	LIBRARY_PATH+="/opt/vero/lib" && \
