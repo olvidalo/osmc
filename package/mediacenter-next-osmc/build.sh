@@ -6,7 +6,7 @@
 . ../common.sh
 if [ "$1" == "rbp1" ] || [ "$1" == "rbp2" ] || [ "$1" == "vero" ] || [ "$1" == "atv" ] || [ "$1" == "pc" ] || [ "$1" == "vero2" ]
 then
-pull_source "https://github.com/popcornmix/xbmc/archive/a3ce6eadaf2b5b6077dcd05f6dd86b09fb6de9de.tar.gz" "$(pwd)/src"
+pull_source "https://github.com/popcornmix/xbmc/archive/abe2abc3b5ded16a86e0e40042d48b2048e592ee.tar.gz" "$(pwd)/src"
 API_VERSION="18"
 else
 pull_source "https://github.com/xbmc/xbmc/archive/master.tar.gz" "$(pwd)/kodi"
@@ -269,6 +269,19 @@ then
 		COMPFLAGS="-mcpu=cortex-a7 -mtune=cortex-a7 -mfloat-abi=hard -O3 -mfpu=neon-vfpv4 -fomit-frame-pointer "
 	fi
 	if [ "$1" == "rbp1" ] || [ "$1" == "rbp2" ]; then
+
+	cd tools/depends/target/ffmpeg                          
+        cat 0001-mpeg4video-Signal-unsupported-GMC-with-more-than-one.patch \
+                hevcdsp_ARM_NEON_optimized_epel_functions.patch \
+                added_ARM_NEON_optimized_SAO_patches.patch \
+                pfcd_hevc_optimisations.patch \          
+                0001-Squashed-commit-of-the-following.patch \
+                0001-avcodec-add-h264_mvc-codec-id-and-profiles.patch \
+                0001-h264_parser-add-support-for-parsing-h264-mvc-NALUs.patch \
+                h264_parser_fix_parsing_of_mvc_slices_in_some_corner_cases.patch \
+                > cmake_patches.patch                    
+        cd ../../../../
+
 	LIBRARY_PATH+=/opt/vc/lib && \
 	COMPFLAGS+="-I/opt/vc/include -I/opt/vc/include/interface -I/opt/vc/include/interface/vcos/pthreads -I/opt/vc/include/interface/vmcs_host/linux -Wl,-rpath=/usr/osmc/lib -L/usr/osmc/lib " && \
 	export CFLAGS+=${COMPFLAGS} && \
