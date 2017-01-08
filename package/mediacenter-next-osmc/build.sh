@@ -291,15 +291,13 @@ then
 	export LDFLAGS="-L/opt/vc/lib" && \
 	cmake -DCMAKE_INSTALL_PREFIX=/usr/osmc \
             -DENABLE_X11=0 \
-            -DENABLE_OPENGLES=1 \
+            -DENABLE_OPENGLES=ON \
+            -DENABLE_OPENGL=OFF \
             -DENABLE_OPTICAL=1 \
             -DENABLE_DVDCSS=1 \
-            -DDISABLE_VTBDECODER=1 \
-            -DDISABLE_VAAPI=1 \
-            -DDISABLE_VDPAU=1 \
-            -DDISABLE_PULSEAUDIO=1 \
             -DDISABLE_OPTIMIZATIONS=1 \
-            -DENABLE_LIBCEC=1 \
+            -DWITH_ARCH=arm \
+	    -DCORE_SYSTEM_NAME=rbpi \
         .
 	fi
 	if [ "$1" == "vero" ]; then
