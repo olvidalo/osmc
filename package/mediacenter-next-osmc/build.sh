@@ -364,7 +364,7 @@ then
 	$BUILD
 	if [ $? != 0 ]; then echo -e "Build failed!" && exit 1; fi
 	make install DESTDIR=${out}
-	pushd project/cmake/addons/
+	pushd cmake/addons/
 	mkdir build
 	cd build
 	#ADDONS_ADSP="adsp.basic adsp.biquad.filters adsp.freesurround"
