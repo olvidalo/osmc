@@ -96,6 +96,7 @@ then
 	handle_dep "libsamplerate0-dev"
 	handle_dep "libltdl-dev"
 	handle_dep "libgnutls28-dev"
+	handle_dep "libgcrypt11-dev"
 	handle_dep "git"
 	handle_dep "uuid-dev"
 	handle_dep "libgcrypt11-dev"
@@ -291,12 +292,12 @@ then
 	export LDFLAGS="-L/opt/vc/lib" && \
 	cmake -DCMAKE_INSTALL_PREFIX=/usr \
             -DCMAKE_INSTALL_LIBDIR=/usr/lib \
+	    -DCMAKE_PREFIX_PATH=/opt/vc \
             -DENABLE_X11=0 \
             -DENABLE_OPENGLES=ON \
             -DENABLE_OPENGL=OFF \
             -DENABLE_OPTICAL=1 \
             -DENABLE_DVDCSS=1 \
-            -DDISABLE_OPTIMIZATIONS=1 \
             -DWITH_ARCH=arm \
 	    -DCORE_SYSTEM_NAME=rbpi \
 	    -DWITH_CPU=${CPU} \
