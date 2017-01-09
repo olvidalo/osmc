@@ -290,6 +290,7 @@ then
 	export CPPFLAGS+=${COMPFLAGS} && \
 	export LDFLAGS="-L/opt/vc/lib" && \
 	cmake -DCMAKE_INSTALL_PREFIX=/usr \
+            -DCMAKE_INSTALL_LIBDIR=/usr/lib \
             -DENABLE_X11=0 \
             -DENABLE_OPENGLES=ON \
             -DENABLE_OPENGL=OFF \
@@ -298,6 +299,7 @@ then
             -DDISABLE_OPTIMIZATIONS=1 \
             -DWITH_ARCH=arm \
 	    -DCORE_SYSTEM_NAME=rbpi \
+	    -DWITH_CPU=arm1176jzf-s \
         .
 	fi
 	if [ "$1" == "vero" ]; then
