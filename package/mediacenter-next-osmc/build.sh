@@ -289,7 +289,7 @@ then
 	export CXXFLAGS+=${COMPFLAGS} && \
 	export CPPFLAGS+=${COMPFLAGS} && \
 	export LDFLAGS="-L/opt/vc/lib" && \
-	cmake -DCMAKE_INSTALL_PREFIX=/usr/osmc \
+	cmake -DCMAKE_INSTALL_PREFIX=/usr \
             -DENABLE_X11=0 \
             -DENABLE_OPENGLES=ON \
             -DENABLE_OPENGL=OFF \
