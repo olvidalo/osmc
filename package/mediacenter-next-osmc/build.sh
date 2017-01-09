@@ -261,12 +261,12 @@ then
 	# Raspberry Pi Configuration
 	if [ "$1" == "rbp1" ]
 	then
-		PIDEV="raspberry-pi";
+		CPU="arm1176jzf-s";
 		COMPFLAGS="-O3 -fomit-frame-pointer "
 	fi
 	if [ "$1" == "rbp2" ]
 	then
-		PIDEV="raspberry-pi2"
+		CPU="cortex-a7"
 		COMPFLAGS="-mcpu=cortex-a7 -mtune=cortex-a7 -mfloat-abi=hard -O3 -mfpu=neon-vfpv4 -fomit-frame-pointer "
 	fi
 	if [ "$1" == "rbp1" ] || [ "$1" == "rbp2" ]; then
@@ -299,7 +299,7 @@ then
             -DDISABLE_OPTIMIZATIONS=1 \
             -DWITH_ARCH=arm \
 	    -DCORE_SYSTEM_NAME=rbpi \
-	    -DWITH_CPU=arm1176jzf-s \
+	    -DWITH_CPU=${CPU} \
         .
 	fi
 	if [ "$1" == "vero" ]; then
