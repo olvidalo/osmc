@@ -290,20 +290,20 @@ then
 	export CXXFLAGS+=${COMPFLAGS} && \
 	export CPPFLAGS+=${COMPFLAGS} && \
 	export LDFLAGS="-L/opt/vc/lib" && \
-	cmake -DCMAKE_INSTALL_PREFIX=/usr \
+          cmake -DCMAKE_INSTALL_PREFIX=/usr \
             -DCMAKE_INSTALL_LIBDIR=/usr/lib \
-	    -DCMAKE_INCLUDE_PATH=/usr/osmc/include \
-	    -DCMAKE_LIBRARY_PATH=/usr/osmc
-	    -DCMAKE_PREFIX_PATH=/opt/vc \
+            -DCMAKE_PREFIX_PATH=/opt/vc \
+            -DCMAKE_INCLUDE_PATH=/usr/osmc/include \
+            -DCMAKE_LIBRARY_PATH=/usr/osmc/lib \
             -DENABLE_X11=0 \
             -DENABLE_OPENGLES=ON \
             -DENABLE_OPENGL=OFF \
             -DENABLE_OPTICAL=1 \
             -DENABLE_DVDCSS=1 \
+            -DCORE_SYSTEM_NAME=rbpi \
             -DWITH_ARCH=arm \
-	    -DCORE_SYSTEM_NAME=rbpi \
-	    -DWITH_CPU=${CPU} \
-        .
+            -DWITH_CPU=${CPU} \
+	.
 	fi
 	if [ "$1" == "vero" ]; then
 	LIBRARY_PATH+="/opt/vero/lib" && \
