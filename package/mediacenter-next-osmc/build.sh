@@ -291,7 +291,9 @@ then
 	export CPPFLAGS+=${COMPFLAGS} && \
 	export LDFLAGS="-L/opt/vc/lib" && \
 	cmake -DCMAKE_INSTALL_PREFIX=/usr \
-            -DCMAKE_INSTALL_LIBDIR=/usr/lib \
+        -DCMAKE_INSTALL_LIBDIR=/usr/lib \
+	-DCMAKE_INCLUDE_PATH =/usr/osmc/include \
+	-DCMAKE_LIBRARY_PATH=/usr/osmc
 	    -DCMAKE_PREFIX_PATH=/opt/vc \
             -DENABLE_X11=0 \
             -DENABLE_OPENGLES=ON \
