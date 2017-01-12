@@ -25,8 +25,8 @@ index b9d702f..5f2680e 100644
    </requires>
  	<extension point="xbmc.addon.repository">
 -		<info>http://mirrors.kodi.tv/addons/leia/addons.xml.gz</info>
--		<checksum>http://mirrors.kodi.tv/leia/krypton/addons.xml.gz.md5</checksum>
--		<datadir>http://mirrors.kodi.tv/leia/krypton</datadir>
+-		<checksum>http://mirrors.kodi.tv/addons/addons.xml.gz.md5</checksum>
+-		<datadir>http://mirrors.kodi.tv/addons/leia</datadir>
 -		<hashes>true</hashes>
 +		<info>http://download.osmc.tv/kodi/addons/krypton/addons.xml.gz</info>
 +                <checksum>http://download.osmc.tv/kodi/addons/krypton/addons.xml.gz.md5</checksum>
