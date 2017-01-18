@@ -381,24 +381,24 @@ then
 	if [ "$1" == "rbp1" ] || [ "$1" == "rbp2" ]
 	then
 	   ADDONS_TO_BUILD="${ADDONS_ADSP} ${ADDONS_AUDIO_DECODERS} ${ADDONS_AUDIO_ENCODERS} ${ADDONS_INPUTSTREAM} ${ADDONS_PERIPHERAL} ${ADDONS_PVR} ${ADDONS_SCREENSAVERS} ${ADDONS_VISUALIZATIONS}"
-	   PLATFORM="-DCMAKE_INCLUDE_PATH=/opt/vc/include:/opt/vc/include/interface:/opt/vc/include/interface/vcos/pthreads:/opt/vc/include/interface/vmcs_host/linux -DCMAKE_LIBRARY_PATH=/opt/vc/lib -DADDONS_TO_BUILD=${ADDONS_TO_BUILD}"
+	   PLATFORM="-DCMAKE_INCLUDE_PATH=/opt/vc/include:/opt/vc/include/interface:/opt/vc/include/interface/vcos/pthreads:/opt/vc/include/interface/vmcs_host/linux -DCMAKE_LIBRARY_PATH=/opt/vc/lib"
   	fi
 	if [ "$1" == "vero" ]
 	then
            ADDONS_TO_BUILD="${ADDONS_ADSP} ${ADDONS_AUDIO_DECODERS} ${ADDONS_AUDIO_ENCODERS} ${ADDONS_INPUTSTREAM} ${ADDONS_PERIPHERAL} ${ADDONS_PVR} ${ADDONS_SCREENSAVERS} ${ADDONS_VISUALIZATIONS}"
-	   PLATFORM="-DCMAKE_INCLUDE_PATH=/opt/vero/lib -DCMAKE_LIBRARY_PATH=/opt/vero/include -DADDONS_TO_BUILD=${ADDONS_TO_BUILD}"
+	   PLATFORM="-DCMAKE_INCLUDE_PATH=/opt/vero/lib -DCMAKE_LIBRARY_PATH=/opt/vero/include"
 	fi
 	if [ "$1" == "vero2" ]
 	then
 	   ADDONS_TO_BUILD="${ADDONS_ADSP} ${ADDONS_AUDIO_DECODERS} ${ADDONS_AUDIO_ENCODERS} ${ADDONS_INPUTSTREAM} ${ADDONS_PERIPHERAL} ${ADDONS_PVR} ${ADDONS_SCREENSAVERS} ${ADDONS_VISUALIZATIONS}"
-  	   PLATFORM="-DCMAKE_INCLUDE_PATH=/opt/vero2/lib -DCMAKE_LIBRARY_PATH=/opt/vero2/include -DADDONS_TO_BUILD=${ADDONS_TO_BUILD}"
+  	   PLATFORM="-DCMAKE_INCLUDE_PATH=/opt/vero2/lib -DCMAKE_LIBRARY_PATH=/opt/vero2/include"
 	fi
 	if [ "$1" == "atv" ]
  	then
  	   ADDONS_TO_BUILD="${ADDONS_AUDIO_ENCODERS} ${ADDONS_INPUTSTREAM} ${ADDONS_PERIPHERAL} ${ADDONS_PVR} ${ADDONS_SCREENSAVERS}"
- 	   PLATFORM="-DADDONS_TO_BUILD=${ADDONS_TO_BUILD}"
+ 	   PLATFORM=""
          fi	
-	cmake -DOVERRIDE_PATHS=1 -DCMAKE_INSTALL_PREFIX=${out}/usr/ -DBUILD_DIR=$(pwd) ../ "$PLATFORM"
+	cmake -DOVERRIDE_PATHS=1 -DCMAKE_INSTALL_PREFIX=${out}/usr/ -DBUILD_DIR=$(pwd) -DADDONS_TO_BUILD="${ADDONS_TO_BUILD}" "$PLATFORM" ../
 	if [ $? != 0 ]; then echo "Configuring binary addons failed" && exit 1; fi
 	cd ../
 	$BUILD kodiplatform_DIR=$(pwd) CMAKE_PREFIX_PATH=/usr/osmc -C build/
