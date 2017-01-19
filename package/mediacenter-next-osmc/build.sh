@@ -6,7 +6,7 @@
 . ../common.sh
 if [ "$1" == "rbp1" ] || [ "$1" == "rbp2" ] || [ "$1" == "vero" ] || [ "$1" == "atv" ] || [ "$1" == "pc" ] || [ "$1" == "vero2" ]
 then
-pull_source "https://github.com/popcornmix/xbmc/archive/1e65ad0b39d9b40180c312a984caae1bdcb77016.tar.gz" "$(pwd)/src"
+pull_source "https://github.com/popcornmix/xbmc/archive/503f1e3b264cbceec279959082a0ec8c5e845c0c.tar.gz" "$(pwd)/src"
 API_VERSION="18"
 else
 pull_source "https://github.com/xbmc/xbmc/archive/master.tar.gz" "$(pwd)/kodi"
@@ -375,12 +375,13 @@ then
 	ADDONS_AUDIO_ENCODERS="audioencoder.flac audioencoder.lame audioencoder.vorbis audioencoder.wav"
 	ADDONS_INPUTSTREAM="inputstream.mpd inputstream.adaptive inputstream.rtmp"
 	ADDONS_PERIPHERAL="peripheral.joystick"
+	ADDONS_GAME="game.libretro.2048 game.libretro.4do game.libretro.beetle-bsnes game.libretro.beetle-gba game.libretro.beetle-lynx game.libretro.beetle-ngp game.libretro.beetle-pce-fast game.libretro.beetle-pcfx game.libretro.beetle-psx game.libretro.beetle-supergrafx game.libretro.beetle-vb game.libretro.beetle-wswan game.libretro.bluemsx game.libretro.bnes game.libretro.bsnes-mercury-accuracy game.libretro.bsnes-mercury-balanced game.libretro.bsnes-mercury-performance game.libretro.cap32 game.libretro.desmume game.libretro.dinothawr game.libretro.dosbox game.libretro.fbalpha2012 game.libretro.fceumm game.libretro.fmsx game.libretro.fuse game.libretro.gambatte game.libretro.genplus game.libretro.gw game.libretro.handy game.libretro.hatari game.libretro.lutro game.libretro.meteor game.libretro.mgba game.libretro.mupen64plus game.libretro.nestopia game.libretro.nx game.libretro.o2em game.libretro.pcem game.libretro.pcsx-rearmed game.libretro.picodrive game.libretro.pokemini game.libretro.prboom ga me.libretro.prosystem game.libretro.quicknes game.libretro.reicast game.libretro.scummvm game.libretro.snes9x game.libretro.snes9x2002 game.libretro.snes9x2010 game.libretro.stella game.libretro.tgbdual game.libretro.tyrquake game.libretro.vba-next game.libretro.vbam game.libretro.vecx game.libretro.virtualjaguar game.libretro.yabause game.libretro game.moonlight peripheral.xarcade"
 	ADDONS_PVR="pvr.argustv pvr.demo pvr.dvblink pvr.dvbviewer pvr.filmon pvr.hdhomerun pvr.hts pvr.iptvsimple pvr.mediaportal.tvserver pvr.mythtv pvr.nextpvr pvr.njoy pvr.pctv pvr.stalker pvr.vbox pvr.vdr.vnsi pvr.vuplus pvr.wmc"
 	ADDONS_SCREENSAVERS="screensaver.asteroids screensaver.biogenesis screensaver.greynetic screensaver.matrixtrails screensaver.pingpong screensaver.pyro screensavers.rsxs screensaver.stars"
 	ADDONS_VISUALIZATIONS="visualization.fishbmc visualization.goom visualization.projectm visualization.shadertoy visualization.spectrum visualization.vsxu visualization.waveform"
 	if [ "$1" == "rbp1" ] || [ "$1" == "rbp2" ]
 	then
-	   ADDONS_TO_BUILD="${ADDONS_ADSP} ${ADDONS_AUDIO_DECODERS} ${ADDONS_AUDIO_ENCODERS} ${ADDONS_INPUTSTREAM} ${ADDONS_PERIPHERAL} ${ADDONS_PVR} ${ADDONS_SCREENSAVERS} ${ADDONS_VISUALIZATIONS}"
+	   ADDONS_TO_BUILD="${ADDONS_GAME} ${ADDONS_ADSP} ${ADDONS_AUDIO_DECODERS} ${ADDONS_AUDIO_ENCODERS} ${ADDONS_INPUTSTREAM} ${ADDONS_PERIPHERAL} ${ADDONS_PVR} ${ADDONS_SCREENSAVERS} ${ADDONS_VISUALIZATIONS}"
 	   PLATFORM="-DCMAKE_INCLUDE_PATH=/opt/vc/include:/opt/vc/include/interface:/opt/vc/include/interface/vcos/pthreads:/opt/vc/include/interface/vmcs_host/linux -DCMAKE_LIBRARY_PATH=/opt/vc/lib"
   	fi
 	if [ "$1" == "vero" ]
