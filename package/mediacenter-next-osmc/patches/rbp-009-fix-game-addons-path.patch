@@ -1,20 +1,29 @@
-From 124e04938022a4ab44a7a46a622a550533a37b6c Mon Sep 17 00:00:00 2001
+From 0ef28bb6a6d85cb602760dd43f5120ebe603f049 Mon Sep 17 00:00:00 2001
 From: Greg McCarthy <greg@gjmccarthy.co.uk>
-Date: Mon, 23 Jan 2017 14:07:24 +0000
-Subject: [PATCH] Patch game addon path
+Date: Mon, 23 Jan 2017 15:42:22 +0000
+Subject: [PATCH] Fix missing enties in patch
 
 ---
- xbmc/addons/Addon.cpp | 11 +++++++++++
- 1 file changed, 11 insertions(+)
+ xbmc/addons/Addon.cpp | 15 ++++++++++++++-
+ 1 file changed, 14 insertions(+), 1 deletion(-)
 
 diff --git a/xbmc/addons/Addon.cpp b/xbmc/addons/Addon.cpp
-index 3b94e5a..5d0cab3 100644
+index 3b94e5a..0cd38dc 100644
 --- a/xbmc/addons/Addon.cpp
 +++ b/xbmc/addons/Addon.cpp
-@@ -332,6 +332,17 @@ std::string CAddon::LibPath() const
+@@ -30,6 +30,7 @@
+ #include "ContextMenuManager.h"
+ #include "filesystem/Directory.h"
+ #include "filesystem/File.h"
++#include "filesystem/SpecialProtocol.h"
+ #include "RepositoryUpdater.h"
+ #include "settings/Settings.h"
+ #include "ServiceBroker.h"
+@@ -332,7 +333,19 @@ std::string CAddon::LibPath() const
  {
    if (m_props.libname.empty())
      return "";
+-  return URIUtils::AddFileToFolder(m_props.path, m_props.libname);
 +
 +  std::string strLibPath = URIUtils::AddFileToFolder(m_props.path, m_props.libname);
 +
@@ -26,9 +35,11 @@ index 3b94e5a..5d0cab3 100644
 +    std::string strBinPath = CSpecialProtocol::TranslatePath("special://xbmcbin/");
 +    strLibPath.replace(0, strSharePath.length(), strBinPath);
 +  }
-   return URIUtils::AddFileToFolder(m_props.path, m_props.libname);
++
++  return strLibPath;
  }
  
+ AddonVersion CAddon::GetDependencyVersion(const std::string &dependencyID) const
 -- 
 2.1.4
 
