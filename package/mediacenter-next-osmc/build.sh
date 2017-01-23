@@ -425,7 +425,7 @@ game.libretro.vbam game.libretro.vecx game.libretro.virtualjaguar game.libretro.
         # Languages
         mkdir languages/
         pushd languages
-        if [ "$API_VERSION" = "18" ]; then api_name="krypton"; fi
+        if [ "$API_VERSION" = "18" ]; then api_name="leia"; fi
         if [ "$API_VERSION" = "19" ]; then api_name="tbc"; fi
         base_url="http://mirror.us.leaseweb.net/xbmc/addons/${api_name}"
 	handle_dep "wget" # We do not usually use wget in the build environment
