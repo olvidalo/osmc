@@ -1,0 +1,39 @@
+From 91d4ef556bc82fb2e6e5272206ce060797d8947c Mon Sep 17 00:00:00 2001
+From: Greg McCarthy <greg@gjmccarthy.co.uk>
+Date: Mon, 23 Jan 2017 12:14:18 +0000
+Subject: [PATCH] Fix game add-ons not loading
+
+---
+ xbmc/addons/Addon.cpp | 9 ++++++++-
+ 1 file changed, 8 insertions(+), 1 deletion(-)
+
+diff --git a/xbmc/addons/Addon.cpp b/xbmc/addons/Addon.cpp
+index 3b94e5a..777225d 100644
+--- a/xbmc/addons/Addon.cpp
++++ b/xbmc/addons/Addon.cpp
+@@ -30,6 +30,7 @@
+ #include "ContextMenuManager.h"
+ #include "filesystem/Directory.h"
+ #include "filesystem/File.h"
++#include "filesystem/SpecialProtocol.h"
+ #include "RepositoryUpdater.h"
+ #include "settings/Settings.h"
+ #include "ServiceBroker.h"
+@@ -332,7 +333,13 @@ std::string CAddon::LibPath() const
+ {
+   if (m_props.libname.empty())
+     return "";
+-  return URIUtils::AddFileToFolder(m_props.path, m_props.libname);
++
++   std::string strLibPath = URIUtils::AddFileToFolder(m_props.path, m_props.libname);
++ 
++   // Check if add-on library has been installed to the binaries path instead
++   std::string strSharePath = CSpecialProtocol::TranslatePath("special://xbmc/");
++   const bool bIsInSharePath = StringUtils::StartsWith(strLibPath, strSharePath);
++   if (bIsInSharePath && !CFile::Exists(strLibPath))
+ }
+ 
+ AddonVersion CAddon::GetDependencyVersion(const std::string &dependencyID) const
+-- 
+2.1.4
+
