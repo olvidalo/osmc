@@ -391,7 +391,8 @@ game.libretro.stella game.libretro.tgbdual game.libretro.tyrquake game.libretro.
 game.libretro.vbam game.libretro.vecx game.libretro.virtualjaguar game.libretro.yabause game.moonlight"
 	
 	#Broken game.libretro.reicast game.libretro.pcem game.libretro.pcsx-rearmed game.libretro.mupen64plus	
-	# game.libretro.desmume game.libretro.nx game.libretro.picodrive game.libretro.prboom dinotharw
+	# game.libretro.desmume game.libretro.nx game.libretro.picodrive game.libretro.prboom game.libretro.dinothawr 
+	# game.libretro.genplus
 
 	ADDONS_PVR="pvr.argustv pvr.demo pvr.dvblink pvr.dvbviewer pvr.filmon pvr.hdhomerun pvr.hts pvr.iptvsimple pvr.mediaportal.tvserver pvr.mythtv pvr.nextpvr pvr.njoy pvr.pctv pvr.stalker pvr.vbox pvr.vdr.vnsi pvr.vuplus pvr.wmc"
 	ADDONS_SCREENSAVERS="screensaver.asteroids screensaver.biogenesis screensaver.greynetic screensaver.matrixtrails screensaver.pingpong screensaver.pyro screensavers.rsxs screensaver.stars"
