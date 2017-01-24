@@ -375,7 +375,7 @@ then
 	ADDONS_AUDIO_ENCODERS="audioencoder.flac audioencoder.lame audioencoder.vorbis audioencoder.wav"
 	ADDONS_INPUTSTREAM="inputstream.mpd inputstream.adaptive inputstream.rtmp"
 	ADDONS_PERIPHERAL="peripheral.joystick peripheral.xarcade"
-	ADDONS_GAME="game.libretro.2048 game.libretro game.libretro.2048 game.libretro.4do game.libretro.beetle-bsnes \
+	ADDONS_GAME="game.libretro.2048 game.libretro game.libretro.4do game.libretro.beetle-bsnes \
 game.libretro.beetle-gba \
 game.libretro.beetle-lynx game.libretro.beetle-ngp game.libretro.beetle-pce-fast \
 game.libretro.beetle-pcfx game.libretro.beetle-psx game.libretro.beetle-supergrafx game.libretro.beetle-vb \
