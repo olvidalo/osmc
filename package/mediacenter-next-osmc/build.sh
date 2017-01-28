@@ -6,7 +6,7 @@
 . ../common.sh
 if [ "$1" == "rbp1" ] || [ "$1" == "rbp2" ] || [ "$1" == "vero" ] || [ "$1" == "atv" ] || [ "$1" == "pc" ] || [ "$1" == "vero2" ]
 then
-pull_source "https://github.com/popcornmix/xbmc/archive/0ceb6716bc0c06adaefa8afe70aada6a2be246ae.tar.gz" "$(pwd)/src"
+pull_source "https://github.com/popcornmix/xbmc/archive/bf7c1484d1c393d123fe9007705fa03f0d2517f2.tar.gz" "$(pwd)/src"
 API_VERSION="18"
 else
 pull_source "https://github.com/xbmc/xbmc/archive/master.tar.gz" "$(pwd)/kodi"
@@ -382,7 +382,7 @@ game.libretro.beetle-pcfx game.libretro.beetle-psx game.libretro.beetle-supergra
 game.libretro.beetle-wswan game.libretro.bluemsx game.libretro.bnes game.libretro.bsnes-mercury-accuracy \
 game.libretro.bsnes-mercury-balanced game.libretro.bsnes-mercury-performance game.libretro.cap32 \
 game.libretro.dosbox game.libretro.fbalpha2012 game.libretro.fceumm \
-game.libretro.fmsx game.libretro.fuse \
+game.libretro.fmsx game.libretro.fuse game.libretro.prboom \
 game.libretro.gambatte game.libretro.gw game.libretro.handy game.libretro.hatari \
 game.libretro.lutro game.libretro.meteor game.libretro.mgba game.libretro.nestopia game.libretro.nx \
 game.libretro.o2em game.libretro.picodrive game.libretro.pokemini game.libretro.prosystem game.libretro.quicknes \
