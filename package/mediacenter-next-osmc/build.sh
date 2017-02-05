@@ -4,7 +4,7 @@
 #!/bin/bash
 
 . ../common.sh
-if [ "$1" == "rbp1" ] || [ "$1" == "rbp2" ] || [ "$1" == "vero" ] || [ "$1" == "atv" ] || [ "$1" == "pc" ] || [ "$1" == "vero2" ]
+if [ "$1" == "rbp1" ] || [ "$1" == "rbp2" ] || [ "$1" == "vero" ] || [ "$1" == "atv" ] || [ "$1" == "pc" ] || [ "$1" == "vero2" ] || [ "$1" == "vero3" ]
 then
 pull_source "https://github.com/popcornmix/xbmc/archive/57a1bb9fb9371bd025ef527aace1c52192a12389.tar.gz" "$(pwd)/src"
 API_VERSION="18"
@@ -16,7 +16,7 @@ if [ $? != 0 ]; then echo -e "Error fetching Kodi source" && exit 1; fi
 # Build in native environment
 BUILD_OPTS=$BUILD_OPTION_DEFAULTS
 BUILD_OPTS=$(($BUILD_OPTS - $BUILD_OPTION_USE_CCACHE))
-if [ "$1" == "rbp1" ] || [ "$1" == "rbp2" ] || [ "$1" == "vero" ] || [ "$1" == "vero2" ]
+if [ "$1" == "rbp1" ] || [ "$1" == "rbp2" ] || [ "$1" == "vero" ] || [ "$1" == "vero2" ] || [ "$1" == "vero3" ]
 then
     BUILD_OPTS=$(($BUILD_OPTS + $BUILD_OPTION_NEEDS_SWAP))
 fi
@@ -36,7 +36,7 @@ then
 	handle_dep "curl"
 	handle_dep "cvs"
 	handle_dep "default-jre-headless"
-	handle_dep "fp-compiler"
+	if [ "$1" != "vero3" ]; then handle_dep "fp-compiler"; fi
 	handle_dep "gawk"
 	handle_dep "gdc"
 	handle_dep "gettext"
@@ -161,6 +161,21 @@ then
 		handle_dep "armv7-libcrossguid-dev-osmc"
 		handle_dep "armv7-cmake-osmc"
         fi
+	if [ "$1" == "vero3" ]
+ 	then
+ 		handle_dep "vero3-libcec-dev-osmc"
+ 		handle_dep "vero3-userland-dev-osmc"
+ 		handle_dep "vero3-libamcodec-dev-osmc"
+ 		handle_dep "aarch64-libshairplay-dev-osmc"
+                handle_dep "aarch64-librtmp-dev-osmc"
+                handle_dep "aarch64-libnfs-dev-osmc"
+                handle_dep "aarch64-libplatform-dev-osmc"
+                handle_dep "aarch64-libbluray-dev-osmc"
+                handle_dep "aarch64-libsqlite-dev-osmc"
+                handle_dep "aarch64-libcrossguid-dev-osmc"
+                handle_dep "aarch64-cmake-osmc"
+                 handle_dep "aarch64-libass-dev-osmc"
+ 	fi
 	if [ "$1" == "atv" ] # later we change this to if_x11..
 	then
 		handle_dep "i386-libcec-dev-osmc"
@@ -212,7 +227,7 @@ then
 	then
 		install_patch "../../patches" "rbp"
 	fi
-	if [ "$1" == "rbp1" ] || [ "$1" == "rbp2" ] || [ "$1" == "vero" ] || [ "$1" == "vero2" ]; then install_patch "../../patches" "arm"; fi
+	if [ "$1" == "rbp1" ] || [ "$1" == "rbp2" ] || [ "$1" == "vero" ] || [ "$1" == "vero2" ] || [ "$1" == "vero3" ]; then install_patch "../../patches" "arm"; fi
 
 	test "$1" == vero && install_patch "../../patches" "vero"
 	test "$1" == vero2 && install_patch "../../patches" "vero2"
@@ -360,7 +375,35 @@ then
                 --disable-optimizations \
                 --with-platform=vero2 \
                 --build=arm-linux
-	    fi
+	 fi
+         if [ "$1" == "vero3" ]; then
+         LIBRARY_PATH+="/opt/vero3/lib" && \
+         COMPFLAGS="-I/opt/vero3/include -Wl,-rpath=/usr/osmc/lib -L/usr/osmc/lib " && \
+         export CFLAGS+=${COMPFLAGS} && \
+         export CXXFLAGS+=${COMPFLAGS} && \
+         export CPPFLAGS+=${COMPFLAGS} && \
+         export LDFLAGS="-L/opt/vero3/lib" && \
+         ./configure \
+                 --prefix=/usr \
+                 --disable-x11 \
+                 --disable-openmax \
+                 --disable-vdpau \
+                 --disable-vaapi \
+                 --enable-gles \
+                 --enable-codec=amcodec \
+                 --enable-player=amplayer \
+                 --enable-alsa \
+                 --enable-libcec \
+                 --disable-debug \
+                 --disable-texturepacker \
+                 --enable-optical-drive \
+                 --enable-libbluray \
+                 --disable-pulse \
+                 --disable-optimizations \
+                 --with-platform=vero3 \
+    		 --disable-avahi \
+                 --build=aarch64-linux
+        fi
 	if [ $? != 0 ]; then echo -e "Configure failed!" && umount /proc/ > /dev/null 2>&1 && exit 1; fi
 	umount /proc/ > /dev/null 2>&1
 	$BUILD
@@ -411,6 +454,11 @@ game.libretro.vbam game.libretro.vecx game.libretro.virtualjaguar game.libretro.
 	   ADDONS_TO_BUILD="${ADDONS_ADSP} ${ADDONS_AUDIO_DECODERS} ${ADDONS_AUDIO_ENCODERS} ${ADDONS_INPUTSTREAM} ${ADDONS_PERIPHERAL} ${ADDONS_PVR} ${ADDONS_SCREENSAVERS} ${ADDONS_VISUALIZATIONS}"
   	   PLATFORM="-DCMAKE_INCLUDE_PATH=/opt/vero2/lib -DCMAKE_LIBRARY_PATH=/opt/vero2/include"
 	fi
+	if [ "$1" == "vero3" ]
+ 	then
+ 	   ADDONS_TO_BUILD="${ADDONS_PVR}"
+ 	   PLATFORM="-DCMAKE_INCLUDE_PATH=/opt/vero3/include -DCMAKE_LIBRARY_PATH=/opt/vero3/lib"
+ 	fi
 	if [ "$1" == "atv" ]
  	then
  	   ADDONS_TO_BUILD="${ADDONS_AUDIO_ENCODERS} ${ADDONS_INPUTSTREAM} ${ADDONS_PERIPHERAL} ${ADDONS_PVR} ${ADDONS_SCREENSAVERS}"
@@ -455,6 +503,7 @@ game.libretro.vbam game.libretro.vecx game.libretro.virtualjaguar game.libretro.
 	test "$1" == rbp2 && echo "Depends: ${COMMON_DEPENDS}, rbp2-libcec-osmc (>=3.1.0-2), armv7-libnfs-osmc, armv7-librtmp-osmc, armv7-libshairplay-osmc, armv7-libbluray-osmc, armv7-libsqlite-osmc, rbp-userland-osmc, armv7-splash-osmc, armv7-libcrossguid-osmc" >> files/DEBIAN/control
 	test "$1" == vero && echo "Depends: ${COMMON_DEPENDS}, vero-libcec-osmc, armv7-libnfs-osmc, armv7-librtmp-osmc, armv7-libshairplay-osmc, armv7-libbluray-osmc, armv7-libsqlite-osmc, vero-userland-osmc, armv7-splash-osmc, armv7-libcrossguid-osmc" >> files/DEBIAN/control
 	test "$1" == vero2 && echo "Depends: ${COMMON_DEPENDS}, vero2-libcec-osmc, armv7-libnfs-osmc, armv7-librtmp-osmc, armv7-libshairplay-osmc, armv7-libbluray-osmc, armv7-libsqlite-osmc, vero2-userland-osmc, armv7-splash-osmc, armv7-libcrossguid-osmc, vero2-libamcodec-osmc" >> files/DEBIAN/control
+	test "$1" == vero3 && echo "Depends: ${COMMON_DEPENDS}, vero3-libcec-osmc, aarch64-libnfs-osmc, aarch64-librtmp-osmc, aarch64-libshairplay-osmc, aarch64-libbluray-osmc, aarch64-libsqlite-osmc, vero3-userland-osmc, aarch64-splash-osmc, aarch64-libcrossguid-osmc, vero3-libamcodec-osmc, aarch64-libass-osmc" >> files/DEBIAN/control
 	cp patches/${1}-watchdog ${out}/usr/bin/mediacenter
 	cp patches/${1}-advancedsettings.xml ${out}/usr/share/kodi/system/advancedsettings.xml
 	chmod +x ${out}/usr/bin/mediacenter
