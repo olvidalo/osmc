@@ -19,10 +19,18 @@ syspaths="/sys/class/video/axis
 /sys/class/video/screen_mode
 /sys/class/video/disable_video
 /sys/class/tsync/pts_pcrscr
+/sys/class/tsync/enable
 /sys/class/audiodsp/digital_raw
 /sys/class/ppmgr/ppmgr_3d_mode
 /sys/class/display/mode
 /sys/class/audiodsp/digital_codec
+/sys/module/amlvideodri/parameters/freerun_mode
+/sys/module/amvideo/parameters/omx_pts
+/sys/class/vfm/map
+/dev/video10
+/sys/class/video/blackout_policy
+/sys/module/di/parameters/bypass_all
+/sys/class/video/freerun_mode
 /sys/module/amlvideodri/parameters/freerun_mode"
 
 for syspath in $syspaths; do
@@ -84,12 +92,9 @@ case $? in
 esac
 
 while true; do
-	umount /sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq >/dev/null 2>&1
-	mount --bind /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq /sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq
 
 	if [ -f /tmp/guisettings.restore ]; then mv /tmp/guisettings.restore /home/osmc/.kodi/userdata/guisettings.xml; fi
-	if [ -f /home/osmc/.kodi.bin ]; then KODI=/home/osmc/.kodi.bin; else KODI=/usr/lib/kodi/kodi.bin; fi
-
+	KODI=/usr/lib/kodi/kodi.bin
 	setcap 'cap_net_bind_service=+ep' $KODI
 	echo 0 > /sys/class/vtconsole/vtcon1/bind
 	starttime=$(date +%s)
