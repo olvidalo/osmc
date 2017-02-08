@@ -430,7 +430,8 @@ game.libretro.lutro game.libretro.meteor game.libretro.mgba game.libretro.nestop
 game.libretro.o2em game.libretro.picodrive game.libretro.pokemini game.libretro.prosystem game.libretro.quicknes \
 game.libretro.scummvm game.libretro.snes9x game.libretro.snes9x2002 game.libretro.snes9x2010 \
 game.libretro.stella game.libretro.tgbdual game.libretro.tyrquake game.libretro.vba-next \
-game.libretro.vbam game.libretro.vecx game.libretro.virtualjaguar game.libretro.yabause game.moonlight"
+game.libretro.vbam game.libretro.vecx game.libretro.virtualjaguar game.libretro.yabause"
+	# game.moonlight"
 	
 	#Broken game.libretro.reicast game.libretro.pcem game.libretro.pcsx-rearmed game.libretro.mupen64plus	
 	# game.libretro.desmume game.libretro.nx game.libretro.picodrive game.libretro.prboom game.libretro.dinothawr 
