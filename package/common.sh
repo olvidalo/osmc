@@ -24,6 +24,7 @@ function fix_arch_ctl()
 	test $(arch)x == i686x && echo "Architecture: i386" >> $1
 	test $(arch)x == armv7lx && echo "Architecture: armhf" >> $1
 	test $(arch)x == x86_64x && echo "Architecture: amd64" >> $1
+	test $(arch)x == aarch64x && echo "Architecture: arm64" >> $1
 	sed '$!N; /^\(.*\)\n\1$/!P; D' -i $1
 }
 
@@ -112,33 +113,34 @@ function build_in_env()
 	    return 99
 	fi
 	# Set swap outside of chroot() if needed
- 	if ((($BUILD_OPTS & $BUILD_OPTION_NEEDS_SWAP) == $BUILD_OPTION_NEEDS_SWAP))
-         then
-             if [ ! -f /opt/osmc-tc/swap ]
-             then
-                 dd if=/dev/zero of=/opt/osmc-tc/swap bs=1M count=384
-                 mkswap /opt/osmc-tc/swap
-                 chmod 0600 /opt/osmc-tc/swap
-             fi
-             if ! grep -q /opt/osmc-tc/swap /proc/swaps
-             then
-                 swapon /opt/osmc-tc/swap
-             fi
-         else
-             # This build doesn't want it, but we might still be swapping
-             if grep -q /opt/osmc-tc/swap /proc/swaps
-             then
-                 swapoff /opt/osmc-tc/swap
-             fi
-         fi
+	if ((($BUILD_OPTS & $BUILD_OPTION_NEEDS_SWAP) == $BUILD_OPTION_NEEDS_SWAP))
+        then
+            if [ ! -f /opt/osmc-tc/swap ]
+            then
+                dd if=/dev/zero of=/opt/osmc-tc/swap bs=1M count=384
+                mkswap /opt/osmc-tc/swap
+                chmod 0600 /opt/osmc-tc/swap
+            fi
+            if ! grep -q /opt/osmc-tc/swap /proc/swaps
+            then
+                swapon /opt/osmc-tc/swap
+            fi
+        else
+            # This build doesn't want it, but we might still be swapping
+            if grep -q /opt/osmc-tc/swap /proc/swaps
+            then
+                swapoff /opt/osmc-tc/swap
+            fi
+        fi
 	umount /proc >/dev/null 2>&1
 	update_sources
 	DEP=${1}
 	test $DEP == rbp2 && DEP="armv7"
-	test $DEP == imx6 && DEP="armv7"
 	test $DEP == vero && DEP="armv7"
 	test $DEP == vero1 && DEP="armv7"
 	test $DEP == vero2 && DEP="armv7"
+	test $DEP == vero3 && DEP="armv7"
+	test $DEP == vero364 && DEP="aarch64"
 	test $DEP == rbp1 && DEP="armv6l"
 	test $DEP == atv && DEP="i386"
 	test $DEP == pc && DEP="amd64"
@@ -188,12 +190,16 @@ function handle_dep()
 		else
 			echo -e "Found in APT and will install"
 			# armv7 conflicts -- not caused by lib or headers, but rather, /etc/kernel-img.conf etc
-			if [ "$1" == "vero-userland-dev-osmc" ]; then remove_conflicting "rbp-userland-dev-osmc" && remove_conflicting "rbp-userland-osmc" && remove_conflicting "vero2-userland-dev-osmc" && remove_conflicting "vero2-userland-osmc" && remove_conflicting "vero2-libcec-dev-osmc" && remove_conflicting "vero2-libcec-osmc" ; fi
-			if [ "$1" == "vero2-userland-dev-osmc" ]; then remove_conflicting "rbp-userland-dev-osmc" && remove_conflicting "rbp-userland-osmc" && remove_conflicting "vero-userland-dev-osmc" && remove_conflicting "vero-userland-osmc"; fi # We don't need to worry about CEC
-			if [ "$1" == "rbp-userland-dev-osmc" ]; then remove_conflicting "vero-userland-dev-osmc" && remove_conflicting "vero-userland-osmc" && remove_conflicting "vero2-userland-dev-osmc" && remove_conflicting "vero2-userland-osmc"; fi
-			if [ "$1" == "vero-libcec-dev-osmc" ]; then remove_conflicting "rbp2-libcec-dev-osmc" && remove_conflicting "rbp2-libcec-osmc" && remove_conflicting "vero2-libcec-dev-osmc" && remove_conflicting "vero2-libcec-osmc"; fi
-			if [ "$1" == "vero2-libcec-dev-osmc" ]; then remove_conflicting "rbp2-libcec-dev-osmc" && remove_conflicting "rbp2-libcec-osmc" && remove_conflicting "vero-libcec-dev-osmc" && remove_conflicting "vero-libcec-osmc"; fi
-			if [ "$1" == "rbp2-libcec-dev-osmc" ]; then remove_conflicting "vero-libcec-dev-osmc" && remove_conflicting "vero-libcec-osmc" && remove_conflicting "vero2-libcec-dev-osmc" && remove_conflicting "vero2-libcec-osmc"; fi
+			if [ "$1" == "vero-userland-dev-osmc" ]; then remove_conflicting "rbp-userland-dev-osmc" && remove_conflicting "rbp-userland-osmc" && remove_conflicting "vero2-userland-dev-osmc" && remove_conflicting "vero2-userland-osmc" && remove_conflicting "vero2-libcec-dev-osmc" && remove_conflicting "vero2-libcec-osmc" && remove_conflicting "vero3-userland-dev-osmc" && remove_conflicting "vero3-userland-osmc" ; fi
+			if [ "$1" == "vero2-userland-dev-osmc" ]; then remove_conflicting "rbp-userland-dev-osmc" && remove_conflicting "rbp-userland-osmc" && remove_conflicting "vero-userland-dev-osmc" && remove_conflicting "vero-userland-osmc" && remove_conflicting "vero3-userland-dev-osmc" && remove_conflicting "vero3-userland-osmc"; fi # We don't need to worry about CEC
+			if [ "$1" == "rbp-userland-dev-osmc" ]; then remove_conflicting "vero-userland-dev-osmc" && remove_conflicting "vero-userland-osmc" && remove_conflicting "vero2-userland-dev-osmc" && remove_conflicting "vero2-userland-osmc" && remove_conflicting "vero3-userland-dev-osmc" && remove_conflicting "vero3-userland-osmc"; fi
+			if [ "$1" == "vero3-userland-dev-osmc" ]; then remove_conflicting "vero-userland-dev-osmc" && remove_conflicting "vero-userland-osmc" && remove_conflicting "vero2-userland-dev-osmc" && remove_conflicting "vero2-userland-osmc" && remove_conflicting "rbp-userland-dev-osmc" && remove_conflicting "rbp-userland-osmc" ; fi
+			if [ "$1" == "vero-libcec-dev-osmc" ]; then remove_conflicting "rbp2-libcec-dev-osmc" && remove_conflicting "rbp2-libcec-osmc" && remove_conflicting "vero2-libcec-dev-osmc" && remove_conflicting "vero2-libcec-osmc" && remove_conflicting "vero3-libcec-dev-osmc" && remove_conflicting "vero3-libcec-osmc"; fi
+			if [ "$1" == "vero2-libcec-dev-osmc" ]; then remove_conflicting "rbp2-libcec-dev-osmc" && remove_conflicting "rbp2-libcec-osmc" && remove_conflicting "vero-libcec-dev-osmc" && remove_conflicting "vero-libcec-osmc" && remove_conflicting "vero3-libcec-dev-osmc" && remove_conflicting "vero3-libcec-osmc"; fi
+			if [ "$1" == "rbp2-libcec-dev-osmc" ]; then remove_conflicting "vero-libcec-dev-osmc" && remove_conflicting "vero-libcec-osmc" && remove_conflicting "vero2-libcec-dev-osmc" && remove_conflicting "vero2-libcec-osmc" && remove_conflicting "vero3-libcec-dev-osmc" && remove_conflicting "vero3-libcec-osmc"; fi
+			if [ "$1" == "vero3-libcec-dev-osmc" ]; then remove_conflicting "vero-libcec-dev-osmc" && remove_conflicting "vero-libcec-osmc" && remove_conflicting "vero2-libcec-dev-osmc" && remove_conflicting "vero2-libcec-osmc" && remove_conflicting "rbp2-libcec-dev-osmc" && remove_conflicting "rbp2-libcec-osmc"; fi
+			if [ "$1" == "vero3-libamcodec-dev-osmc" ]; then remove_conflicting "vero2-libamcodec-dev-osmc" && remove_conflicting "vero2-libamcodec-osmc"; fi
+			if [ "$1" == "vero2-libamcodec-dev-osmc" ]; then remove_conflicting "vero3-libamcodev-dev-osmc" && remove_conflicting "vero3-libamcodec-osmc"; fi
 			if [ "$use_faster_apt" -eq 1 ]
 			then
 				install_package "${1}" "1"
