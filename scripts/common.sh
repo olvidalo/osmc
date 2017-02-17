@@ -121,12 +121,6 @@ function cleanup_filesystem()
 	rm -f ${1}/var/cache/apt/pkgcache.bin
 }
 
-function enable_mirrordirector()
-{
-	echo -e "Enabling mirror direction"
-	sed -e s/staging.//g -i ${1}/etc/apt/sources.list
-}
-
 function remove_existing_filesystem()
 {
 	if [ -d "$1" ]; then echo -e "Removing old filesystem" && rm -rf "$1"; fi
@@ -161,11 +155,13 @@ function pull_source()
 	chrootval=$?
 	if [ $chrootval == 2 ] || [ $chrootval == 0 ]; then return; fi # Prevent recursive loop
 	if ! command -v unzip >/dev/null 2>&1; then update_sources && verify_action && install_package "unzip" && verify_action; fi
+	if ! command -v bunzip2 >/dev/null 2>&1; then update_sources && verify_action && install_package "bzip2" && verify_action; fi
 	if ! command -v git >/dev/null 2>&1; then update_sources && verify_action && install_package "git" && verify_action; fi
 	if ! command -v svn >/dev/null 2>&1; then update_sources && verify_action && install_package "subversion" && verify_action; fi
 	if ! command -v wget >/dev/null 2>&1; then update_sources && verify_action && install_package "wget" && verify_action; fi
+	if ! command -v xz >/dev/null 2>&1; then update_sources && verify_action && install_package "xz-utils" && verify_action; fi
 	if [ -d ${2} ]
-	then 
+	then
 		if [ "$2" != "." ]
 		then
 			echo "Cleaning old source" && rm -rf ${2}; fi
@@ -185,7 +181,7 @@ function pull_source()
 	then
 	echo -e "Detected tarball source"
 	if [ "$2" != "." ]; then mkdir -p ${2}; fi
-	wget ${1} --no-passive-ftp -O source.tar
+	wget ${1} -O source.tar
 	if [ $? != 0 ]; then echo "Downloading tarball failed" && exit 1; fi
 	tar -xvf source.tar -C ${2}
 	rm source.tar
@@ -205,6 +201,12 @@ function pull_source()
 	echo -e "Detected Git source"
 	git clone ${1} ${2}
 	if [ $? != 0 ]; then echo "Source checkout failed" && exit 1; fi
+	if [ ! -z $3 ]
+	then
+	    pushd ${2}
+	    git reset --hard ${3}
+	    popd
+	fi
 	return
 	fi
 
@@ -243,7 +245,6 @@ export -f update_sources
 export -f install_package
 export -f fetch_filesystem
 export -f cleanup_filesystem
-export -f enable_mirrordirector
 export -f remove_existing_filesystem
 export -f install_patch
 export -f pull_source
