@@ -230,6 +230,7 @@ then
 
 	test "$1" == vero && install_patch "../../patches" "vero"
 	test "$1" == vero2 && install_patch "../../patches" "vero2"
+	test "$1" == vero3 && install_patch "../../patches" "vero3"
 	# Apple TV configuration
 	test "$1" == atv && \
 	COMPFLAGS="-O3 -fomit-frame-pointer -I/usr/include/libcrystalhd  -Wl,-rpath=/usr/osmc/lib -L/usr/osmc/lib " && \
