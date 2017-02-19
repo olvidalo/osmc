@@ -286,16 +286,16 @@ then
 	if [ "$1" == "rbp1" ] || [ "$1" == "rbp2" ]; then
 
 	cd tools/depends/target/ffmpeg
-	cat pfcd_hevc_optimisations.patch 73fde6f9f3d01f7fc0f3ae4b66f6c725f9fb1105.patch > cmake_patches.patch
-        #cat 0001-mpeg4video-Signal-unsupported-GMC-with-more-than-one.patch \
-        #        hevcdsp_ARM_NEON_optimized_epel_functions.patch \
-        #        added_ARM_NEON_optimized_SAO_patches.patch \
-        #        pfcd_hevc_optimisations.patch \
-        #        0001-Squashed-commit-of-the-following.patch \
-        #        0001-avcodec-add-h264_mvc-codec-id-and-profiles.patch \
-        #        0001-h264_parser-add-support-for-parsing-h264-mvc-NALUs.patch \
-        #        h264_parser_fix_parsing_of_mvc_slices_in_some_corner_cases.patch \
-        #        > cmake_patches.patch
+	#cat pfcd_hevc_optimisations.patch 73fde6f9f3d01f7fc0f3ae4b66f6c725f9fb1105.patch > cmake_patches.patch
+        cat 0001-mpeg4video-Signal-unsupported-GMC-with-more-than-one.patch \
+                hevcdsp_ARM_NEON_optimized_epel_functions.patch \
+                added_ARM_NEON_optimized_SAO_patches.patch \
+                pfcd_hevc_optimisations.patch \
+                0001-Squashed-commit-of-the-following.patch \
+                0001-avcodec-add-h264_mvc-codec-id-and-profiles.patch \
+                0001-h264_parser-add-support-for-parsing-h264-mvc-NALUs.patch \
+                h264_parser_fix_parsing_of_mvc_slices_in_some_corner_cases.patch \
+                > cmake_patches.patch
         cd ../../../../
 
 	LIBRARY_PATH+=/opt/vc/lib && \
