@@ -384,27 +384,24 @@ then
          export CXXFLAGS+=${COMPFLAGS} && \
          export CPPFLAGS+=${COMPFLAGS} && \
          export LDFLAGS="-L/opt/vero3/lib" && \
-         ./configure \
-                 --prefix=/usr \
-                 --disable-x11 \
-                 --disable-openmax \
-                 --disable-vdpau \
-                 --disable-vaapi \
-                 --enable-gles \
-                 --enable-codec=amcodec \
-                 --enable-player=amplayer \
-                 --enable-alsa \
-                 --enable-libcec \
-                 --disable-debug \
-                 --disable-texturepacker \
-                 --enable-optical-drive \
-                 --enable-libbluray \
-                 --disable-pulse \
-                 --disable-optimizations \
-                 --with-platform=vero3 \
-    		 --disable-avahi \
-                 --build=arm-linux
-        fi
+           cmake -DCMAKE_INSTALL_PREFIX=/usr \
+            -DCMAKE_INSTALL_LIBDIR=/usr/lib \
+            -DCMAKE_PREFIX_PATH=/opt/vero3 \
+            -DCMAKE_INCLUDE_PATH=/opt/vero3/include \
+            -DCMAKE_LIBRARY_PATH=/opt/vero3/lib \
+            -DOPENGLES_gl_LIBRARY=/opt/vero3/lib \
+            -DOPENGLES_egl_LIBRARY=/opt/vero3/lib \
+            -DENABLE_X11=0 \
+            -DENABLE_AML=ON \
+            -DAML_INCLUDE_DIR=/opt/vero3/include \
+            -DENABLE_OPENGLES=ON \
+            -DENABLE_OPENGL=OFF \
+            -DENABLE_OPTICAL=1 \
+            -DENABLE_DVDCSS=1 \
+            -DWITH_ARCH=arm \
+            -DWITH_CPU=${CPU} \
+        .
+	fi
 	if [ $? != 0 ]; then echo -e "Configure failed!" && umount /proc/ > /dev/null 2>&1 && exit 1; fi
 	umount /proc/ > /dev/null 2>&1
 	$BUILD
