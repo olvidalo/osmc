@@ -7,7 +7,7 @@
 
 if [ "$1" == "vero2" ] || [ "$1" == "vero3" ] 
 then
-pull_source "https://github.com/xbmc/xbmc/archive/f1ce03905c3798c237731c6e17e07f71fb80aae7.tar.gz" "$(pwd)/kodi"
+pull_source "https://github.com/xbmc/xbmc/archive/f1ce03905c3798c237731c6e17e07f71fb80aae7.tar.gz" "$(pwd)/src"
 API_VERSION="18"
 
 else
