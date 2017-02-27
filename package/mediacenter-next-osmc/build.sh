@@ -4,13 +4,17 @@
 #!/bin/bash
 
 . ../common.sh
-if [ "$1" == "rbp1" ] || [ "$1" == "rbp2" ] || [ "$1" == "vero" ] || [ "$1" == "atv" ] || [ "$1" == "pc" ] || [ "$1" == "vero2" ] || [ "$1" == "vero3" ]
+
+#Use newclock5 for rbp1/2 builds
+if [ "$1" == "rbp1" ] || [ "$1" == "rbp2" ] || [ "$1" == "vero" ] || [ "$1" == "atv" ] || [ "$1" == "pc" ] || [ "$1" == "vero2" ] 
 then
 pull_source "https://github.com/popcornmix/xbmc/archive/ff2ca3d7252508b8232ef5692a13dfb1c626e25c.tar.gz" "$(pwd)/src"
 API_VERSION="18"
+
+#use xbmc top of tree for 4k builds
 else
-pull_source "https://github.com/xbmc/xbmc/archive/master.tar.gz" "$(pwd)/kodi"
-API_VERSION="19"
+pull_source "https://github.com/xbmc/xbmc/archive/f1ce03905c3798c237731c6e17e07f71fb80aae7.tar.gz" "$(pwd)/kodi"
+API_VERSION="18"
 fi
 if [ $? != 0 ]; then echo -e "Error fetching Kodi source" && exit 1; fi
 # Build in native environment
