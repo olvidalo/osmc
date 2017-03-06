@@ -6,12 +6,12 @@
 . ../common.sh
 
 #Use newclock5 for rbp1/2 builds
-if [ "$1" == "rbp1" ] || [ "$1" == "rbp2" ] || [ "$1" == "vero" ] || [ "$1" == "atv" ] || [ "$1" == "pc" ] || [ "$1" == "vero2" ] 
+if [ "$1" == "rbp1" ] || [ "$1" == "rbp2" ] || || [ "$1" == "atv" ] || [ "$1" == "pc" ]   
 then
 pull_source "https://github.com/popcornmix/xbmc/archive/2625a0ad7515d782d9c7a3fa14283a85a56bc989.tar.gz" "$(pwd)/src"
 API_VERSION="18"
 
-#use xbmc top of tree for 4k builds
+#use xbmc top of tree for vero builds
 else
 pull_source "https://github.com/xbmc/xbmc/archive/f1ce03905c3798c237731c6e17e07f71fb80aae7.tar.gz" "$(pwd)/kodi"
 API_VERSION="18"
