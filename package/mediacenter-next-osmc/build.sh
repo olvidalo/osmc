@@ -413,7 +413,7 @@ game.libretro.beetle-pcfx game.libretro.beetle-psx game.libretro.beetle-supergra
 game.libretro.beetle-wswan game.libretro.bluemsx game.libretro.bnes \
 game.libretro.bsnes-mercury-balanced game.libretro.bsnes-mercury-performance game.libretro.cap32 \
 game.libretro.dosbox game.libretro.fbalpha2012 game.libretro.fceumm \
-game.libretro.fmsx game.libretro.fuse game.libretro.prboom \
+game.libretro.fmsx game.libretro.fuse \
 game.libretro.gambatte game.libretro.gw \
 game.libretro.lutro game.libretro.meteor game.libretro.mgba game.libretro.nestopia game.libretro.nx \
 game.libretro.o2em game.libretro.pokemini game.libretro.prosystem game.libretro.quicknes \
@@ -424,7 +424,7 @@ game.libretro.vbam game.libretro.vecx game.libretro.virtualjaguar game.libretro.
  	# game.libretro.bsnes-mercury-accuracy game.libretro.handy game.libretro.hatari	
 	#Broken game.libretro.reicast game.libretro.pcem 	
 	# game.libretro.genplus game.libretro.mupen64plus 
-	#game.libretro.scummvm
+	#game.libretro.scummvm game.libretro.prboom
 
 	ADDONS_PVR="pvr.argustv pvr.demo pvr.dvblink pvr.dvbviewer pvr.filmon pvr.hdhomerun pvr.hts pvr.iptvsimple pvr.mediaportal.tvserver pvr.mythtv pvr.nextpvr pvr.njoy pvr.pctv pvr.stalker pvr.vbox pvr.vdr.vnsi pvr.vuplus pvr.wmc"
 	ADDONS_SCREENSAVERS="screensaver.asteroids screensaver.biogenesis screensaver.greynetic screensaver.matrixtrails screensaver.pingpong screensaver.pyro screensavers.rsxs screensaver.stars"
