@@ -413,14 +413,14 @@ game.libretro.beetle-pcfx game.libretro.beetle-psx game.libretro.beetle-supergra
 game.libretro.beetle-wswan game.libretro.bluemsx game.libretro.bnes \
 game.libretro.bsnes-mercury-balanced game.libretro.bsnes-mercury-performance game.libretro.cap32 \
 game.libretro.dosbox game.libretro.fbalpha2012 game.libretro.fceumm \
-game.libretro.fmsx game.libretro.fuse \
-game.libretro.gambatte game.libretro.gw \
+game.libretro.fmsx game.libretro.fuse game.libretro.picodrive \
+game.libretro.gambatte game.libretro.gw game.libretro.scummvm game.libretro.prboom \
 game.libretro.lutro game.libretro.meteor game.libretro.mgba game.libretro.nestopia game.libretro.nx \
 game.libretro.o2em game.libretro.pokemini game.libretro.prosystem game.libretro.quicknes \
 game.libretro.snes9x game.libretro.snes9x2002 game.libretro.snes9x2010 \
 game.libretro.stella game.libretro.tgbdual game.libretro.tyrquake game.libretro.vba-next \
 game.libretro.vbam game.libretro.vecx game.libretro.virtualjaguar game.libretro.yabause game.libretro.dinothaw"
-	# game.moonlight game.libretro.picodrive"
+	# game.moonlight "
  	# game.libretro.bsnes-mercury-accuracy game.libretro.handy game.libretro.hatari	
 	#Broken game.libretro.reicast game.libretro.pcem 	
 	# game.libretro.genplus game.libretro.mupen64plus 
