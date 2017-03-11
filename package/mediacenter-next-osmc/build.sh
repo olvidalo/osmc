@@ -13,7 +13,7 @@ API_VERSION="18"
 
 #use xbmc top of tree for vero builds
 else
-pull_source "https://github.com/xbmc/xbmc/archive/bb465356d52d817d8ac89d9d9a329b8f047bf4ed.tar.gz" "$(pwd)/src"
+pull_source "https://github.com/xbmc/xbmc/archive/d82b32509d89f5cd5e8b2997a7f02eec7b1fd75b.tar.gz" "$(pwd)/src"
 API_VERSION="18"
 fi
 if [ $? != 0 ]; then echo -e "Error fetching Kodi source" && exit 1; fi
@@ -424,7 +424,7 @@ game.libretro.vbam game.libretro.vecx game.libretro.virtualjaguar game.libretro.
  	# game.libretro.bsnes-mercury-accuracy game.libretro.handy game.libretro.hatari	
 	#Broken game.libretro.reicast game.libretro.pcem 	
 	# game.libretro.genplus game.libretro.mupen64plus 
-	#game.libretro.scummvm game.libretro.prboom
+	#game.libretro.scummvm 
 
 	ADDONS_PVR="pvr.argustv pvr.demo pvr.dvblink pvr.dvbviewer pvr.filmon pvr.hdhomerun pvr.hts pvr.iptvsimple pvr.mediaportal.tvserver pvr.mythtv pvr.nextpvr pvr.njoy pvr.pctv pvr.stalker pvr.vbox pvr.vdr.vnsi pvr.vuplus pvr.wmc"
 	ADDONS_SCREENSAVERS="screensaver.asteroids screensaver.biogenesis screensaver.greynetic screensaver.matrixtrails screensaver.pingpong screensaver.pyro screensavers.rsxs screensaver.stars"
