@@ -385,7 +385,7 @@ then
             -DCMAKE_INSTALL_LIBDIR=/usr/lib \
             -DCMAKE_PREFIX_PATH=/opt/vero3 \
             -DCMAKE_INCLUDE_PATH=/opt/vero3/include \
-            -DCMAKE_LIBRARY_PATH=/opt/vero3/lib \
+            -DCMAKE_LIBRARY_PATH=/usr/osmc/lib \
             -DOPENGLES_gl_LIBRARY=/opt/vero3/lib \
             -DOPENGLES_egl_LIBRARY=/opt/vero3/lib \
             -DENABLE_X11=0 \
