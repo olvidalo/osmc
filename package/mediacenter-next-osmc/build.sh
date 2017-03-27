@@ -101,6 +101,7 @@ then
 	handle_dep "libgcrypt11-dev"
 	handle_dep "git"
 	handle_dep "uuid-dev"
+	handle_dep "rapidjson-dev-osmc"
 	if [ "$1" == "rbp1" ] || [ "$1" == "rbp2" ]
 	then
 		handle_dep "rbp-userland-dev-osmc"
