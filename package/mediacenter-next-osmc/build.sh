@@ -386,7 +386,7 @@ then
             -DENABLE_X11=0 \
             -DENABLE_AML=ON \
             -DAML_INCLUDE_DIR=/opt/vero3/include \
-            -RapidJSON_INCLUDE_DIR=/opt/vero3/include \
+            -DRapidJSON_INCLUDE_DIR=/opt/vero3/include \
 	    -DENABLE_OPENGLES=ON \
             -DENABLE_OPENGL=OFF \
             -DENABLE_OPTICAL=1 \
